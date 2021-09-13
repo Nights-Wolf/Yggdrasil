@@ -1,6 +1,7 @@
 package com.yggdrasil.DAO;
 
 import com.yggdrasil.databaseInterface.UserDatabase;
+import com.yggdrasil.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -8,11 +9,11 @@ import java.util.HashMap;
 @Repository
 public class FakeUserDAO implements UserDatabase{
 
-    private final HashMap<Long, String> fakeUserRepository = new HashMap<>();
+    private final HashMap<Long, User> fakeUserRepository = new HashMap<>();
 
     @Override
-    public void createUser(Long id, String username) {
-        fakeUserRepository.put(id, username);
+    public void createUser(User user) {
+        fakeUserRepository.put(user.getId(), user);
         System.out.println(fakeUserRepository.get(1L));
     }
 
@@ -22,8 +23,8 @@ public class FakeUserDAO implements UserDatabase{
     }
 
     @Override
-    public void editUser(Long id, String username) {
-        fakeUserRepository.replace(id, username);
+    public void editUser(Long id, User user) {
+        fakeUserRepository.replace(id, user);
     }
 
     @Override

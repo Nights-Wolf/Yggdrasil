@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDatabase  {
 
-    void createUser(Long id, String username);
+    void createUser(User user);
     void getUser(Long id);
-    void editUser(Long id, String username);
+    void editUser(Long id, User user);
     void deleteUser(Long id);
 }

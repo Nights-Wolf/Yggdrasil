@@ -5,5 +5,6 @@ import com.yggdrasil.model.Transaction;
 public interface TransactionDatabase {
 
     void createTransaction(Transaction transaction);
-    void deleteTransaction(String transactionId, Transaction transaction);
+    void editTransaction(Long id, Transaction transaction);
+    void deleteTransaction(Long id);
 }

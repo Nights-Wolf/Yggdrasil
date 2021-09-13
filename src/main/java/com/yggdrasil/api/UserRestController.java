@@ -14,7 +14,7 @@ public class UserRestController {
 
     @PostMapping
      private void createUser(@RequestBody User user) {
-        userService.createUser(user.getId(), user.getUsername());
+        userService.createUser(user);
     }
 
     @GetMapping("{id}")
@@ -24,7 +24,7 @@ public class UserRestController {
 
     @PutMapping("{id}")
     private void editUser(@PathVariable("id") Long id, @RequestBody User user) {
-        userService.editUser(id, user.getUsername());
+        userService.editUser(id, user);
     }
 
     @DeleteMapping("{id}")
