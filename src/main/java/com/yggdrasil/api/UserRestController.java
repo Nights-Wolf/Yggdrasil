@@ -1,6 +1,6 @@
 package com.yggdrasil.api;
 
-import com.yggdrasil.model.User;
+import com.yggdrasil.model.Users;
 import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +13,8 @@ public class UserRestController {
     private UserService userService;
 
     @PostMapping
-     private void createUser(@RequestBody User user) {
-        userService.createUser(user);
+     private void createUser(@RequestBody Users users) {
+        userService.createUser(users);
     }
 
     @GetMapping("{id}")
@@ -23,8 +23,8 @@ public class UserRestController {
     }
 
     @PutMapping("{id}")
-    private void editUser(@PathVariable("id") Long id, @RequestBody User user) {
-        userService.editUser(id, user);
+    private void editUser(@PathVariable("id") Long id, @RequestBody Users users) {
+        userService.editUser(id, users);
     }
 
     @DeleteMapping("{id}")

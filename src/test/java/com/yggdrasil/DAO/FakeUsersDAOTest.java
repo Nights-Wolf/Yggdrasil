@@ -1,19 +1,17 @@
 package com.yggdrasil.DAO;
 
-import com.yggdrasil.model.User;
+import com.yggdrasil.model.Users;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class FakeUserDAOTest {
+class FakeUsersDAOTest {
 
     @Test
     void createUser() {
-        User user = new User(1L, "Dawid");
+        Users users = new Users(1L, "Dawid", "123");
         HashMap<Long, String> map = new HashMap<Long, String>();
-        map.put(user.getId(), user.getUsername());
+        map.put(users.getId(), users.getUsername());
         System.out.println(map.get(1L));
     }
 }
