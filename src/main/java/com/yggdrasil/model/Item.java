@@ -20,13 +20,14 @@ public class Item {
 
     private String itemName;
     private Date created;
-    private String category;
+    private int categoryId;
     private int price;
     private int itemsLeft;
 
-    public Item(String itemName, Date date, int price, int itemsLeft) {
+    public Item(String itemName, Date created, int categoryId, int price, int itemsLeft) {
         this.itemName = itemName;
-        this.created = date;
+        this.created = created;
+        this.categoryId = categoryId;
         this.price = price;
         this.itemsLeft = itemsLeft;
     }

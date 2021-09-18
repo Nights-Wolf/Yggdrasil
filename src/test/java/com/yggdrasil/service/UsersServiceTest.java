@@ -10,8 +10,6 @@ class UsersServiceTest {
 
     @Test
     void createUser() {
-        Users users = new Users("Dawid", "123");
-        assertEquals( users.getId(), "User ID is correct");
-        assertEquals("Dawid", users.getUsername(), "username Dawid is correct");
+
     }
 }

@@ -19,6 +19,7 @@ public class Users {
 
     private String username;
     private String password;
+    private String email;
     private String street;
     private String zipCode;
 
@@ -26,8 +27,11 @@ public class Users {
         super();
     }
 
-    public Users(String username, String password) {
+    public Users(String username, String password, String email, String street, String zipCode) {
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.street = street;
+        this.zipCode = zipCode;
     }
 }

@@ -12,7 +12,7 @@ class ItemServiceTest {
 
     @Test
     void addItem() {
-        Item item = new Item("Tree", new Date(), 25, 2);
+
         System.out.println();
     }
 }
