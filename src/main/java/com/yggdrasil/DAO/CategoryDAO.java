@@ -2,27 +2,27 @@ package com.yggdrasil.DAO;
 
 import com.yggdrasil.databaseInterface.CategoryDatabase;
 import com.yggdrasil.model.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-
 @Repository
-public class FakeCategoryDAO implements CategoryDatabase {
+public class CategoryDAO {
 
-    HashMap<Long, Category> fakeCategoryRepository = new HashMap<>();
+    @Autowired
+    private final CategoryDatabase categoryDatabase;
 
-    @Override
+    public CategoryDAO(CategoryDatabase categoryDatabase) {
+        this.categoryDatabase = categoryDatabase;
+    }
+
     public void addCategory(Category category) {
-        fakeCategoryRepository.put(category.getId(), category);
+        categoryDatabase.save(category);
     }
 
-    @Override
     public void editCategory(Long id, Category category) {
-        fakeCategoryRepository.replace(id, category);
     }
 
-    @Override
     public void deleteCategory(Long id) {
-        fakeCategoryRepository.remove(id);
+        categoryDatabase.deleteById(id);
     }
 }
