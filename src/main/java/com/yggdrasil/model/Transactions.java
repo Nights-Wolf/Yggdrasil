@@ -21,17 +21,15 @@ public class Transactions {
     private long transactionNumber;
     private int transactionValue;
     private Long itemId;
-    private Long itemCategoryId;
     private Long userId;
     private Date transactionDate;
     private String street;
     private String zipCode;
 
-    public Transactions(long transactionNumber, int transactionValue, Long itemId, Long itemCategoryId, Long userId, Date transactionDate, String street, String zipCode) {
+    public Transactions(long transactionNumber, int transactionValue, Long itemId, Long userId, Date transactionDate, String street, String zipCode) {
         this.transactionNumber = transactionNumber;
         this.transactionValue = transactionValue;
         this.itemId = itemId;
-        this.itemCategoryId = itemCategoryId;
         this.userId = userId;
         this.transactionDate = transactionDate;
         this.street = street;
