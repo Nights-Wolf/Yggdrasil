@@ -9,7 +9,7 @@ class FakeUsersDAOTest {
 
     @Test
     void createUser() {
-        Users users = new Users(1L, "Dawid", "123");
+        Users users = new Users("Dawid", "123");
         HashMap<Long, String> map = new HashMap<Long, String>();
         map.put(users.getId(), users.getUsername());
         System.out.println(map.get(1L));

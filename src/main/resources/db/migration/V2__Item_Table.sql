@@ -1,0 +1,7 @@
+CREATE TABLE item (
+    id SERIAL PRIMARY KEY,
+    itemName VARCHAR(100) NOT NULL,
+    createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
+    price INTEGER NOT NULL,
+    itemsLeft INTEGER NOT NULL
+);

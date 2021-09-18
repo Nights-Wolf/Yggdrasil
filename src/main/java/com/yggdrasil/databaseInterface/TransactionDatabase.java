@@ -1,10 +1,10 @@
 package com.yggdrasil.databaseInterface;
 
-import com.yggdrasil.model.Transaction;
+import com.yggdrasil.model.Transactions;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TransactionDatabase {
+@Repository
+public interface TransactionDatabase extends JpaRepository<Transactions, Long> {
 
-    void createTransaction(Transaction transaction);
-    void editTransaction(Long id, Transaction transaction);
-    void deleteTransaction(Long id);
 }

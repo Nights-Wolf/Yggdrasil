@@ -19,13 +19,14 @@ public class Users {
 
     private String username;
     private String password;
+    private String street;
+    private String zipCode;
 
     public Users() {
         super();
     }
 
-    public Users(Long id, String username, String password) {
-        this.id = id;
+    public Users(String username, String password) {
         this.username = username;
         this.password = password;
     }

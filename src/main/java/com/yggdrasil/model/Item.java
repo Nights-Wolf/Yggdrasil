@@ -3,23 +3,29 @@ package com.yggdrasil.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 @Setter
 @Getter
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String itemName;
-    private Date date;
+    private Date createdAt;
     private int price;
     private int itemsLeft;
 
-    public Item(Long id, String itemName, Date date, int price, int itemsLeft) {
-        this.id = id;
+    public Item(String itemName, Date date, int price, int itemsLeft) {
         this.itemName = itemName;
-        this.date = date;
+        this.createdAt = date;
         this.price = price;
         this.itemsLeft = itemsLeft;
     }

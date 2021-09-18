@@ -1,10 +1,10 @@
 package com.yggdrasil.databaseInterface;
 
 import com.yggdrasil.model.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ItemDatabase {
+@Repository
+public interface ItemDatabase extends JpaRepository<Item, Long> {
 
-    void addItem(Item item);
-    void editItem(Long id, Item item);
-    void deleteItem(Long id);
 }

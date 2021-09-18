@@ -1,10 +1,10 @@
 package com.yggdrasil.databaseInterface;
 
 import com.yggdrasil.model.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CategoryDatabase {
+@Repository
+public interface CategoryDatabase extends JpaRepository<Category, Long> {
 
-    void addCategory(Category category);
-    void editCategory(Long id, Category category);
-    void deleteCategory(Long id);
 }
