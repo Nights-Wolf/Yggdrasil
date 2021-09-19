@@ -20,6 +20,17 @@ public class TransactionDAO {
     }
 
     public void editTransaction(Long id, Transactions transactions) {
+        Transactions transaction = transactionDatabase.findById(id).orElseThrow();
+
+        transaction.setTransactionNumber(transactions.getTransactionNumber());
+        transaction.setTransactionValue(transactions.getTransactionValue());
+        transaction.setItemId(transactions.getItemId());
+        transaction.setUserId(transactions.getUserId());
+        transaction.setTransactionDate(transactions.getTransactionDate());
+        transaction.setStreet(transactions.getStreet());
+        transaction.setZipCode(transactions.getZipCode());
+
+        transactionDatabase.save(transaction);
     }
 
     public void deleteTransaction(Long id) {
