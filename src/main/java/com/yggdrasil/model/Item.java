@@ -24,6 +24,10 @@ public class Item {
     private int price;
     private int itemsLeft;
 
+    public Item(){
+        super();
+    }
+
     public Item(String itemName, Date created, int categoryId, int price, int itemsLeft) {
         this.itemName = itemName;
         this.created = created;

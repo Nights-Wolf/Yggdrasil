@@ -20,6 +20,11 @@ public class CategoryDAO {
     }
 
     public void editCategory(Long id, Category category) {
+        Category editedCategory = categoryDatabase.findById(id).orElseThrow();
+
+        editedCategory.setCategoryName(category.getCategoryName());
+
+        categoryDatabase.save(editedCategory);
     }
 
     public void deleteCategory(Long id) {

@@ -19,6 +19,10 @@ public class Category {
 
     private String categoryName;
 
+    public Category() {
+        super();
+    }
+
     public Category(Long id, String categoryName) {
         this.id = id;
         this.categoryName = categoryName;

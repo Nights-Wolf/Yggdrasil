@@ -27,7 +27,15 @@ public class UserDAO {
 
 
     public void editUser(Long id, Users users) {
+        Users user = userDatabase.findById(id).orElseThrow();
 
+        user.setUsername(users.getUsername());
+        user.setPassword(users.getPassword());
+        user.setEmail(users.getEmail());
+        user.setStreet(users.getStreet());
+        user.setZipCode(users.getZipCode());
+
+        userDatabase.save(user);
     }
 
 
