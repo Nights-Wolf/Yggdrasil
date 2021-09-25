@@ -22,16 +22,18 @@ public class Users {
     private String email;
     private String street;
     private String zipCode;
+    private String role;
 
     public Users() {
         super();
     }
 
-    public Users(String username, String password, String email, String street, String zipCode) {
+    public Users(String username, String password, String email, String street, String zipCode, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.street = street;
         this.zipCode = zipCode;
+        this.role = role;
     }
 }

@@ -1,10 +1,11 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(120) NOT NULL,
     email VARCHAR(50) NOT NULL,
     street VARCHAR(100) NOT NULL,
-    zip_Code VARCHAR(6) NOT NULL
+    zip_Code VARCHAR(6) NOT NULL,
+    role VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE category (
