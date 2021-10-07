@@ -12,7 +12,7 @@ public enum ApplicationPermissions {
     ITEM_EDIT("item:edit"),
     TRANSACTION_ADD("transaction:add"),
     TRANSACTION_DELETE("transaction:delete"),
-    TRANSACTION_EDIT("transaction_edit"),
+    TRANSACTION_EDIT("transaction:edit"),
     CATEGORY_ADD("category:add"),
     CATEGORY_EDIT("category:edit"),
     CATEGORY_DELETE("category:delete");

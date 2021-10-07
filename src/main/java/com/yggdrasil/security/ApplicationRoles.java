@@ -7,15 +7,28 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.yggdrasil.security.ApplicationPermissions.*;
+
 @Getter
 public enum ApplicationRoles {
 
-    ADMIN(Sets.newHashSet(ApplicationPermissions.USER_GET, ApplicationPermissions.USER_EDIT, ApplicationPermissions.USER_DELETE,
-            ApplicationPermissions.CATEGORY_ADD, ApplicationPermissions.CATEGORY_EDIT, ApplicationPermissions.CATEGORY_DELETE,
-            ApplicationPermissions.ITEM_ADD, ApplicationPermissions.ITEM_EDIT, ApplicationPermissions.ITEM_DELETE,
-            ApplicationPermissions.TRANSACTION_ADD, ApplicationPermissions.TRANSACTION_DELETE, ApplicationPermissions.TRANSACTION_EDIT)),
-    USER(Sets.newHashSet(ApplicationPermissions.USER_EDIT, ApplicationPermissions.USER_DELETE,
-            ApplicationPermissions.TRANSACTION_ADD, ApplicationPermissions.TRANSACTION_DELETE, ApplicationPermissions.TRANSACTION_EDIT));
+    ADMIN(Sets.newHashSet(CATEGORY_ADD,
+            CATEGORY_DELETE,
+            CATEGORY_EDIT,
+            ITEM_ADD,
+            ITEM_DELETE,
+            ITEM_EDIT,
+            TRANSACTION_ADD,
+            TRANSACTION_DELETE,
+            TRANSACTION_EDIT,
+            USER_DELETE,
+            USER_EDIT,
+            USER_GET)),
+    USER(Sets.newHashSet(TRANSACTION_ADD,
+            TRANSACTION_DELETE,
+            TRANSACTION_EDIT,
+            USER_DELETE,
+            USER_EDIT));
 
     private final Set<ApplicationPermissions> permission;
 
