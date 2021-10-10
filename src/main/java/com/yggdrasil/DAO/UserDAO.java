@@ -23,8 +23,17 @@ public class UserDAO {
 
 
     public void createUser(Users users) {
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
-        userDatabase.save(users);
+        String checkIfUserExists = String.valueOf(userDatabase.findByUsername(users.getUsername()));
+        if (checkIfUserExists.equals("null")) {
+            users.setPassword(passwordEncoder.encode(users.getPassword()));
+            users.setAccountNonExpired(true);
+            users.setAccountNonLocked(true);
+            users.setCredentialsNonExpired(true);
+            users.setEnabled(true);
+            userDatabase.save(users);
+        } else {
+            System.out.println("Username taken!");
+        }
     }
 
 
@@ -48,5 +57,12 @@ public class UserDAO {
 
     public void deleteUser(Long id) {
         userDatabase.deleteById(id);
+    }
+
+    public void grantAdmin(Long id) {
+        Users users = userDatabase.findById(id).orElseThrow();
+
+        users.setGrantedAuthorities("ADMIN");
+        userDatabase.save(users);
     }
 }

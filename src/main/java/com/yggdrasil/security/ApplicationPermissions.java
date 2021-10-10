@@ -15,7 +15,8 @@ public enum ApplicationPermissions {
     TRANSACTION_EDIT("transaction:edit"),
     CATEGORY_ADD("category:add"),
     CATEGORY_EDIT("category:edit"),
-    CATEGORY_DELETE("category:delete");
+    CATEGORY_DELETE("category:delete"),
+    PROMOTE_ADMIN("promote:admin");
 
     private final String permission;
 

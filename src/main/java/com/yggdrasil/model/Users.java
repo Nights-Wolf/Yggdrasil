@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.servlet.http.PushBuilder;
 import java.util.Collection;
 
 @Entity
@@ -21,7 +20,6 @@ public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String grantedAuthorities;
     private String username;
     private String password;
@@ -55,7 +53,10 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return ApplicationRoles.USER.getGrantedAuthorities();
+        if(grantedAuthorities.equals("USER")) {
+          return ApplicationRoles.USER.getGrantedAuthorities();
+        }
+        return ApplicationRoles.ADMIN.getGrantedAuthorities();
     }
 
     @Override
@@ -70,21 +71,21 @@ public class Users implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return isAccountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return isCredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 }

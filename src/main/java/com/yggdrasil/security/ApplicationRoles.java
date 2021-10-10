@@ -23,7 +23,7 @@ public enum ApplicationRoles {
             TRANSACTION_EDIT,
             USER_DELETE,
             USER_EDIT,
-            USER_GET)),
+            USER_GET, PROMOTE_ADMIN)),
     USER(Sets.newHashSet(TRANSACTION_ADD,
             TRANSACTION_DELETE,
             TRANSACTION_EDIT,

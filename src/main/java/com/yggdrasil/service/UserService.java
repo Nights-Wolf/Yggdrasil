@@ -26,4 +26,8 @@ public class UserService {
     public void deleteUser(Long id) {
         userDAO.deleteUser(id);
     }
+
+    public void grantAdmin(Long id) {
+        userDAO.grantAdmin(id);
+    }
 }
