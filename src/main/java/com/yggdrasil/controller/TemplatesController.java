@@ -13,8 +13,8 @@ public class TemplatesController {
         return "login";
     }
 
-    @GetMapping("main")
+    @GetMapping("template")
     public String getMainView() {
-        return "main";
+        return "template";
     }
 }
