@@ -1,0 +1,56 @@
+body {
+    background: white;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    header {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 5px solid green;
+        margin: 0 auto;
+    }
+
+    header > h1 {
+        margin: 0;
+    }
+
+    .search-engine {
+        display: block;
+        text-align: center;
+        justify-content: right;
+        padding: 15px;
+    }
+
+    .login-panel {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        height: 55px;
+        right: 10px;
+        top: 80px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: brown;
+    }
+
+    .login-panel > a {
+        padding-bottom: 10px;
+    }
+
+    .hamburger--container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hamburger {
+        height: 10px;
+        width: 100px;
+        border: 1px solid black;
+        color: white;
+        margin: 5px;
+    }
+}
