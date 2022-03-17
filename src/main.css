@@ -1,3 +1,9 @@
+:root {
+    --primary: #2C6E49;
+    --secondary: #6F3A34;
+}
+
+
 body {
     background: white;
     box-sizing: border-box;
@@ -10,31 +16,40 @@ body {
     header {
         display: flex;
         flex-direction: row;
-        border-bottom: 5px solid green;
+        border-bottom: 5px solid;
         margin: 0 auto;
+        background-color: var(--primary);
     }
 
     header > h1 {
         margin: 0;
+        width: 250px;
     }
 
     .search-engine {
         display: block;
         text-align: center;
-        justify-content: right;
+        justify-content: center;
         padding: 15px;
+    }
+
+    .search-engine input[type="text"] {
+        margin: 0 auto;
+        width: 50px;
+        border: 2px solid black;
+        border-radius: 5px;
     }
 
     .login-panel {
         position: absolute;
         display: flex;
         flex-direction: column;
-        height: 55px;
-        right: 10px;
+        height: fit-content;
+        width: 120px;
         top: 80px;
-        border-bottom-left-radius: 5px;
+        text-align: center;
         border-bottom-right-radius: 5px;
-        background-color: brown;
+        background-color: var(--secondary);
     }
 
     .login-panel > a {
@@ -44,13 +59,15 @@ body {
     .hamburger--container {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        width: 125px;
     }
 
     .hamburger {
         height: 10px;
-        width: 100px;
+        width: 50px;
         border: 1px solid black;
-        color: white;
-        margin: 5px;
+        background-color: var(--secondary);
+        margin: 2px;
     }
 }
