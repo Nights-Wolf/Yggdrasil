@@ -1,6 +1,7 @@
 :root {
     --primary: #2C6E49;
     --secondary: #6F3A34;
+    --text: #000; 
 }
 
 
@@ -16,7 +17,10 @@ body {
     header {
         display: flex;
         flex-direction: row;
-        border-bottom: 5px solid;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 1px solid;
+        box-shadow: inset 0 -2px 5px gray;
         margin: 0 auto;
         background-color: var(--primary);
     }
@@ -38,6 +42,7 @@ body {
         width: 50px;
         border: 2px solid black;
         border-radius: 5px;
+        background-color: var(--secondary);
     }
 
     .login-panel {
@@ -46,14 +51,16 @@ body {
         flex-direction: column;
         height: fit-content;
         width: 120px;
-        top: 80px;
+        top: 8.2%;
         text-align: center;
         border-bottom-right-radius: 5px;
         background-color: var(--secondary);
     }
 
     .login-panel > a {
+        text-decoration: none;
         padding-bottom: 10px;
+        color: var(--text);
     }
 
     .hamburger--container {
@@ -67,6 +74,7 @@ body {
         height: 10px;
         width: 50px;
         border: 1px solid black;
+        border-radius: 5px;
         background-color: var(--secondary);
         margin: 2px;
     }
