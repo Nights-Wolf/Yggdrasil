@@ -1,0 +1,26 @@
+@import 'config';
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 360px;
+    height: 32px;
+    left: 0px;
+    bottom: 0px;
+    background: #755516;
+
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        padding: 10px;
+        color: black;
+
+        &:hover {
+            @include transition-ease;
+            color: #0F9F49;
+        }
+    }
+}
