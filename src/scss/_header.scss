@@ -1,3 +1,5 @@
+@import 'config';
+
 header {
     position: fixed;
     top: 0;
@@ -61,6 +63,49 @@ header {
                 height: 10.17px;
                 top: 14.92px;
             }
+        }
+    }
+
+    nav {
+        @include transition-ease;
+        position: absolute;
+        flex-direction: column;
+        z-index: 1;
+        width: 136px;
+        height: 572px;
+        left: 0px;
+        top: 95px;
+        border-top-right-radius: 5px;
+        background: #755516;
+
+        a {
+            display: flex;
+            background: #755516;
+            width: 136px;
+            height: 40px;
+            z-index: 1;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+
+        .nav-btn__login {
+            position: absolute;
+            width: 68px;
+            height: 40px;
+            left: 0px;
+            top: 532px;
+        }
+
+        .nav-btn__register {         
+            position: absolute;
+            width: 68px;
+            height: 40px;
+            left: 68px;
+            top: 532px;
         }
     }
 }

@@ -71,6 +71,60 @@ header .menu-btn__hamburger::after {
   top: 14.92px;
 }
 
+header nav {
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 1;
+  width: 136px;
+  height: 572px;
+  left: 0px;
+  top: 95px;
+  border-top-right-radius: 5px;
+  background: #755516;
+}
+
+header nav a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #755516;
+  width: 136px;
+  height: 40px;
+  z-index: 1;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-decoration: none;
+  -webkit-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+header nav .nav-btn__login {
+  position: absolute;
+  width: 68px;
+  height: 40px;
+  left: 0px;
+  top: 532px;
+}
+
+header nav .nav-btn__register {
+  position: absolute;
+  width: 68px;
+  height: 40px;
+  left: 68px;
+  top: 532px;
+}
+
 footer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -86,10 +140,12 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   position: absolute;
+  z-index: -1;
   width: 360px;
-  height: 32px;
+  height: 30px;
   left: 0px;
-  bottom: 0px;
+  bottom: 0;
+  font-size: 1rem;
   background: #755516;
 }
 

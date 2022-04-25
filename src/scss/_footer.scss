@@ -6,10 +6,12 @@ footer {
     justify-content: center;
     align-items: center;
     position: absolute;
+    z-index: -1;
     width: 360px;
-    height: 32px;
+    height: 30px;
     left: 0px;
-    bottom: 0px;
+    bottom: 0;
+    font-size: 1rem;
     background: #755516;
 
     a {
