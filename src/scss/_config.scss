@@ -3,5 +3,5 @@ $secondary-color: #755516 !default;
 $tertiary-color: #C4C4C4 !default;
 
 @mixin transition-ease {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }

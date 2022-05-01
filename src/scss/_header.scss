@@ -5,7 +5,8 @@ header {
     top: 0;
     background: $primary-color;
     height: 95px;
-    width: 360px;
+    width: 100vw;
+    z-index: 3;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     .search-engine {
@@ -20,7 +21,8 @@ header {
             top: 36px;
             height: 22px;
             width: 120px;
-            border: none;;
+            border: none;
+            color: white;
         }
 
         button {
@@ -70,42 +72,52 @@ header {
         @include transition-ease;
         position: absolute;
         flex-direction: column;
-        z-index: 1;
         width: 136px;
         height: 572px;
         left: 0px;
         top: 95px;
         border-top-right-radius: 5px;
-        background: #755516;
+        background: $secondary-color;
 
         a {
             display: flex;
-            background: #755516;
+            background: $secondary-color;
             width: 136px;
             height: 40px;
             z-index: 1;
             text-align: center;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
             box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
             color: white;
         }
 
         .nav-btn__login {
             position: absolute;
+            font-size: 0.8rem;
             width: 68px;
             height: 40px;
             left: 0px;
             top: 532px;
+
+            a {
+                width: inherit;
+                height: inherit;
+            }
         }
 
         .nav-btn__register {         
             position: absolute;
+            font-size: 0.8rem;
             width: 68px;
             height: 40px;
             left: 68px;
             top: 532px;
+
+            a {
+                width: inherit;
+                height: inherit;
+            }
         }
     }
 }

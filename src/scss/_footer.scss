@@ -6,23 +6,22 @@ footer {
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: -1;
-    width: 360px;
+    width: 100vw;
     height: 30px;
-    left: 0px;
     bottom: 0;
+    z-index: 1;
     font-size: 1rem;
-    background: #755516;
+    background: $secondary-color;
+    color: white;
 
     a {
-        cursor: pointer;
-        text-decoration: none;
-        padding: 10px;
-        color: black;
+        padding-right: 10px;
+        padding-left: 10px;
+        color: white;
 
         &:hover {
             @include transition-ease;
-            color: #0F9F49;
+            color: $primary-color;
         }
     }
 }

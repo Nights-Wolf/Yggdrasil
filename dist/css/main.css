@@ -3,7 +3,8 @@ header {
   top: 0;
   background: #0F9F49;
   height: 95px;
-  width: 360px;
+  width: 100vw;
+  z-index: 3;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -26,6 +27,7 @@ header .search-engine input {
   height: 22px;
   width: 120px;
   border: none;
+  color: white;
 }
 
 header .search-engine button {
@@ -72,14 +74,13 @@ header .menu-btn__hamburger::after {
 }
 
 header nav {
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   position: absolute;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  z-index: 1;
   width: 136px;
   height: 572px;
   left: 0px;
@@ -103,7 +104,6 @@ header nav a {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  text-decoration: none;
   -webkit-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
@@ -111,18 +111,30 @@ header nav a {
 
 header nav .nav-btn__login {
   position: absolute;
+  font-size: 0.8rem;
   width: 68px;
   height: 40px;
   left: 0px;
   top: 532px;
 }
 
+header nav .nav-btn__login a {
+  width: inherit;
+  height: inherit;
+}
+
 header nav .nav-btn__register {
   position: absolute;
+  font-size: 0.8rem;
   width: 68px;
   height: 40px;
   left: 68px;
   top: 532px;
+}
+
+header nav .nav-btn__register a {
+  width: inherit;
+  height: inherit;
 }
 
 footer {
@@ -140,35 +152,44 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   position: absolute;
-  z-index: -1;
-  width: 360px;
+  width: 100vw;
   height: 30px;
-  left: 0px;
   bottom: 0;
+  z-index: 1;
   font-size: 1rem;
   background: #755516;
+  color: white;
 }
 
 footer a {
-  cursor: pointer;
-  text-decoration: none;
-  padding: 10px;
-  color: black;
+  padding-right: 10px;
+  padding-left: 10px;
+  color: white;
 }
 
 footer a:hover {
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   color: #0F9F49;
+}
+
+html {
+  height: 100vh;
 }
 
 body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
+  max-width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1;
   margin: 0;
   padding: 0;
+}
+
+a {
+  cursor: pointer !important;
+  text-decoration: none !important;
 }
 /*# sourceMappingURL=main.css.map */

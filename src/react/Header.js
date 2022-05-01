@@ -8,7 +8,8 @@ function Header() {
         }
 
         const navVisibility = {
-            display: mobileNavVisibility ? 'flex' : 'none'
+            transform: mobileNavVisibility ? 'translate(0, 0)' : 'translate(-999px, 0)',
+            zIndex: mobileNavVisibility ? '2' : '0'
         }
 
         return(

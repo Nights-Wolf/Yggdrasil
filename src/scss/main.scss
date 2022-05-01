@@ -2,11 +2,21 @@
 @import 'header';
 @import 'footer';
 
-body {
-    box-sizing: border-box;
+html {
     height: 100vh;
+}
+
+body{
+    box-sizing: border-box;
+    position: relative;
+    min-height: 100vh;
+    max-width: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1;
     margin: 0;
     padding: 0; 
+}
+
+a {
+    cursor: pointer !important;
+    text-decoration: none !important;
 }
