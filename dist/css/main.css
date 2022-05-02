@@ -3,7 +3,7 @@ header {
   top: 0;
   background: #0F9F49;
   height: 95px;
-  width: 100vw;
+  width: 100%;
   z-index: 3;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -152,13 +152,18 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 30px;
   bottom: 0;
   z-index: 1;
   font-size: 1rem;
   background: #755516;
   color: white;
+}
+
+footer p {
+  padding: 0;
+  margin: 0;
 }
 
 footer a {
@@ -175,7 +180,7 @@ footer a:hover {
 
 section {
   position: absolute;
-  width: 360px;
+  width: 100%;
   height: 542px;
   left: 0px;
   top: 95px;
@@ -191,6 +196,8 @@ section .discounts__container {
 }
 
 section .discounts__container img {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   position: relative;
   width: 100%;
   height: 100%;
@@ -206,7 +213,7 @@ section .discounts__container .button__group {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: 5px;
-  left: 40%;
+  left: 45%;
   bottom: 10px;
 }
 
