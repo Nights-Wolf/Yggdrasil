@@ -82,7 +82,7 @@ header nav {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 136px;
-  height: 572px;
+  min-height: 572px;
   left: 0px;
   top: 95px;
   border-top-right-radius: 5px;
@@ -171,6 +171,58 @@ footer a:hover {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   color: #0F9F49;
+}
+
+section {
+  position: absolute;
+  width: 360px;
+  height: 542px;
+  left: 0px;
+  top: 95px;
+}
+
+section .discounts__container {
+  position: absolute;
+  text-align: center;
+  width: 312px;
+  height: 196px;
+  left: 24px;
+  top: 20px;
+}
+
+section .discounts__container img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+section .discounts__container .button__group {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+  left: 40%;
+  bottom: 10px;
+}
+
+section .discounts__container .button__group .switch_disc_img {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: #755516;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+section .discounts__container .button__group .switch_disc_img:focus {
+  background: #0F9F49;
+  pointer-events: none;
 }
 
 html {

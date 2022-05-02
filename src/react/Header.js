@@ -28,7 +28,7 @@ function Header() {
                     <div className="nav-btn__register"><a href="/">Zarejestruj się</a></div>
                 </nav>
                 <form className="search-engine">
-                    <button><i class="fa fa-eye"></i></button>
+                    <button><i className="fa fa-eye"></i></button>
                     <input type="text"/>
                 </form>
             </header>
