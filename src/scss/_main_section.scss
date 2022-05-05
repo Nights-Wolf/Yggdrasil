@@ -27,8 +27,10 @@ section {
             position: absolute;
             display: flex;
             flex-direction: row;
+            align-items: center;
+            transform: translateX(-50%);
             gap: 5px;
-            left: 45%;
+            left: 50%;
             bottom: 10px; 
         
             .switch_disc_img {
@@ -38,12 +40,28 @@ section {
                 border-radius: 50%;
                 background: $secondary-color;
                 text-decoration: none;
-                cursor: pointer;
+                user-select: none;
 
                 &:focus {
                     background: $primary_color;
                     pointer-events: none;
                 }
+            }
+            #prev {
+                position:relative;
+                left: 0;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background: $tertiary-color;
+            }
+            #next {
+                position: relative;
+                right: 0;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background: $tertiary-color;
             }
         }
     }

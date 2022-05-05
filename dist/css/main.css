@@ -213,8 +213,13 @@ section .discounts__container .button__group {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   gap: 5px;
-  left: 45%;
+  left: 50%;
   bottom: 10px;
 }
 
@@ -225,12 +230,33 @@ section .discounts__container .button__group .switch_disc_img {
   border-radius: 50%;
   background: #755516;
   text-decoration: none;
-  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 section .discounts__container .button__group .switch_disc_img:focus {
   background: #0F9F49;
   pointer-events: none;
+}
+
+section .discounts__container .button__group #prev {
+  position: relative;
+  left: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #C4C4C4;
+}
+
+section .discounts__container .button__group #next {
+  position: relative;
+  right: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #C4C4C4;
 }
 
 html {
