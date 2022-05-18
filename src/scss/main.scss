@@ -2,6 +2,7 @@
 @import 'header';
 @import 'footer';
 @import 'main_section';
+@import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
     height: 100vh;
@@ -12,7 +13,7 @@ body{
     position: relative;
     min-height: 100vh;
     max-width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Macondo', cursive;
     margin: 0;
     padding: 0; 
 }

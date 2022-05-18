@@ -23,14 +23,6 @@ function Carousel(props) {
     const hiddenCarouselElementStyle = {
         transform: 'translate(-999px, 0)'
     }
-    
-    function displayElements() {
-        let elementsToDisplay = []
-        for(let i = 0; i < carouselElement.length; i++) {
-            elementsToDisplay.push(<img src={carouselElementToDisplay[i].url} style={carouselElementToDisplay[i].visible ? visibleCarouselElementStyle : hiddenCarouselElementStyle} alt="discount picture" aria-hidden={false}></img>)
-        }
-        return elementsToDisplay
-    }
 
     function displayIndicators() {
         let indicatorsToDisplay = []
@@ -42,47 +34,30 @@ function Carousel(props) {
 
     function carouselNextElement() {
         let visibleElement
-        let elementToDisplay
-        let newArr = [...carouselElementToDisplay]
+        let elementToDisplay = 0
+        let newArr = []
 
-       for(let i = 0; i < carouselElementToDisplay.length; i++) {
-            if (carouselElementToDisplay[i].visible) {
-                visibleElement = carouselElementToDisplay[i].id
-            }
-        };
-
-        if(elementToDisplay > carouselElementToDisplay.length) {
-            elementToDisplay = 1;
-        } else {
-        elementToDisplay = visibleElement + 1
-        }
-        
-        for(let i = 0; i < carouselElementToDisplay.length; i++) {
-               if (!carouselElementToDisplay[i].id === elementToDisplay && carouselElementToDisplay[i].visible) {
-                    newArr[i] = {
-                        ...newArr,
-                        visible: false
-                    }
-                   setCarouselElementToDisplay(newArr)
-               }
+        newArr = carouselElementToDisplay.map((element) => {
+            console.log(element.visible)
+            if (element.visible) {
+                visibleElement = element.id
             }
 
-            for(let i = 0; i < carouselElementToDisplay.length; i++) {
-               if (carouselElementToDisplay[i].id === elementToDisplay && !carouselElementToDisplay[i].visible) {
-                    newArr[i] = {
-                        ...newArr,
-                        visible: true
-                    }
-                   setCarouselElementToDisplay(newArr[i])
-                  
-               }              
-           }
+            if(elementToDisplay > carouselElementToDisplay.length) {
+                elementToDisplay = 1;
+            } else {
+            elementToDisplay = visibleElement + 1
+            }
+            if(element.id === elementToDisplay)
+               return element.visible[elementToDisplay - 1] = false
+        })
+        setCarouselElementToDisplay(newArr)
     }
 
     return(
         <>
             {carouselElementToDisplay.map((element) => (
-                <img src={element.url} style={element.visible ? visibleCarouselElementStyle : hiddenCarouselElementStyle} alt="discount picture" aria-hidden={false}></img>
+                <img src={element.url} style={element.visible ? visibleCarouselElementStyle : hiddenCarouselElementStyle} alt="discount picture" aria-hidden={false} key={element.id}></img>
                ))}
             <div className="button__group">
                 <button id="prev">&#10094;</button>
