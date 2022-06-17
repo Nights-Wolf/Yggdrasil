@@ -23,6 +23,9 @@ function Header() {
                     <Link to="/"><img src={logo}></img></Link>
                 </div>
                 <nav style={navVisibility}>
+                    <NavLink to="/products" style={({ isActive })=>
+                    isActive ? {background: '#0F9F49'} : null}>Produkty</NavLink>
+                    <p>Kategorie</p>
                     <NavLink to="/" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Bursztyn</NavLink>
                     <NavLink to="/" style={({ isActive })=>
@@ -35,9 +38,9 @@ function Header() {
                     isActive ? {background: '#0F9F49'} : null}>Kwarc</NavLink>
                     <NavLink to="/" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Kryształ Górski</NavLink>
-                    <div className="nav-btn__login"><NavLink to="/" style={({ isActive })=>
+                    <div className="nav-btn__login"><NavLink to="/login" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Zaloguj się</NavLink></div>
-                    <div className="nav-btn__register"><NavLink to="/" style={({ isActive })=>
+                    <div className="nav-btn__register"><NavLink to="/register" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink></div>
                 </nav>
                 <form className="search-engine">

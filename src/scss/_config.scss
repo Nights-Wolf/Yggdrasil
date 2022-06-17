@@ -1,6 +1,7 @@
 $primary-color: #0F9F49 !default;
 $secondary-color: #755516 !default;
-$tertiary-color: #C4C4C4 !default;
+$tertiary-color: #DFA316 !default;
+$buttons-color: #C4C4C4 !default;
 
 @mixin transition-ease {
     transition: all 0.2s ease-in-out;
@@ -46,7 +47,7 @@ $tertiary-color: #C4C4C4 !default;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            background: $tertiary-color;
+            background: $buttons-color;
         }
         #next {
             position: relative;
@@ -54,7 +55,7 @@ $tertiary-color: #C4C4C4 !default;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            background: $tertiary-color;
+            background: $buttons-color;
         }
     }
 }

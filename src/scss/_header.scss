@@ -33,7 +33,7 @@ header {
         }
 
         button {
-            background: $tertiary-color;
+            background: $buttons-color;
             border: none;
             height: 25px;
             width: 28px;
@@ -125,6 +125,21 @@ header {
                 width: inherit;
                 height: inherit;
             }
+        }
+
+        p {
+            display: flex;
+            background: $secondary-color;
+            width: 136px;
+            height: 40px;
+            margin: 0;
+            z-index: 1;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: white;
+            background-color: $tertiary-color;
         }
     }
 }

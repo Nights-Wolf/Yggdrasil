@@ -7,6 +7,9 @@ import About from "./react/About";
 import Terms from "./react/Terms";
 import Contact from "./react/Contact";
 import Rodo from "./react/RODO";
+import Register from "./react/Register";
+import Login from "./react/Login";
+import Products from "./react/Products";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -17,6 +20,9 @@ ReactDOM.render(
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/rodo" element={<Rodo />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/products" element={<Products />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>,
