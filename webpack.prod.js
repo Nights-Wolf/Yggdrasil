@@ -11,7 +11,8 @@ module.exports = merge(common, {
     mode: "production",
     output: {
         filename: "[name].[contentHash].bundle.js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "./src/main/resources/static/built"),
+        publicPath: "/"
     },
     optimization: {
         minimizer: [
@@ -19,6 +20,9 @@ module.exports = merge(common, {
             new TerserPlugin()
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+      },
     plugins: [
         new MiniCssExtractPlugin({filename: "[name].[contentHash].css"}),
         new CleanWebpackPlugin(),
