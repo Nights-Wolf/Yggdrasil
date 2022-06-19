@@ -23,7 +23,7 @@ module.exports = merge(common, {
         new MiniCssExtractPlugin({filename: "[name].[contentHash].css"}),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "./src/template.html",
+            template: "./src/main/resources/templates/index.html",
             minify: {
                 removeAttributeQuotes: true,
                 collapseWhiteSpace: true,
@@ -33,8 +33,8 @@ module.exports = merge(common, {
     ],
     module: {
         rules: [{
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader"]
+            test: /\.scss$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
         }]
     }
 })

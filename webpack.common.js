@@ -2,8 +2,8 @@ const path = require("path")
 
 module.exports = {
     entry: {
-        main: "./src/index.js",
-        vendor: "./src/vendor.js"
+        main: "./src/main/js/index.js",
+        vendor: "./src/main/js/vendor.js"
     },
     module: {
         rules: [
@@ -12,7 +12,7 @@ module.exports = {
             use: ["html-loader"]
         },
         {
-            test: /\.jsx$/,
+            test: /\.jsx?$/,
             exclude: /node-modules/,
             use: {
                 loader: "babel-loader",
@@ -33,4 +33,5 @@ module.exports = {
         }
     }]
     }
-}   
+}
+   

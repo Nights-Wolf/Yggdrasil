@@ -14,6 +14,19 @@ module.exports = {
       "@babel/plugin-proposal-class-properties"
     ],
     env: {
+      development: {
+        only: ["src"],
+        plugins: [
+          [
+            "transform-react-remove-prop-types",
+            {
+              removeImport: true
+            }
+          ],
+          "@babel/plugin-transform-react-inline-elements",
+          "@babel/plugin-transform-react-constant-elements"
+        ]
+      },
       production: {
         only: ["src"],
         plugins: [
@@ -29,3 +42,4 @@ module.exports = {
       }
     }
   };
+  
