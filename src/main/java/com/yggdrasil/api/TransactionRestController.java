@@ -1,25 +1,25 @@
 package com.yggdrasil.api;
 
-import com.yggdrasil.model.Transaction;
+import com.yggdrasil.model.Transactions;
 import com.yggdrasil.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("api/transaction")
 public class TransactionRestController {
 
     @Autowired
     private TransactionService transactionService;
 
     @PostMapping
-    public void createTransaction(@RequestBody Transaction transaction) {
-        transactionService.createTransaction(transaction);
+    public void createTransaction(@RequestBody Transactions transactions) {
+        transactionService.createTransaction(transactions);
     }
 
     @PutMapping("{id}")
-    public void editTransaction(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
-        transactionService.editTransaction(id, transaction);
+    public void editTransaction(@PathVariable("id") Long id, @RequestBody Transactions transactions) {
+        transactionService.editTransaction(id, transactions);
     }
 
     @DeleteMapping("{id}")

@@ -1,7 +1,7 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.FakeUserDAO;
-import com.yggdrasil.model.User;
+import com.yggdrasil.DAO.UserDAO;
+import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,21 +9,25 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private FakeUserDAO fakeUserDAO;
+    private UserDAO userDAO;
 
-    public void createUser(User user) {
-        fakeUserDAO.createUser(user);
+    public void createUser(Users users) {
+        userDAO.createUser(users);
     }
 
     public void getUser(Long id) {
-        fakeUserDAO.getUser(id);
+        userDAO.getUser(id);
     }
 
-    public void editUser(Long id, User user) {
-        fakeUserDAO.editUser(id, user);
+    public void editUser(Long id, Users users) {
+        userDAO.editUser(id, users);
     }
 
     public void deleteUser(Long id) {
-        fakeUserDAO.deleteUser(id);
+        userDAO.deleteUser(id);
+    }
+
+    public void grantAdmin(Long id) {
+        userDAO.grantAdmin(id);
     }
 }

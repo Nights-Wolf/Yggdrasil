@@ -1,0 +1,5 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/yggdrasil_db
+    username: yggdrasil_admin
+    password: pass123
