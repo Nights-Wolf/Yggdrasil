@@ -8,7 +8,7 @@ function Products() {
     return (
     <div>
        <Header />
-       <section>
+       <section className="products-section">
         <div className="filters-container">
             <div className="filters-container__price-filter">
                 <span>Cena: </span><span>rosnąco</span>
@@ -22,21 +22,27 @@ function Products() {
             img={discount_picture_2}
             title="Bursztynowe drzewko"
             price="300,99"/>
-            <Card 
+            <Card
             title="Piękne drzewko"
             price="300.99"/>
-            <Card 
+            <Card
             title="Piękne drzewko"
             price="300"/>
-            <Card 
+            <Card
             title="Piękne drzewko"
             price="300"/>
-            <Card 
+            <Card
             title="Piękne drzewko"
             price="300"/>
-            <Card 
+            <Card
             title="Piękne drzewko"
             price="300"/>
+            <Card
+                        title="Piękne drzewko"
+                        price="300"/>
+                        <Card
+                        title="Piękne drzewko"
+                        price="300"/>
         </div>
         <Pagination />
        </section>

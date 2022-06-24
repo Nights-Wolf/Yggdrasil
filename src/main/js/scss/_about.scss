@@ -1,0 +1,21 @@
+@import 'config';
+
+.about-page {
+    position: absolute;
+    width: 100%;
+    min-height: 542px;
+    left: 0px;
+    top: 95.30px;
+
+    article {
+        width: 100%;
+       // height: fit-content;
+        margin-bottom: 20px;
+        text-align: left;
+
+        h1, p {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+}
