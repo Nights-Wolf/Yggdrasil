@@ -1,11 +1,10 @@
 import React from "react";
 import Carousel from "./Carousel";
-
 function MainSection() {
     
 
     return(
-        <section>
+        <section className="main-section">
             <div className="discounts__container">
                 <Carousel />
             </div>

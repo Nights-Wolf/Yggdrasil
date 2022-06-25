@@ -5,9 +5,12 @@ function About() {
     return (
     <div>
        <Header />
-       <div>
-        <p>To jest sekcja "O nas" WIP</p>
-       </div>
+       <section className="about-page">
+        <article>
+         <h1>Nasza działalność</h1>
+         <p>Nasze drzewka powstają tylko z połączenia kawałków drewna znalezionych w pobliskim lesie oraz specjalnie zamówionych kamieni. Każde drzewko jest wyjątkowe.</p>
+        </article>
+       </section>
        <Footer />
      </div>
     )
