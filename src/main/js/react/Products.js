@@ -11,10 +11,22 @@ function Products() {
        <section className="products-section">
         <div className="filters-container">
             <div className="filters-container__price-filter">
-                <span>Cena: </span><span>rosnąco</span>
+                <form>
+                    <label for="price">Cena: </label>
+                    <select name="price">
+                        <option value="rosnąco" selected>rosnąco</option>
+                        <option value="malejąco">malejąco</option>
+                    </select>
+                </form>
             </div>
             <div className="filters-container__availability-filter">
-                <span>Dostępność: </span><span>Gotowe do wysyłki</span>
+                <form>
+                    <label for="availability">Dostępność: </label>
+                    <select name="availability">
+                        <option value="gotowe do wysyłki" selected>gotowe do wysyłki</option>
+                        <option value="niedostępne">niedostępne</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div className="products-container">
@@ -38,11 +50,11 @@ function Products() {
             title="Piękne drzewko"
             price="300"/>
             <Card
-                        title="Piękne drzewko"
-                        price="300"/>
-                        <Card
-                        title="Piękne drzewko"
-                        price="300"/>
+            title="Piękne drzewko"
+            price="300"/>
+            <Card
+            title="Piękne drzewko"
+            price="300"/>
         </div>
         <Pagination />
        </section>
