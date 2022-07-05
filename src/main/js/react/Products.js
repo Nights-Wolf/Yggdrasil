@@ -3,8 +3,11 @@ import Footer from "./Footer";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
+import { useParams } from "react-router-dom";
 
 function Products() {
+    let { categoryId, productId } = useParams()
+
     return (
     <div>
        <Header />
@@ -30,31 +33,15 @@ function Products() {
             </div>
         </div>
         <div className="products-container">
-            <Card 
+            <Card
             img={discount_picture_2}
+            link="1/1"
             title="Bursztynowe drzewko"
             price="300,99"/>
             <Card
+            link="1/1"
             title="Piękne drzewko"
             price="300.99"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
-            <Card
-            title="Piękne drzewko"
-            price="300"/>
         </div>
         <Pagination />
        </section>
