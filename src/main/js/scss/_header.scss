@@ -1,0 +1,145 @@
+@import 'config';
+
+header {
+    position: fixed;
+    top: 0;
+    background: $primary-color;
+    height: 95px;
+    width: 100%;
+    z-index: 3;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    img {
+        position: absolute;
+        left: 75px;
+        width: 100px;
+        height: 95px;
+    }
+
+    .search-engine {
+        position: absolute;
+        height: fit-content;
+        width: fit-content;
+        left: 179px;
+        top: 36px;
+
+        input {
+            background: $secondary-color;
+            top: 36px;
+            height: 22px;
+            width: 120px;
+            border: none;
+            color: white;
+        }
+
+        button {
+            background: $buttons-color;
+            border: none;
+            height: 25px;
+            width: 28px;
+        }
+    }
+    .menu-btn {
+        position: absolute;
+        z-index: 1;
+        height: 40px;
+        width: 50px;
+        top: 25px;
+        left: 18px;
+        cursor: pointer;
+    
+        &__hamburger {
+            position: absolute;
+            background: $secondary-color;
+            width: 50px;
+            height: 10.17px;
+            top: 14.92px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                background: $secondary-color;
+                width: 50px;
+                height: 10.17px;
+                top: -14.92px;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                background: $secondary-color;
+                width: 50px;
+                height: 10.17px;
+                top: 14.92px;
+            }
+        }
+    }
+
+    nav {
+        @include transition-ease;
+        position: absolute;
+        flex-direction: column;
+        width: 136px;
+        min-height: 572px;
+        left: 0px;
+        top: 95px;
+        border-top-right-radius: 5px;
+        background: $secondary-color;
+
+        a {
+            display: flex;
+            background: $secondary-color;
+            width: 136px;
+            height: 40px;
+            z-index: 1;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+
+        .nav-btn__login {
+            position: absolute;
+            font-size: 0.8rem;
+            width: 68px;
+            height: 40px;
+            left: 0px;
+            top: 532px;
+
+            a {
+                width: inherit;
+                height: inherit;
+            }
+        }
+
+        .nav-btn__register {         
+            position: absolute;
+            font-size: 0.8rem;
+            width: 68px;
+            height: 40px;
+            left: 68px;
+            top: 532px;
+
+            a {
+                width: inherit;
+                height: inherit;
+            }
+        }
+
+        p {
+            display: flex;
+            background: $secondary-color;
+            width: 136px;
+            height: 40px;
+            margin: 0;
+            z-index: 1;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: white;
+            background-color: $tertiary-color;
+        }
+    }
+}
