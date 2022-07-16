@@ -10,6 +10,8 @@ import Rodo from "./react/RODO";
 import Register from "./react/Register";
 import Login from "./react/Login";
 import Products from "./react/Products";
+import ProductPage from "./react/ProductPage";
+import Error from "./react/ErrorPage";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -23,6 +25,8 @@ ReactDOM.render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/product/:categoryId/:productId" element={<ProductPage />} />
+                <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>,
