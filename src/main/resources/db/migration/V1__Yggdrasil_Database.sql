@@ -17,6 +17,8 @@ CREATE TABLE category (
     category_Name VARCHAR(50) NOT NULL
 );
 
+INSERT INTO category (category_Name) VALUES ('Bursztynowe');
+
 CREATE TABLE item (
     id SERIAL PRIMARY KEY NOT NULL,
     item_Name VARCHAR(100) NOT NULL,
@@ -25,6 +27,8 @@ CREATE TABLE item (
     price INTEGER NOT NULL,
     items_Left INTEGER NOT NULL
 );
+
+INSERT INTO item(item_Name,category_Id, price, items_Left) VALUES ('Bursztynowe Drzewko', 1, 300, 1);
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY NOT NULL,

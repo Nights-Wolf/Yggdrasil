@@ -3,6 +3,8 @@ package com.yggdrasil.api;
 import com.yggdrasil.model.Item;
 import com.yggdrasil.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,6 +13,12 @@ public class ItemRestController {
 
     @Autowired
     private ItemService itemService;
+
+    @GetMapping("/{id}")
+    private ResponseEntity<Item> getItem(@PathVariable Long id) {
+        Item item = itemService.getItem(id);
+        return new ResponseEntity<>(item, HttpStatus.OK);
+    };
 
     @PostMapping
     private void addItem(@RequestBody Item item) {

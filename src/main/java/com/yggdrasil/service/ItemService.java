@@ -3,6 +3,7 @@ package com.yggdrasil.service;
 import com.yggdrasil.DAO.ItemDAO;
 import com.yggdrasil.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,9 @@ public class ItemService {
     @Autowired
     private ItemDAO itemDAO;
 
+    public Item getItem(Long id) {
+        return itemDAO.getItem(id);
+    }
     public void addItem(Item item) {
         itemDAO.addItem(item);
     }
