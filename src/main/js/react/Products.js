@@ -1,3 +1,5 @@
+import React from "react";
+import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import Card from "./Card";
@@ -7,6 +9,27 @@ import { useParams } from "react-router-dom";
 
 function Products() {
     let { categoryId, productId } = useParams()
+
+    const [product, setProduct] = React.useState({
+        itemName: "",
+        created: "",
+        categoryId: "",
+        price: "",
+        itemsLeft: ""
+    })
+
+    React.useEffect(async () => {
+        axios
+        .get("http://localhost:8080/api/item/1", {
+        credentials: "include"
+        })
+        .then(res => {
+            setProduct(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, [])
 
     return (
     <div>
@@ -36,8 +59,8 @@ function Products() {
             <Card
             img={discount_picture_2}
             link="1/1"
-            title="Bursztynowe drzewko"
-            price="300,99"/>
+            title= {product.itemName}
+            price= {product.price}/>
             <Card
             link="1/1"
             title="Piękne drzewko"
