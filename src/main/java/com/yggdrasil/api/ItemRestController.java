@@ -15,6 +15,7 @@ public class ItemRestController {
     private ItemService itemService;
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*")
     private ResponseEntity<Item> getItem(@PathVariable Long id) {
         Item item = itemService.getItem(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
