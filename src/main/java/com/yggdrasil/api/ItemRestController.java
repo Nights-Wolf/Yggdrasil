@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/item")
 public class ItemRestController {
@@ -20,6 +22,11 @@ public class ItemRestController {
         Item item = itemService.getItem(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
     };
+    @GetMapping("/all")
+    @CrossOrigin(origins = "*")
+    private List<Item> getAllItems() {
+        return itemService.getAllItems();
+    }
 
     @PostMapping
     private void addItem(@RequestBody Item item) {

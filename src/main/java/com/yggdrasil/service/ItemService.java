@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -14,6 +16,10 @@ public class ItemService {
 
     public Item getItem(Long id) {
         return itemDAO.getItem(id);
+    }
+
+    public List<Item> getAllItems() {
+        return itemDAO.getAllItems();
     }
     public void addItem(Item item) {
         itemDAO.addItem(item);

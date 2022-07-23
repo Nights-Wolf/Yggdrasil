@@ -10,18 +10,17 @@ import { useParams } from "react-router-dom";
 function Products() {
     let { categoryId, productId } = useParams()
 
-    const [product, setProduct] = React.useState({
+    const [product, setProduct] = React.useState([{
         itemName: "",
         created: "",
         categoryId: "",
         price: "",
         itemsLeft: ""
-    })
+    }])
 
     React.useEffect(async () => {
         axios
-        .get("http://localhost:8080/api/item/1", {
-        credentials: "include"
+        .get("http://localhost:8080/api/item/all", {
         })
         .then(res => {
             setProduct(res.data)
@@ -30,7 +29,7 @@ function Products() {
             console.log(err)
         })
     }, [])
-
+console.log(product)
     return (
     <div>
        <Header />
@@ -38,18 +37,18 @@ function Products() {
         <div className="filters-container">
             <div className="filters-container__price-filter">
                 <form>
-                    <label for="price">Cena: </label>
+                    <label htmlFor="price">Cena: </label>
                     <select name="price">
-                        <option value="rosnąco" selected>rosnąco</option>
+                        <option value="rosnąco" default>rosnąco</option>
                         <option value="malejąco">malejąco</option>
                     </select>
                 </form>
             </div>
             <div className="filters-container__availability-filter">
                 <form>
-                    <label for="availability">Dostępność: </label>
+                    <label htmlFor="availability">Dostępność: </label>
                     <select name="availability">
-                        <option value="gotowe do wysyłki" selected>gotowe do wysyłki</option>
+                        <option value="gotowe do wysyłki" default>gotowe do wysyłki</option>
                         <option value="niedostępne">niedostępne</option>
                     </select>
                 </form>
