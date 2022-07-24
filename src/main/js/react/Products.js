@@ -13,6 +13,7 @@ function Products() {
     const [product, setProduct] = React.useState([{
         id: "",
         itemName: "",
+        image: "",
         created: "",
         categoryId: "",
         price: "",
@@ -29,9 +30,9 @@ function Products() {
             console.log(err)
         })
     }, [])
-
-         const productCard = product.map( product => {
-                return <Card img={discount_picture_2}
+console.log(product)
+         const productCard = product.map(product => {
+                return <Card img={product.image}
                 link="1/1"
                 title= {product.itemName}
                 price= {product.price} />
