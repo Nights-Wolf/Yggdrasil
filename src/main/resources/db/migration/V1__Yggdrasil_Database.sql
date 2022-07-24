@@ -29,6 +29,8 @@ CREATE TABLE item (
 );
 
 INSERT INTO item(item_Name,category_Id, price, items_Left) VALUES ('Bursztynowe Drzewko', 1, 300, 1);
+INSERT INTO item(item_Name,category_Id, price, items_Left) VALUES ('Awangardowe Drzewko', 1, 300, 1);
+INSERT INTO item(item_Name,category_Id, price, items_Left) VALUES ('Amtesytowe Drzewko', 1, 300, 1);
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY NOT NULL,

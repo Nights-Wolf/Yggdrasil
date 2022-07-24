@@ -11,6 +11,7 @@ function Products() {
     let { categoryId, productId } = useParams()
 
     const [product, setProduct] = React.useState([{
+        id: "",
         itemName: "",
         created: "",
         categoryId: "",
@@ -19,9 +20,8 @@ function Products() {
     }])
 
     React.useEffect(async () => {
-        axios
-        .get("http://localhost:8080/api/item/all", {
-        })
+       await axios
+        .get("http://localhost:8080/api/item/all")
         .then(res => {
             setProduct(res.data)
         })
@@ -29,7 +29,15 @@ function Products() {
             console.log(err)
         })
     }, [])
-console.log(product)
+
+         const productCard = product.map( product => {
+                return <Card img={discount_picture_2}
+                link="1/1"
+                title= {product.itemName}
+                price= {product.price} />
+                })
+
+
     return (
     <div>
        <Header />
@@ -55,15 +63,7 @@ console.log(product)
             </div>
         </div>
         <div className="products-container">
-            <Card
-            img={discount_picture_2}
-            link="1/1"
-            title= {product.itemName}
-            price= {product.price}/>
-            <Card
-            link="1/1"
-            title="Piękne drzewko"
-            price="300.99"/>
+            {productCard}
         </div>
         <Pagination />
        </section>
