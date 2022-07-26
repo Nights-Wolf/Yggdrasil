@@ -1,3 +1,5 @@
+import React from "react";
+import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import Card from "./Card";
@@ -8,6 +10,36 @@ import { useParams } from "react-router-dom";
 function Products() {
     let { categoryId, productId } = useParams()
 
+    const [product, setProduct] = React.useState([{
+        id: "",
+        itemName: "",
+        image: "",
+        created: "",
+        categoryId: "",
+        price: "",
+        itemsLeft: ""
+    }])
+
+    React.useEffect(async () => {
+       await axios
+        .get("http://localhost:8080/api/item/all")
+        .then(res => {
+            setProduct(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, [])
+
+         const productCard = product.map(product => {
+                return <Card img={product.image}
+                id= {product.id}
+                category= {product.categoryId}
+                title= {product.itemName}
+                price= {product.price} />
+                })
+
+
     return (
     <div>
        <Header />
@@ -15,33 +47,25 @@ function Products() {
         <div className="filters-container">
             <div className="filters-container__price-filter">
                 <form>
-                    <label for="price">Cena: </label>
+                    <label htmlFor="price">Cena: </label>
                     <select name="price">
-                        <option value="rosnąco" selected>rosnąco</option>
+                        <option value="rosnąco" default>rosnąco</option>
                         <option value="malejąco">malejąco</option>
                     </select>
                 </form>
             </div>
             <div className="filters-container__availability-filter">
                 <form>
-                    <label for="availability">Dostępność: </label>
+                    <label htmlFor="availability">Dostępność: </label>
                     <select name="availability">
-                        <option value="gotowe do wysyłki" selected>gotowe do wysyłki</option>
+                        <option value="gotowe do wysyłki" default>gotowe do wysyłki</option>
                         <option value="niedostępne">niedostępne</option>
                     </select>
                 </form>
             </div>
         </div>
         <div className="products-container">
-            <Card
-            img={discount_picture_2}
-            link="1/1"
-            title="Bursztynowe drzewko"
-            price="300,99"/>
-            <Card
-            link="1/1"
-            title="Piękne drzewko"
-            price="300.99"/>
+            {productCard}
         </div>
         <Pagination />
        </section>

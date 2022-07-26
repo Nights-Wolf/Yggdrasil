@@ -3,7 +3,10 @@ package com.yggdrasil.DAO;
 import com.yggdrasil.databaseInterface.ItemDatabase;
 import com.yggdrasil.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ItemDAO {
@@ -13,6 +16,14 @@ public class ItemDAO {
 
     public ItemDAO(ItemDatabase itemDatabase) {
         this.itemDatabase = itemDatabase;
+    }
+
+    public Item getItem(Long id) {
+     return itemDatabase.findById(id).orElseThrow();
+    }
+
+    public List<Item> getAllItems() {
+        return itemDatabase.findAll();
     }
 
     public void addItem(Item item) {

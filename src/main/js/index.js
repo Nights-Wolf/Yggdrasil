@@ -25,7 +25,7 @@ ReactDOM.render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/products" element={<Products />} />
-                <Route path="/product/:categoryId/:productId" element={<ProductPage />} />
+                <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>

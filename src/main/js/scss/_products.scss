@@ -61,7 +61,7 @@
 
         .card {
             position: relative;
-            height: 200px;
+            height: 220px;
             width: 150px;
             margin: 10px 10px 10px 10px;
             background: #C4C4C4;
@@ -83,7 +83,7 @@
                 align-items: center;
                 width: 100%;
                 bottom: 0;
-                height: 50px;
+                height: 60px;
                 border-bottom-right-radius: 5px;
                 border-bottom-left-radius: 5px;
                 font-weight: bold;
@@ -91,7 +91,10 @@
 
                 p {
                     position: relative;
-                    margin: 0 auto;
+                    margin-left: 2px;
+                    margin-right: 2px;
+                    margin-top: 0;
+                    margin-bottom: 0;
                     text-align: center;
 
                 }

@@ -19,20 +19,26 @@ public class Item {
     private Long id;
 
     private String itemName;
+
+    private String image;
     private Date created;
     private int categoryId;
     private int price;
+
+    private String description;
     private int itemsLeft;
 
     public Item(){
         super();
     }
 
-    public Item(String itemName, Date created, int categoryId, int price, int itemsLeft) {
+    public Item(String itemName, String image, Date created, int categoryId, int price, String description, int itemsLeft) {
         this.itemName = itemName;
+        this.image = image;
         this.created = created;
         this.categoryId = categoryId;
         this.price = price;
+        this.description = description;
         this.itemsLeft = itemsLeft;
     }
 }
