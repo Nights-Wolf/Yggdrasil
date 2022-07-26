@@ -30,10 +30,11 @@ function Products() {
             console.log(err)
         })
     }, [])
-console.log(product)
+
          const productCard = product.map(product => {
                 return <Card img={product.image}
-                link="1/1"
+                id= {product.id}
+                category= {product.categoryId}
                 title= {product.itemName}
                 price= {product.price} />
                 })
