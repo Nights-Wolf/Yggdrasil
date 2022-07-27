@@ -5,10 +5,28 @@ import Footer from "./Footer";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
-import { useParams } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
 function Products() {
-    let { categoryId, productId } = useParams()
+    const navigate = useNavigate();
+    const [filterData, setFilterData] = React.useState({
+        price: "",
+        availability: ""
+    })
+
+    function handleFilterChange(event) {
+        setFilterData(prevFormData => {
+            return {
+            ...prevFormData,
+            [event.target.name]: event.target.value
+            }
+        })
+    }
+
+
+    React.useEffect(() => {
+        navigate("./price=" + filterData.price + "?" + "availability=" + filterData.availability, { replace: true })
+}, [filterData])
 
     const [product, setProduct] = React.useState([{
         id: "",
@@ -48,18 +66,20 @@ function Products() {
             <div className="filters-container__price-filter">
                 <form>
                     <label htmlFor="price">Cena: </label>
-                    <select name="price">
-                        <option value="rosnąco" default>rosnąco</option>
-                        <option value="malejąco">malejąco</option>
+                    <select name="price" value={filterData.price} onChange={handleFilterChange}>
+                        <option value="">---Wybierz---</option>
+                        <option value="1">rosnąco</option>
+                        <option value="2">malejąco</option>
                     </select>
                 </form>
             </div>
             <div className="filters-container__availability-filter">
                 <form>
                     <label htmlFor="availability">Dostępność: </label>
-                    <select name="availability">
-                        <option value="gotowe do wysyłki" default>gotowe do wysyłki</option>
-                        <option value="niedostępne">niedostępne</option>
+                    <select name="availability" value={filterData.availability} onChange={handleFilterChange}>
+                        <option value="" default>---Wybierz---</option>
+                        <option value="1">gotowe do wysyłki</option>
+                        <option value="2">niedostępne</option>
                     </select>
                 </form>
             </div>
