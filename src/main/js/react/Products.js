@@ -8,10 +8,6 @@ import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Products() {
-    const navigate = useNavigate();
-
-    const { price } = useParams()
-    const { availability } = useParams()
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
@@ -35,11 +31,7 @@ function Products() {
             [event.target.name]: event.target.value
             }
         })
-         navigate("/products/" + filterData.price + "/" + filterData.availability, { replace: true })
     }
-
-console.log(price)
-
 
     React.useEffect(async () => {
        await axios
@@ -52,13 +44,13 @@ console.log(price)
         })
     }, [])
 
-    if(price == 1) {
+    if(filterData.price == 1) {
         product.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
-    } else if(price == 2 || price == 0) {
+    } else if(filterData.price == 2 || filterData.price == 0) {
         product.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     }
 
-const card = product.map(product => {return <Card
+const card = product.map(product => {return <Card key={product.id}
     img={product.image}
     id= {product.id}
     category= {product.categoryId}
