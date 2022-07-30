@@ -23,7 +23,7 @@ function Header() {
                     <Link to="/"><img src={logo}></img></Link>
                 </div>
                 <nav style={navVisibility}>
-                    <NavLink to="/products/0/0" style={({ isActive })=>
+                    <NavLink to="/products" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Produkty</NavLink>
                     <p>Kategorie</p>
                     <NavLink to="/" style={({ isActive })=>
