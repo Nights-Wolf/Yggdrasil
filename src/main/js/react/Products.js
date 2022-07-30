@@ -5,28 +5,18 @@ import Footer from "./Footer";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Products() {
     const navigate = useNavigate();
+
+    const { price } = useParams()
+    const { availability } = useParams()
+
     const [filterData, setFilterData] = React.useState({
-        price: "",
-        availability: ""
+        price: "0",
+        availability: "0"
     })
-
-    function handleFilterChange(event) {
-        setFilterData(prevFormData => {
-            return {
-            ...prevFormData,
-            [event.target.name]: event.target.value
-            }
-        })
-    }
-
-
-    React.useEffect(() => {
-        navigate("./price=" + filterData.price + "?" + "availability=" + filterData.availability, { replace: true })
-}, [filterData])
 
     const [product, setProduct] = React.useState([{
         id: "",
@@ -37,6 +27,19 @@ function Products() {
         price: "",
         itemsLeft: ""
     }])
+
+    function handleFilterChange(event) {
+        setFilterData(prevFormData => {
+            return {
+            ...prevFormData,
+            [event.target.name]: event.target.value
+            }
+        })
+         navigate("/products/" + filterData.price + "/" + filterData.availability, { replace: true })
+    }
+
+console.log(price)
+
 
     React.useEffect(async () => {
        await axios
@@ -49,13 +52,20 @@ function Products() {
         })
     }, [])
 
-         const productCard = product.map(product => {
-                return <Card img={product.image}
-                id= {product.id}
-                category= {product.categoryId}
-                title= {product.itemName}
-                price= {product.price} />
-                })
+    if(price == 1) {
+        product.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
+    } else if(price == 2 || price == 0) {
+        product.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+    }
+
+const card = product.map(product => {return <Card
+    img={product.image}
+    id= {product.id}
+    category= {product.categoryId}
+    title= {product.itemName}
+    price= {product.price} />
+ })
+
 
 
     return (
@@ -67,7 +77,7 @@ function Products() {
                 <form>
                     <label htmlFor="price">Cena: </label>
                     <select name="price" value={filterData.price} onChange={handleFilterChange}>
-                        <option value="">---Wybierz---</option>
+                        <option value="0">---Wybierz---</option>
                         <option value="1">rosnąco</option>
                         <option value="2">malejąco</option>
                     </select>
@@ -77,7 +87,7 @@ function Products() {
                 <form>
                     <label htmlFor="availability">Dostępność: </label>
                     <select name="availability" value={filterData.availability} onChange={handleFilterChange}>
-                        <option value="" default>---Wybierz---</option>
+                        <option value="0" default>---Wybierz---</option>
                         <option value="1">gotowe do wysyłki</option>
                         <option value="2">niedostępne</option>
                     </select>
@@ -85,7 +95,7 @@ function Products() {
             </div>
         </div>
         <div className="products-container">
-            {productCard}
+            {card}
         </div>
         <Pagination />
        </section>

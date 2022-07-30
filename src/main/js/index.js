@@ -24,7 +24,7 @@ ReactDOM.render(
                 <Route path="/rodo" element={<Rodo />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/products/*" element={<Products />} />
+                <Route path="/products/:price/:availability" element={<Products />} />
                 <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
                 <Route path="*" element={<Error />} />
             </Routes>
