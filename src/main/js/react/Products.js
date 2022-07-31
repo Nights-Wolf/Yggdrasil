@@ -49,18 +49,28 @@ function Products() {
     } else if(filterData.price == 1) {
         product.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     } else if(filterData.price == 0) {
-       product.sort((a, b) => parseFloat(b.id) - parseFloat(a.id))
+       product.sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
     }
 
-    const card = product.map(product => {return <Card key={product.id}
+   const card = product.map(product => {return <Card key={product.id}
         img={product.image}
         id= {product.id}
         category= {product.categoryId}
         title= {product.itemName}
-        price= {product.price} />
+        price= {product.price}
+        itemsLeft = {product.itemsLeft} />
     })
 
-
+     const filteredCards =  product.filter(product => product.itemsLeft > 0)
+    const unavailableCards = filteredCards.map(filteredCards => {
+     return <Card key={product.id}
+        img={filteredCards.image}
+        id= {filteredCards.id}
+        category= {filteredCards.categoryId}
+        title= {filteredCards.itemName}
+        price= {filteredCards.price}
+        itemsLeft = {filteredCards.itemsLeft} />
+     })
 
     return (
     <div>
@@ -81,7 +91,7 @@ function Products() {
                 <form>
                     <label htmlFor="availability">Dostępność: </label>
                     <select name="availability" value={filterData.availability} onChange={handleFilterChange}>
-                        <option value="0" default>---Wybierz---</option>
+                        <option value="0">---Wybierz---</option>
                         <option value="1">gotowe do wysyłki</option>
                         <option value="2">niedostępne</option>
                     </select>
@@ -89,7 +99,7 @@ function Products() {
             </div>
         </div>
         <div className="products-container">
-            {card}
+            {filterData.availability == 2 ? unavailableCards : card}
         </div>
         <Pagination />
        </section>
