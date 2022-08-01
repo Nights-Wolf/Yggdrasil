@@ -7,9 +7,9 @@ import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 
 function ProductPage(props) {
 
-    const { productId } = useParams();
-    const { categoryId } = useParams();
-    const { title } = useParams();
+    const { productId } = useParams()
+    const { categoryId } = useParams()
+    const { title } = useParams()
 
     const [visualizedProduct, setVisualizedProduct] = React.useState({
         price: "",

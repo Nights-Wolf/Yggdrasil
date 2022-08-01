@@ -5,10 +5,14 @@ import Footer from "./Footer";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Products() {
-    let { categoryId, productId } = useParams()
+
+    const [filterData, setFilterData] = React.useState({
+        price: "0",
+        availability: "0"
+    })
 
     const [product, setProduct] = React.useState([{
         id: "",
@@ -19,6 +23,15 @@ function Products() {
         price: "",
         itemsLeft: ""
     }])
+
+    function handleFilterChange(event) {
+        setFilterData(prevFormData => {
+            return {
+            ...prevFormData,
+            [event.target.name]: event.target.value
+            }
+        })
+    }
 
     React.useEffect(async () => {
        await axios
@@ -31,14 +44,33 @@ function Products() {
         })
     }, [])
 
-         const productCard = product.map(product => {
-                return <Card img={product.image}
-                id= {product.id}
-                category= {product.categoryId}
-                title= {product.itemName}
-                price= {product.price} />
-                })
+    if(filterData.price == 2) {
+        product.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
+    } else if(filterData.price == 1) {
+        product.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+    } else if(filterData.price == 0) {
+       product.sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
+    }
 
+   const card = product.map(product => {return <Card key={product.id}
+        img={product.image}
+        id= {product.id}
+        category= {product.categoryId}
+        title= {product.itemName}
+        price= {product.price}
+        itemsLeft = {product.itemsLeft} />
+    })
+
+     const filteredCards =  product.filter(product => product.itemsLeft > 0)
+    const unavailableCards = filteredCards.map(filteredCards => {
+     return <Card key={product.id}
+        img={filteredCards.image}
+        id= {filteredCards.id}
+        category= {filteredCards.categoryId}
+        title= {filteredCards.itemName}
+        price= {filteredCards.price}
+        itemsLeft = {filteredCards.itemsLeft} />
+     })
 
     return (
     <div>
@@ -48,24 +80,26 @@ function Products() {
             <div className="filters-container__price-filter">
                 <form>
                     <label htmlFor="price">Cena: </label>
-                    <select name="price">
-                        <option value="rosnąco" default>rosnąco</option>
-                        <option value="malejąco">malejąco</option>
+                    <select name="price" value={filterData.price} onChange={handleFilterChange}>
+                        <option value="0">---Wybierz---</option>
+                        <option value="1">rosnąco</option>
+                        <option value="2">malejąco</option>
                     </select>
                 </form>
             </div>
             <div className="filters-container__availability-filter">
                 <form>
                     <label htmlFor="availability">Dostępność: </label>
-                    <select name="availability">
-                        <option value="gotowe do wysyłki" default>gotowe do wysyłki</option>
-                        <option value="niedostępne">niedostępne</option>
+                    <select name="availability" value={filterData.availability} onChange={handleFilterChange}>
+                        <option value="0">---Wybierz---</option>
+                        <option value="1">gotowe do wysyłki</option>
+                        <option value="2">niedostępne</option>
                     </select>
                 </form>
             </div>
         </div>
         <div className="products-container">
-            {productCard}
+            {filterData.availability == 2 ? unavailableCards : card}
         </div>
         <Pagination />
        </section>
