@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public class UserDAO {
 
@@ -46,10 +44,12 @@ public class UserDAO {
         Users user = userDatabase.findById(id).orElseThrow();
 
         user.setUsername(users.getUsername());
+        user.setSurname(users.getSurname());
         user.setPassword(users.getPassword());
         user.setEmail(users.getEmail());
         user.setStreet(users.getStreet());
         user.setZipCode(users.getZipCode());
+        user.setVoivodeship(users.getVoivodeship());
 
         userDatabase.save(user);
     }
