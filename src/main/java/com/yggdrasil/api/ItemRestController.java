@@ -11,19 +11,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/item")
+@CrossOrigin(origins = "*")
 public class ItemRestController {
 
     @Autowired
     private ItemService itemService;
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = "*")
     private ResponseEntity<Item> getItem(@PathVariable Long id) {
         Item item = itemService.getItem(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
     };
     @GetMapping("/all")
-    @CrossOrigin(origins = "*")
     private List<Item> getAllItems() {
         return itemService.getAllItems();
     }
