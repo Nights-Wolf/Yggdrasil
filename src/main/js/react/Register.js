@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
 
+    const navigate = useNavigate();
+
     const [user, setUser] = React.useState({
-        grantedAuthorities: "USER",
         username: "",
         surname: "",
         password: "",
@@ -46,17 +47,20 @@ function Register() {
             }
         })
     }
-console.log(user)
+
      const handleSubmit = event => {
+     console.log(user)
      event.preventDefault()
 
            axios
             .post("http://localhost:8080/api/user/create", user)
             .then(res => {
-                setUser(res.data)
+                if(res.status == 200) {
+                navigate('/')
+                }
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response)
             })
         }
 

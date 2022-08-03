@@ -11,6 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.yggdrasil.security.ApplicationPermissions.*;
 
@@ -29,14 +34,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().and().cors().disable();
+        http.cors();
+        http.csrf().disable();
         http
                 .authorizeRequests()
                 .antMatchers("/", "index", "template", "/css/*", "/js/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/user/**").hasAuthority(USER_DELETE.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/**").hasAuthority(USER_EDIT.getPermission())
-                .antMatchers(HttpMethod.GET, "/api/user/**").hasAuthority(USER_GET.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/transaction/**").hasAuthority(TRANSACTION_ADD.getPermission())
                 .antMatchers(HttpMethod.DELETE, "/api/transaction/**").hasAuthority(TRANSACTION_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/transaction/**").hasAuthority(TRANSACTION_EDIT.getPermission())
@@ -44,16 +50,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/category/**").hasAuthority(CATEGORY_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/category/**").hasAuthority(CATEGORY_EDIT.getPermission())
                 .antMatchers(HttpMethod.POST, "/api/item/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
-
-              /**  .and()
+/**
+              .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/main", true)
+                .loginPage("/").permitAll()
+                .defaultSuccessUrl("/", true)
                 .and()
-                .rememberMe().tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+                .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .key("Secret")
                 .and()
                 .logout()
@@ -67,6 +74,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
+    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 
     @Bean

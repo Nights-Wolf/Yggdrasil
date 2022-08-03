@@ -23,6 +23,7 @@ public class UserDAO {
     public void createUser(Users users) {
         String checkIfUserExists = String.valueOf(userDatabase.findByUsername(users.getUsername()));
         if (checkIfUserExists.equals("null")) {
+            users.setGrantedAuthorities("USER");
             users.setPassword(passwordEncoder.encode(users.getPassword()));
             users.setAccountNonExpired(true);
             users.setAccountNonLocked(true);

@@ -14,6 +14,8 @@ CREATE TABLE users (
     is_Enabled BOOLEAN NOT NULL
 );
 
+INSERT INTO users (granted_Authorities, username, surname, password, email, is_Account_Non_Expired, is_Account_Non_Locked, is_Credentials_Non_Expired, is_Enabled) VALUES ('ADMIN', 'Dawid', 'Całkowski', 'pass123', 'daodawod@odwaod', true, true, true, true);
+
 CREATE TABLE category (
     id SERIAL PRIMARY KEY NOT NULL,
     category_Name VARCHAR(50) NOT NULL
