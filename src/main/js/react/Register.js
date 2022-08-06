@@ -16,6 +16,8 @@ function Register() {
         street: "",
         zipCode: "",
         voivodeship: "",
+        acceptedTerms: false,
+        acceptedRodo: false
     })
 
     const [passwordChecker, setPasswordChecker] = React.useState({
@@ -26,30 +28,29 @@ function Register() {
         setPasswordChecker(prevPasswordChecker => {
             return {
                 ...prevPasswordChecker,
-                [event.target.name]: event.target.value
+                [event.target.name] : event.target.value
             }
         })
-        console.log(passwordChecker.repeatPassword)
-        checkPassword
     }
 
-    const checkPassword = () => {
+    const checkPassword = (passwordChecker) => {
      if (passwordChecker.repeatPassword != user.password) {
-                alert("Password doesn't match!")
+                console.log("Password doesn't match!")
             }
     }
 
     function handleChange(event) {
+        const {name, value, type, checked} = event.target
         setUser(prevUser => {
             return {
                 ...prevUser,
-                [event.target.name]: event.target.value
+                [name]: type === "checkbox" ? checked : value
             }
         })
     }
 
      const handleSubmit = event => {
-     console.log(user)
+     checkPassword(passwordChecker)
      event.preventDefault()
 
            axios
@@ -79,8 +80,10 @@ function Register() {
             <input type="text" placeholder="Miasto" name="city" onChange={handleChange} />
             <input type="text" placeholder="Województwo" name="voivodeship" onChange={handleChange} />
             <div className="checkbox">
-            <input type="checkbox" id="terms"  name="terms" />
-            <label htmlFor="terms"><span className="required">*</span> Oświadczam, że znam i akceptuję postanowienia <Link to="/terms">Regulaminu</Link>.</label>
+            <input type="checkbox" id="acceptedTerms"  name="acceptedTerms" checked={user.acceptedTerms} onChange={handleChange} />
+            <label htmlFor="acceptedTerms"><span className="required">*</span> Oświadczam, że znam i akceptuję postanowienia <Link to="/terms">Regulaminu</Link>.</label>
+            <input type="checkbox" id="acceptedRodo"  name="acceptedRodo" checked={user.acceptedRodo} onChange={handleChange} />
+            <label htmlFor="acceptedRodo"><span className="required">*</span> Oświadczam, że zapoznałem się z klauzulą <Link to="/rodo">RODO</Link>.</label>
             </div>
             <button>Zarejestruj się</button>
         </form>

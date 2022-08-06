@@ -21,8 +21,11 @@ public class UserDAO {
 
 
     public void createUser(Users users) {
-        String checkIfUserExists = String.valueOf(userDatabase.findByUsername(users.getUsername()));
-        if (checkIfUserExists.equals("null")) {
+        String checkIfUserExists = String.valueOf(userDatabase.findByEmail(users.getEmail()));
+        boolean checkIfUserAcceptedTerms = users.isAcceptedTerms();
+        boolean checkIfUserAcceptedRodo = users.isAcceptedRodo();
+
+        if (checkIfUserExists.equals("null") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo) {
             users.setGrantedAuthorities("USER");
             users.setPassword(passwordEncoder.encode(users.getPassword()));
             users.setAccountNonExpired(true);
@@ -31,7 +34,7 @@ public class UserDAO {
             users.setEnabled(true);
             userDatabase.save(users);
         } else {
-            System.out.println("Username taken!");
+            System.out.println("This email is already in use! You must accept terms! You must accept RODO!");
         }
     }
 
