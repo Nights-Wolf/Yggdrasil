@@ -24,6 +24,22 @@ function Register() {
         repeatPassword: ""
     })
 
+    const [error, setError] = React.useState({
+        username: "",
+        surname: "",
+        email: "",
+        password: "",
+        repeatPassword: ""
+    })
+
+    const errorVisible = {
+        color: "red"
+    }
+
+    const errorInvisible = {
+        color: "default"
+    }
+
     function handleChange(event) {
         const {name, value, type, checked} = event.target
         setUser(prevUser => {
@@ -46,36 +62,94 @@ function Register() {
 
     function checkPassword(passwordChecker) {
      if (passwordChecker != user.password) {
+        setError(prevError => {
+            return {
+                ...prevError,
+                repeatPassword: "Wpisz poprawne hasło!"
+            }
+        })
         return false
      }
+     setError(prevError => {
+        return {
+            ...prevError,
+            repeatPassword: ""
+        }
+     })
      return true
     }
 
     function checkPasswordLength(password) {
         if (password.length <= 5 || password == "") {
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    password: "Wpisz hasło! Hasło musi zawierać co najmnniej 6 znaków."
+                }
+            })
             return false
         }
+        setError(prevError => {
+            return {
+                ...prevError,
+                password: ""
+            }
+        })
         return true
     }
 
     function checkName(name) {
         if (name == "") {
+            setError(prevError => {
+            return {
+                ...prevError,
+                username: "Musisz podać imię!"
+            }})
             return false
         }
+        setError(prevError => {
+            return {
+                ...prevError,
+                username: ""
+        }})
         return true
     }
 
     function checkSurname(surname) {
         if (surname == "") {
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    surname: "Musisz podać nazwisko!"
+                }
+            })
             return false
         }
+        setError(prevError => {
+            return {
+                ...prevError,
+                surname: ""
+            }
+        })
         return true
     }
 
     function checkEmail(email) {
         if (email == "") {
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    email: "Podaj prawidłowy email!"
+                }
+            })
             return false
         }
+        setError(prevError => {
+            return {
+                ...prevError,
+                email: ""
+                }
+        })
         return true
     }
 
@@ -107,12 +181,12 @@ function Register() {
        <Header />
        <section className="register-section">
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Imię*" name="username" onChange={handleChange} />
-            <input type="text" placeholder="Nazwisko*" name="surname" onChange={handleChange} />
-            <input type="email" placeholder="Email*" name="email" onChange={handleChange} />
-            <input type="password" placeholder="Hasło*" name="password" onChange={handleChange} />
-            <input type="password" placeholder="Powtórz hasło*" name="repeatPassword" onChange={validatePassword} />
-            <input type="text" placeholder="Adres" name="address" onChange={handleChange} />
+            <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />
+            <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} name="surname" onChange={handleChange} />
+            <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email*" : error.email} name="email" onChange={handleChange} />
+            <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło*" : error.password} name="password" onChange={handleChange} />
+            <input type="password" style={error.repeatPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatPassword === "" ? "Powtórz hasło*" : error.repeatPassword} name="repeatPassword" onChange={validatePassword} />
+            <input type="text" placeholder="Adres" name="street" onChange={handleChange} />
             <input type="text" placeholder="Kod pocztowy" name="zipCode" onChange={handleChange} />
             <input type="text" placeholder="Miasto" name="city" onChange={handleChange} />
             <input type="text" placeholder="Województwo" name="voivodeship" onChange={handleChange} />

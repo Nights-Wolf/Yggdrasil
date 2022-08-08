@@ -24,10 +24,12 @@ public class UserDAO {
         String checkIfUserExists = String.valueOf(userDatabase.findByEmail(users.getEmail()));
         boolean checkIfUserAcceptedTerms = users.isAcceptedTerms();
         boolean checkIfUserAcceptedRodo = users.isAcceptedRodo();
-        String checkIfPasswordIsCorrect = String.valueOf(users.getPassword());
+        String checkIfPasswordIsCorrect = users.getPassword();
+        String checkIfNameIsCorrect = users.getUsername();
+        String checkIfSurnameIsCorrect = users.getSurname();
 
-        if (checkIfUserExists.equals("null") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo &&
-        checkIfPasswordIsCorrect != null || !checkIfPasswordIsCorrect.equals("")) {
+        if (checkIfUserExists.equals("null") || !checkIfUserExists.equals("") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo &&
+        checkIfPasswordIsCorrect != null || !checkIfPasswordIsCorrect.equals("") && !checkIfNameIsCorrect.equals("") && !checkIfSurnameIsCorrect.equals("")) {
             users.setGrantedAuthorities("USER");
             users.setPassword(passwordEncoder.encode(users.getPassword()));
             users.setAccountNonExpired(true);
