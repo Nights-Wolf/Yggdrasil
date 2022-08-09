@@ -2,15 +2,21 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
     granted_Authorities VARCHAR(200) NOT NULL,
     username VARCHAR(20) NOT NULL,
+    surname VARCHAR(30) NOT NULL,
     password VARCHAR(120) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    street VARCHAR(100) NOT NULL,
-    zip_Code VARCHAR(6) NOT NULL,
+    street VARCHAR(100),
+    zip_Code VARCHAR(6),
+    voivodeship VARCHAR(50),
+    accepted_Terms BOOLEAN NOT NULL,
+    accepted_Rodo BOOLEAN NOT NULL,
     is_Account_Non_Expired BOOLEAN NOT NULL,
     is_Account_Non_Locked BOOLEAN NOT NULL,
     is_Credentials_Non_Expired BOOLEAN NOT NULL,
     is_Enabled BOOLEAN NOT NULL
 );
+
+INSERT INTO users (granted_Authorities, username, surname, password, email, accepted_Terms, accepted_Rodo, is_Account_Non_Expired, is_Account_Non_Locked, is_Credentials_Non_Expired, is_Enabled) VALUES ('ADMIN', 'Dawid', 'Całkowski', 'pass123', 'daodawod@odwaod', true, true, true, true, true, true);
 
 CREATE TABLE category (
     id SERIAL PRIMARY KEY NOT NULL,

@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public class UserDAO {
 
@@ -23,8 +21,16 @@ public class UserDAO {
 
 
     public void createUser(Users users) {
-        String checkIfUserExists = String.valueOf(userDatabase.findByUsername(users.getUsername()));
-        if (checkIfUserExists.equals("null")) {
+        String checkIfUserExists = String.valueOf(userDatabase.findByEmail(users.getEmail()));
+        boolean checkIfUserAcceptedTerms = users.isAcceptedTerms();
+        boolean checkIfUserAcceptedRodo = users.isAcceptedRodo();
+        String checkIfPasswordIsCorrect = users.getPassword();
+        String checkIfNameIsCorrect = users.getUsername();
+        String checkIfSurnameIsCorrect = users.getSurname();
+
+        if (checkIfUserExists.equals("null") || !checkIfUserExists.equals("") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo &&
+        checkIfPasswordIsCorrect != null || !checkIfPasswordIsCorrect.equals("") && !checkIfNameIsCorrect.equals("") && !checkIfSurnameIsCorrect.equals("")) {
+            users.setGrantedAuthorities("USER");
             users.setPassword(passwordEncoder.encode(users.getPassword()));
             users.setAccountNonExpired(true);
             users.setAccountNonLocked(true);
@@ -32,7 +38,7 @@ public class UserDAO {
             users.setEnabled(true);
             userDatabase.save(users);
         } else {
-            System.out.println("Username taken!");
+            System.out.println("This email is already in use! You must accept terms! You must accept RODO!");
         }
     }
 
@@ -46,10 +52,12 @@ public class UserDAO {
         Users user = userDatabase.findById(id).orElseThrow();
 
         user.setUsername(users.getUsername());
+        user.setSurname(users.getSurname());
         user.setPassword(users.getPassword());
         user.setEmail(users.getEmail());
         user.setStreet(users.getStreet());
         user.setZipCode(users.getZipCode());
+        user.setVoivodeship(users.getVoivodeship());
 
         userDatabase.save(user);
     }

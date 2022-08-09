@@ -1,15 +1,15 @@
 package com.yggdrasil.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Controller
-public class HomeController {
-
-    @RequestMapping("/")
-    @CrossOrigin(origins = "*")
-    public String index() {
-        return "index.html";
+@Configuration
+public class HomeController implements WebMvcConfigurer  {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/{x:[\\w\\-]+}").setViewName("forward:/index.html");
+        registry.addViewController("/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}").setViewName("forward:/index.html");
     }
 }
