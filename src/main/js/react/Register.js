@@ -84,7 +84,7 @@ function Register() {
             setError(prevError => {
                 return {
                     ...prevError,
-                    password: "Wpisz hasło! Hasło musi zawierać co najmnniej 6 znaków."
+                    password: "Hasło musi zawierać co najmnniej 6 znaków!"
                 }
             })
             return false
