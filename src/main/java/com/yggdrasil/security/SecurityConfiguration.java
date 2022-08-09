@@ -2,20 +2,21 @@ package com.yggdrasil.security;
 
 import com.yggdrasil.service.ApplicationUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.concurrent.TimeUnit;
 
 import static com.yggdrasil.security.ApplicationPermissions.*;
 
@@ -25,20 +26,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserDetailsService applicationUserDetailsService;
+    private final String secret;
 
     @Autowired
-    public SecurityConfiguration(PasswordEncoder passwordEncoder, ApplicationUserDetailsService applicationUserDetailsService) {
+    public SecurityConfiguration(PasswordEncoder passwordEncoder, ApplicationUserDetailsService applicationUserDetailsService,
+                                 @Value("$(jwt.secret)") String secret) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserDetailsService = applicationUserDetailsService;
+        this.secret = secret;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), secret);
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors();
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "index", "template", "/css/*", "/js/*").permitAll()
+                .antMatchers("/", "/login", "/api/login/**", "index", "template", "/css/*", "/js/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
@@ -53,14 +59,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
-/**
-              .and()
-                .formLogin()
-                .loginPage("/").permitAll()
-                .defaultSuccessUrl("/", true)
+                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission())
                 .and()
-                .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(customAuthenticationFilter);
+              /**  .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .key("Secret")
                 .and()
                 .logout()
@@ -88,5 +92,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserDetailsService);
         return provider;
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
