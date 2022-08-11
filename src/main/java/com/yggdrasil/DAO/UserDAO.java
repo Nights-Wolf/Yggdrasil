@@ -70,7 +70,7 @@ public class UserDAO {
     public void grantAdmin(Long id) {
         Users users = userDatabase.findById(id).orElseThrow();
 
-        users.setGrantedAuthorities("ADMIN");
+        //users.setGrantedAuthorities("ADMIN");
         userDatabase.save(users);
     }
 }
