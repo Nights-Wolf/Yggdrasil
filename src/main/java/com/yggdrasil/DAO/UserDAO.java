@@ -43,8 +43,9 @@ public class UserDAO {
     }
 
 
-    public void getUser(Long id) {
-        userDatabase.getById(id);
+    public Users getUser(Long id) {
+       Users users = userDatabase.getById(id);
+       return users;
     }
 
 
