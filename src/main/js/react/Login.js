@@ -13,6 +13,19 @@ function Login() {
         password: ""
     })
 
+    const [error, setError] = React.useState({
+        email: "",
+        password: ""
+    })
+
+    const errorVisible = {
+        color: "red"
+    }
+
+    const errorInvisible = {
+        color: "default"
+    }
+
     function handleChange(event) {
         const {name, value} = event.target
         setLogin(prevLogin => {
@@ -23,20 +36,63 @@ function Login() {
         })
     }
 
+    function checkEmail(email) {
+        if (email == "") {
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    email: "Podaj prawidłowy email!"
+                }
+            })
+            return false
+        }
+        setError(prevError => {
+            return {
+                ...prevError,
+                email: ""
+                }
+        })
+        return true
+    }
+
+    function checkPassword(password) {
+        if (password.length <= 5 || password == "") {
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    password: "Hasło musi zawierać co najmnniej 6 znaków!"
+                }
+            })
+            return false
+        }
+        setError(prevError => {
+            return {
+                ...prevError,
+                password: ""
+            }
+        })
+        return true
+    }
+
     const handleSubmit = event => {
-    event.preventDefault()
+        event.preventDefault()
 
-        axios
-            .post("http://localhost:8080/api/login", login)
-            .then(res => {
-                const token = res.data
-                localStorage.setItem('Token', token)
+        const isEmailCorrect = checkEmail(login.email)
+        const isPasswordCorrect = checkPassword(login.password)
 
-                navigate('/')
+        if(isEmailCorrect && isPasswordCorrect) {
+            axios
+                .post("http://localhost:8080/api/login", login)
+                .then(res => {
+                    const token = res.data
+                    localStorage.setItem('Token', token)
+
+                    navigate('/')
+                })
+                .catch(err => {
+                    console.log(err.response)
             })
-            .catch(err => {
-                console.log(err.response)
-            })
+        }
     }
 
     return (
@@ -44,8 +100,8 @@ function Login() {
        <Header />
        <section className="login-section">
         <form onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-            <input type="password" placeholder="Hasło" name="password" onChange={handleChange} />
+            <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
+            <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} />
             <div className="checkbox--password">
             <input type="checkbox" id="rememberPassword"  name="rememberPassword"/>
             <label htmlFor="rememberPassword">Zapamiętaj mnie.</label>
