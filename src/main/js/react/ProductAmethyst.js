@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function Products() {
+function ProductAmethyst() {
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
@@ -35,7 +35,7 @@ function Products() {
 
     React.useEffect(async () => {
        await axios
-        .get("http://localhost:8080/api/item/all")
+        .get("http://localhost:8080/api/item/category/2")
         .then(res => {
             setProduct(res.data)
         })
@@ -107,5 +107,5 @@ function Products() {
      </div>
     )
  }
- 
- export default Products
+
+ export default ProductAmethyst

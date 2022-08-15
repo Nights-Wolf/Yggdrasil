@@ -23,7 +23,12 @@ CREATE TABLE category (
     category_Name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO category (category_Name) VALUES ('Bursztynowe');
+INSERT INTO category (category_Name) VALUES ('Bursztyn');
+INSERT INTO category (category_Name) VALUES ('Ametyst');
+INSERT INTO category (category_Name) VALUES ('Topaz');
+INSERT INTO category (category_Name) VALUES ('Lapiz Lazuli');
+INSERT INTO category (category_Name) VALUES ('Kwarc');
+INSERT INTO category (category_Name) VALUES ('Kryształ Górski');
 
 CREATE TABLE item (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -37,8 +42,13 @@ CREATE TABLE item (
 );
 
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Bursztynowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 1, 300, 'Jest to super Drzewko Bursztynowe!', 1);
-INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Awangardowe Drzewko', 'C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg', 1, 900, 'Jest to super Awangardowe Drzewko!', 1);
-INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Ametystowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 1, 500, 'Jest to super Ametystowe Drzewko!', 0);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Bursztynowe Drzewko 2','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 1, 300, 'Jest to super Drzewko Bursztynowe 2!', 1);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Topazowe Drzewko', 'C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg', 3, 900, 'Jest to super Topazowe Drzewko!', 1);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Ametystowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 2, 500, 'Jest to super Ametystowe Drzewko!', 0);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Lapiz Lazuli Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 4, 500, 'Jest to super Lapiz Lazuli Drzewko!', 0);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kwarcowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 5, 500, 'Jest to super Kwarcowe Drzewko!', 23);
+INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kryształ Górski Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 6, 500, 'Jest to super Kryształowe Drzewko!', 4);
+
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY NOT NULL,

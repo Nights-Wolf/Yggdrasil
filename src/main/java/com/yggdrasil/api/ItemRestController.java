@@ -27,6 +27,11 @@ public class ItemRestController {
         return itemService.getAllItems();
     }
 
+    @GetMapping("/category/{categoryId}")
+    private List<Item> getItemsByCategory(@PathVariable Long categoryId) {
+        return itemService.getItemsByCategory(categoryId);
+    }
+
     @PostMapping
     private void addItem(@RequestBody Item item) {
         itemService.addItem(item);
