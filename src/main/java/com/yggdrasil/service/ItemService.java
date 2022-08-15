@@ -21,6 +21,10 @@ public class ItemService {
     public List<Item> getAllItems() {
         return itemDAO.getAllItems();
     }
+
+    public List<Item> getItemsByCategory(Long categoryId) {
+        return itemDAO.getItemsByCategory(categoryId);
+    }
     public void addItem(Item item) {
         itemDAO.addItem(item);
     }

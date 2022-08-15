@@ -11,6 +11,12 @@ import Register from "./react/Register";
 import Login from "./react/Login";
 import Products from "./react/Products";
 import ProductPage from "./react/ProductPage";
+import ProductAmber from "./react/ProductAmber";
+import ProductTopaz from "./react/ProductTopaz";
+import ProductAmethyst from "./react/ProductAmethyst";
+import ProductLapiz from "./react/ProductLapiz";
+import ProductQuartz from "./react/ProductQuartz";
+import ProductMntGem from "./react/ProductMntGem";
 import Error from "./react/ErrorPage";
 
 ReactDOM.render(
@@ -26,6 +32,12 @@ ReactDOM.render(
                 <Route path="/login" element={<Login />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
+                <Route path="/products/amber" element={<ProductAmber />} />
+                <Route path="/products/topaz" element={<ProductTopaz />} />
+                <Route path="/products/amethyst" element={<ProductAmethyst />} />
+                <Route path="/products/lapiz_lazuli" element={<ProductLapiz />} />
+                <Route path="/products/quartz" element={<ProductQuartz />} />
+                <Route path="/products/mountain_gem" element={<ProductMntGem />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>

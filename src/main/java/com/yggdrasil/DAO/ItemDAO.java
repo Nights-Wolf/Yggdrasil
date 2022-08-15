@@ -26,6 +26,10 @@ public class ItemDAO {
         return itemDatabase.findAll();
     }
 
+    public List<Item> getItemsByCategory(Long categoryId) {
+       return itemDatabase.findByCategoryId(categoryId);
+    }
+
     public void addItem(Item item) {
         itemDatabase.save(item);
     }

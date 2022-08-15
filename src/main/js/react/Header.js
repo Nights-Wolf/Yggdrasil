@@ -26,17 +26,17 @@ function Header() {
                     <NavLink to="/products" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Produkty</NavLink>
                     <p>Kategorie</p>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/amber" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Bursztyn</NavLink>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/topaz" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Topaz</NavLink>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/amethyst" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Ametyst</NavLink>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/lapiz_lazuli" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Lapiz Lazuli</NavLink>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/quartz" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Kwarc</NavLink>
-                    <NavLink to="/" style={({ isActive })=>
+                    <NavLink to="/products/mountain_gem" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Kryształ Górski</NavLink>
                     <div className="nav-btn__login"><NavLink to="/login" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Zaloguj się</NavLink></div>

@@ -22,7 +22,7 @@ public class Item {
 
     private String image;
     private Date created;
-    private int categoryId;
+    private Long categoryId;
     private int price;
 
     private String description;
@@ -32,7 +32,7 @@ public class Item {
         super();
     }
 
-    public Item(String itemName, String image, Date created, int categoryId, int price, String description, int itemsLeft) {
+    public Item(String itemName, String image, Date created, Long categoryId, int price, String description, int itemsLeft) {
         this.itemName = itemName;
         this.image = image;
         this.created = created;
