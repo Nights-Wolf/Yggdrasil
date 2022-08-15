@@ -1,7 +1,11 @@
 package com.yggdrasil.service;
 
 import com.yggdrasil.databaseInterface.UserDatabase;
+import com.yggdrasil.model.Users;
+import com.yggdrasil.security.ApplicationRoles;
+import com.yggdrasil.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +22,9 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDatabase.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users users = userDatabase.findByEmail(email);
+        return new User(users.getEmail(), users.getPassword(), users.isEnabled(), users.isAccountNonExpired(),
+                users.isCredentialsNonExpired(), users.isAccountNonLocked(), ApplicationRoles.USER.getGrantedAuthorities());
     }
 }

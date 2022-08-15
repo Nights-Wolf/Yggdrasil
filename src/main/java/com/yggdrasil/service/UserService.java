@@ -15,8 +15,8 @@ public class UserService {
         userDAO.createUser(users);
     }
 
-    public void getUser(Long id) {
-        userDAO.getUser(id);
+    public Users getUser(Long id) {
+       return userDAO.getUser(id);
     }
 
     public void editUser(Long id, Users users) {

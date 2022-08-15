@@ -43,8 +43,9 @@ public class UserDAO {
     }
 
 
-    public void getUser(Long id) {
-        userDatabase.getById(id);
+    public Users getUser(Long id) {
+       Users users = userDatabase.getById(id);
+       return users;
     }
 
 
@@ -70,7 +71,7 @@ public class UserDAO {
     public void grantAdmin(Long id) {
         Users users = userDatabase.findById(id).orElseThrow();
 
-        users.setGrantedAuthorities("ADMIN");
+        //users.setGrantedAuthorities("ADMIN");
         userDatabase.save(users);
     }
 }
