@@ -48,7 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/api/login/**", "/api/refresh/token/**", "/login", "/", "index", "template", "/css/*", "/js/*").permitAll()
+                .antMatchers("/api/login/**", "/api/refresh/token/**").permitAll()
+                .antMatchers("/login", "/", "index", "template", "/css/*", "/js/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
@@ -63,7 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
+                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission())
+                .anyRequest().authenticated();
 
               /**  .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .key("Secret")

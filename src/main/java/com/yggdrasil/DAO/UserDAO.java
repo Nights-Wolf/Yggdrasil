@@ -74,4 +74,8 @@ public class UserDAO {
         //users.setGrantedAuthorities("ADMIN");
         userDatabase.save(users);
     }
+
+    public Users findByEmail(String email) {
+        return userDatabase.findByEmail(email);
+    }
 }

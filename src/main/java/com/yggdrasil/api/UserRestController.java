@@ -47,8 +47,8 @@ public class UserRestController {
      private void createUser(@RequestBody Users users) {
         userService.createUser(users);
     }
-    @GetMapping("/refresh/token/{id}")
-    private void refreshToken(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id) throws IOException {
+    @GetMapping("/refresh/token")
+    private void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
         try {
@@ -56,11 +56,11 @@ public class UserRestController {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
             DecodedJWT decodedJWT = verifier.verify(refresh_Token);
             String email = decodedJWT.getSubject();
-            Users users = userService.getUser(id);
+            Users users = userService.findByEmail(email);
             String access_token = com.auth0.jwt.JWT.create()
-                    .withSubject(users.getUsername())
+                    .withSubject(users.getEmail())
                     .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                    .withClaim("roles", users.getGrantedAuthorities())
+                    .withClaim("ROLES", users.getGrantedAuthorities())
                     .sign(Algorithm.HMAC256(secret));
             Map<String, String> tokens = new HashMap<>();
             tokens.put("access_token", access_token);
