@@ -30,4 +30,8 @@ public class UserService {
     public void grantAdmin(Long id) {
         userDAO.grantAdmin(id);
     }
+
+    public Users findByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
 }
