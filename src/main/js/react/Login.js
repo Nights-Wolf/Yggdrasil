@@ -84,9 +84,6 @@ function Login() {
             axios
                 .post("http://localhost:8080/api/login", login)
                 .then(res => {
-                    const token = res.data
-                    localStorage.setItem('Token', token)
-
                     navigate('/')
                 })
                 .catch(err => {

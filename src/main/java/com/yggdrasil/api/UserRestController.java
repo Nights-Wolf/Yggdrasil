@@ -9,6 +9,7 @@ import com.yggdrasil.model.Users;
 import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,12 +17,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -74,6 +77,18 @@ public class UserRestController {
     } else {
         throw new RuntimeException("Refresh token is missing");
     }
+    }
+
+    @PostMapping("/signOut")
+    public ResponseEntity<Void> signOut(HttpServletRequest request) {
+        SecurityContextHolder.clearContext();
+
+        Optional<Cookie> authCookie = Stream.of(Optional.ofNullable(request.getCookies()).orElse(new Cookie[0]))
+                .findFirst();
+
+        authCookie.ifPresent(cookie -> cookie.setMaxAge(0));
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("{id}")
