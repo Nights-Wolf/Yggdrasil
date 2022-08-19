@@ -40,7 +40,7 @@ public class AuthenticationService {
                 Users users = userService.findByEmail(email);
                 String access_token = com.auth0.jwt.JWT.create()
                         .withSubject(users.getEmail())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 120))
                         .withClaim("ROLES", users.getGrantedAuthorities())
                         .sign(Algorithm.HMAC256(secret));
                 Map<String, String> tokens = new HashMap<>();

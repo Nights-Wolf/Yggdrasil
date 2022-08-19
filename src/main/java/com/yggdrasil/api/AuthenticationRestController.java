@@ -29,12 +29,12 @@ public class AuthenticationRestController {
     }
 
     @GetMapping("/refresh/token")
-    private void refreshToken(HttpServletRequest request, HttpServletResponse response, String secret) throws IOException {
+    private void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authenticationService.refreshToken(request, response, secret);
     }
 
     @PostMapping("/signOut")
-    public ResponseEntity<Void> signOut(HttpServletRequest request) {
+    private ResponseEntity<Void> signOut(HttpServletRequest request) {
         SecurityContextHolder.clearContext();
 
         Optional<Cookie> authCookie = Stream.of(Optional.ofNullable(request.getCookies()).orElse(new Cookie[0]))

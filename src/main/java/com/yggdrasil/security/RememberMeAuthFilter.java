@@ -24,13 +24,13 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class RememberMeAuthFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final String secret;
 
     @Autowired
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, @Value("$(jwt.secret)") String secret) {
+    public RememberMeAuthFilter(AuthenticationManager authenticationManager, @Value("$(jwt.secret)") String secret) {
         this.authenticationManager = authenticationManager;
         this.secret = secret;
     }
@@ -57,23 +57,23 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authResult.getPrincipal();
         String access_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 120))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 526000))
                 .withClaim("ROLES", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(secret));
         String refresh_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000 * 120))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000 * 526000))
                 .sign(Algorithm.HMAC256(secret));
 
         Cookie jwtAccessTokenCookie = new Cookie("access_token", access_token);
-        jwtAccessTokenCookie.setMaxAge(60000);
+        jwtAccessTokenCookie.setMaxAge(60000 * 526000);
         jwtAccessTokenCookie.setSecure(true);
         jwtAccessTokenCookie.setHttpOnly(true);
         jwtAccessTokenCookie.setPath("/");
 
         Cookie jwtRefreshTokenCookie = new Cookie("refresh_token", refresh_token);
 
-        jwtRefreshTokenCookie.setMaxAge(60000);
+        jwtRefreshTokenCookie.setMaxAge(60000 * 526000);
         jwtRefreshTokenCookie.setSecure(true);
         jwtRefreshTokenCookie.setHttpOnly(true);
         jwtRefreshTokenCookie.setPath("/");
