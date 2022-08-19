@@ -61,7 +61,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String access_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withClaim("ROLES", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(secret));
         String refresh_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
@@ -73,8 +73,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         jwtAccessTokenCookie.setSecure(true);
         jwtAccessTokenCookie.setHttpOnly(true);
         jwtAccessTokenCookie.setPath("/");
-
-        System.out.println(jwtAccessTokenCookie.getValue());
 
         Cookie jwtRefreshTokenCookie = new Cookie("refresh_token", refresh_token);
 
