@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
@@ -57,34 +59,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authResult.getPrincipal();
         String access_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 120))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 12))
                 .withClaim("ROLES", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(secret));
         String refresh_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000 * 120))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30L * 60 * 1000 * 1461))
                 .sign(Algorithm.HMAC256(secret));
-
-        Cookie jwtAccessTokenCookie = new Cookie("access_token", access_token);
-        jwtAccessTokenCookie.setMaxAge(60000);
-        jwtAccessTokenCookie.setSecure(true);
-        jwtAccessTokenCookie.setHttpOnly(true);
-        jwtAccessTokenCookie.setPath("/");
-
-        Cookie jwtRefreshTokenCookie = new Cookie("refresh_token", refresh_token);
-
-        jwtRefreshTokenCookie.setMaxAge(60000);
-        jwtRefreshTokenCookie.setSecure(true);
-        jwtRefreshTokenCookie.setHttpOnly(true);
-        jwtRefreshTokenCookie.setPath("/");
-
-        response.addCookie(jwtAccessTokenCookie);
-        response.addCookie(jwtRefreshTokenCookie);
+        response.setHeader("access_token", access_token);
+        response.setHeader("refresh_token", refresh_token);
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
-
+        response.setContentType(APPLICATION_JSON_VALUE);
 
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

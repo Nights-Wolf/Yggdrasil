@@ -10,12 +10,13 @@ function Login() {
 
     const [login, setLogin] = React.useState({
         email: "",
-        password: ""
+        password: "",
+        rememberAuth: false
     })
 
     const [error, setError] = React.useState({
         email: "",
-        password: ""
+        password: "",
     })
 
     const errorVisible = {
@@ -27,11 +28,11 @@ function Login() {
     }
 
     function handleChange(event) {
-        const {name, value} = event.target
+        const {name, value, type, checked} = event.target
         setLogin(prevLogin => {
             return {
                 ...prevLogin,
-                [name]: value
+                [name]: type === "checkbox" ? checked : value
             }
         })
     }
@@ -79,11 +80,19 @@ function Login() {
 
         const isEmailCorrect = checkEmail(login.email)
         const isPasswordCorrect = checkPassword(login.password)
+        const rememberMe = login.rememberAuth
 
-        if(isEmailCorrect && isPasswordCorrect) {
+        if(isEmailCorrect && isPasswordCorrect && !rememberMe) {
             axios
-                .post("http://localhost:8080/api/login", login)
+                .post("http://localhost:8080/api/login", {email: login.email,
+                password: login.password})
                 .then(res => {
+                   const accessToken = res.headers.access_token
+                   const refreshToken = res.headers.refresh_token
+
+                    localStorage.setItem('access_token', accessToken)
+                    localStorage.setItem('refresh_token', refreshToken)
+
                     navigate('/')
                 })
                 .catch(err => {
@@ -100,8 +109,8 @@ function Login() {
             <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
             <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} />
             <div className="checkbox--password">
-            <input type="checkbox" id="rememberPassword"  name="rememberPassword"/>
-            <label htmlFor="rememberPassword">Zapamiętaj mnie.</label>
+            <input type="checkbox" id="rememberAuth"  name="rememberAuth" checked={login.rememberAuth} onChange={handleChange}/>
+            <label htmlFor="rememberAuth">Zapamiętaj mnie.</label>
             </div>
             <button>Zaloguj się</button>
         </form>

@@ -40,19 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), secret);
-        RememberMeAuthFilter rememberMeAuthFilter = new RememberMeAuthFilter(authenticationManagerBean(), secret);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
-        rememberMeAuthFilter.setFilterProcessesUrl("/api/remember");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter(customAuthenticationFilter);
-        http.addFilter(rememberMeAuthFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(secret), UsernamePasswordAuthenticationFilter.class);
         http.cors();
         http.csrf().disable();
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/", "index", "template", "/css/**", "/js/**", "/vendor/**").permitAll()
-                .antMatchers("/api/login/**", "/api/refresh/token/**", "/api/authentication/signOut/**").permitAll()
+                .antMatchers("/api/login/**", "/api/authentication/refresh/token/**", "/api/authentication/signOut/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
@@ -67,8 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
-                //.anyRequest().authenticated();
+                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission())
+                .anyRequest().authenticated();
 
               /**  .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .key("Secret")
