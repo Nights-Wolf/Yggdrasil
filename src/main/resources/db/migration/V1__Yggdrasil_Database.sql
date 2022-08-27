@@ -1,3 +1,9 @@
+
+CREATE TABLE refresh_Token (
+    id SERIAL PRIMARY KEY NOT NULL,
+    token VARCHAR(1000) NOT NULL
+);
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
     granted_Authorities VARCHAR(200) NOT NULL,
@@ -8,6 +14,7 @@ CREATE TABLE users (
     street VARCHAR(100),
     zip_Code VARCHAR(6),
     voivodeship VARCHAR(50),
+    refresh_Token INTEGER REFERENCES refresh_Token(id),
     accepted_Terms BOOLEAN NOT NULL,
     accepted_Rodo BOOLEAN NOT NULL,
     is_Account_Non_Expired BOOLEAN NOT NULL,

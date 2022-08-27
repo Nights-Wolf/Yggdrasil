@@ -1,12 +1,13 @@
 package com.yggdrasil.security;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yggdrasil.model.RefreshToken;
 import com.yggdrasil.model.Users;
+import com.yggdrasil.service.RefreshTokenService;
+import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,11 +29,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
+    private final UserService userService;
     private final String secret;
 
     @Autowired
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, @Value("$(jwt.secret)") String secret) {
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, RefreshTokenService refreshTokenService, UserService userService, @Value("$(jwt.secret)") String secret) {
         this.authenticationManager = authenticationManager;
+        this.refreshTokenService = refreshTokenService;
+        this.userService = userService;
         this.secret = secret;
     }
 
@@ -68,6 +72,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(Algorithm.HMAC256(secret));
         response.setHeader("access_token", access_token);
         response.setHeader("refresh_token", refresh_token);
+
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setToken(refresh_token);
+        refreshTokenService.addToken(refreshToken);
+
+        Users users = userService.findByEmail(user.getUsername());
+        Long usersPrevToken = users.getRefreshToken();
+
+        if (usersPrevToken != null) {
+            userService.deleteToken(users.getId());
+            refreshTokenService.deleteToken(usersPrevToken);
+        }
+
+        userService.setToken(users.getId(), refreshToken.getId());
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);

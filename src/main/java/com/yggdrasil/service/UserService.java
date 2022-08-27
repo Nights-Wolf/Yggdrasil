@@ -23,6 +23,14 @@ public class UserService {
         userDAO.editUser(id, users);
     }
 
+    public void setToken(Long id, Long refreshToken) {
+        userDAO.setToken(id, refreshToken);
+    }
+
+    public void deleteToken(Long id) {
+        userDAO.deleteToken(id);
+    }
+
     public void deleteUser(Long id) {
         userDAO.deleteUser(id);
     }

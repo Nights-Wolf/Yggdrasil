@@ -80,9 +80,8 @@ function Login() {
 
         const isEmailCorrect = checkEmail(login.email)
         const isPasswordCorrect = checkPassword(login.password)
-        const rememberMe = login.rememberAuth
 
-        if(isEmailCorrect && isPasswordCorrect && !rememberMe) {
+        if(isEmailCorrect && isPasswordCorrect) {
             axios
                 .post("http://localhost:8080/api/login", {email: login.email,
                 password: login.password})
