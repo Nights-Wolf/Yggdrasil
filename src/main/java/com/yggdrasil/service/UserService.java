@@ -42,4 +42,8 @@ public class UserService {
     public Users findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
+
+    public void rememberMeCheck(String email) {
+        userDAO.rememberMeCheck(email);
+    }
 }

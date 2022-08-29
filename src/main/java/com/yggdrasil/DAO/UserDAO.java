@@ -94,4 +94,12 @@ public class UserDAO {
     public Users findByEmail(String email) {
         return userDatabase.findByEmail(email);
     }
+
+    public void rememberMeCheck(String email) {
+        Users users = findByEmail(email);
+
+        users.setRememberMe(true);
+
+        userDatabase.save(users);
+    }
 }

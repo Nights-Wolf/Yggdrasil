@@ -1,5 +1,6 @@
 package com.yggdrasil.security;
 
+import com.yggdrasil.datasource.PostgresDatasource;
 import com.yggdrasil.service.ApplicationUserDetailsService;
 import com.yggdrasil.service.RefreshTokenService;
 import com.yggdrasil.service.UserService;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -72,16 +75,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
                 //.anyRequest().authenticated();
-
-              /**  .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                .key("Secret")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
-                .logoutSuccessUrl("/login"); **/
     }
 
     @Override
@@ -108,4 +101,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }

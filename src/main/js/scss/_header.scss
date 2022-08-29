@@ -79,7 +79,7 @@ header {
         @include transition-ease;
         position: absolute;
         flex-direction: column;
-        width: 136px;
+        width: 140px;
         min-height: 572px;
         left: 0px;
         top: 95px;
@@ -89,7 +89,7 @@ header {
         a {
             display: flex;
             background: $secondary-color;
-            width: 136px;
+            width: 140px;
             height: 40px;
             z-index: 1;
             text-align: center;
@@ -102,7 +102,7 @@ header {
         .nav-btn__login {
             position: absolute;
             font-size: 0.8rem;
-            width: 68px;
+            width: 70px;
             height: 40px;
             left: 0px;
             top: 532px;
@@ -116,7 +116,7 @@ header {
         .nav-btn__register {         
             position: absolute;
             font-size: 0.8rem;
-            width: 68px;
+            width: 70px;
             height: 40px;
             left: 68px;
             top: 532px;
@@ -130,7 +130,7 @@ header {
         p {
             display: flex;
             background: $secondary-color;
-            width: 136px;
+            width: 140px;
             height: 40px;
             margin: 0;
             z-index: 1;

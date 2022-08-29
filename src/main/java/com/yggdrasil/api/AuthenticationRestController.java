@@ -5,8 +5,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yggdrasil.DAO.RefreshTokenDAO;
-import com.yggdrasil.model.RefreshToken;
 import com.yggdrasil.model.Users;
 import com.yggdrasil.service.RefreshTokenService;
 import com.yggdrasil.service.UserService;
@@ -35,12 +33,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AuthenticationRestController {
 
     private final UserService userService;
-    private final RefreshTokenService refreshTokenService;
     private final String secret;
 
     public AuthenticationRestController(UserService userService, RefreshTokenService refreshTokenService, @Value("$(jwt.secret)") String secret) {
         this.userService = userService;
-        this.refreshTokenService = refreshTokenService;
         this.secret = secret;
     }
 
@@ -77,46 +73,9 @@ public class AuthenticationRestController {
         }
     }
 
-    @GetMapping("/create/refresh/token")
-    private void addRefreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            try {
-                String access_Token = authorizationHeader.substring("Bearer ".length());
-                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-                DecodedJWT decodedJWT = verifier.verify(access_Token);
-                String email = decodedJWT.getSubject();
-                Users users = userService.findByEmail(email);
-                String refresh_token = com.auth0.jwt.JWT.create()
-                        .withSubject(users.getEmail())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 30L * 60 * 1000 * 1410))
-                        .sign(Algorithm.HMAC256(secret));
-                RefreshToken refreshToken = new RefreshToken();
-                refreshToken.setToken(refresh_token);
-                refreshTokenService.addToken(refreshToken);
-
-                long usersPrevToken = users.getRefreshToken();
-
-                if (usersPrevToken >= 1) {
-                    userService.deleteToken(users.getId());
-                    refreshTokenService.deleteToken(usersPrevToken);
-                }
-
-                userService.setToken(users.getId(), refreshToken.getId());
-                response.setHeader("refresh_token", refresh_token);
-                response.setContentType(APPLICATION_JSON_VALUE);
-
-            } catch (Exception exception) {
-                response.setHeader("error", exception.getMessage());
-                response.setStatus(FORBIDDEN.value());
-                Map<String, String> error = new HashMap<>();
-                error.put("error_message", exception.getMessage());
-                response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), error);
-            }
-        } else {
-            throw new RuntimeException("Access token is missing!");
-        }
+    @PostMapping("/remember/{email}")
+    private void rememberMeCheck(@PathVariable String email) throws IOException {
+        userService.rememberMeCheck(email);
     }
 
     @PostMapping("/signOut")

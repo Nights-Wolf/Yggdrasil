@@ -42,7 +42,7 @@ function Login() {
             setError(prevError => {
                 return {
                     ...prevError,
-                    email: "Podaj prawidłowy email!"
+                    email: "Niepoprawny email!"
                 }
             })
             return false
@@ -61,7 +61,7 @@ function Login() {
             setError(prevError => {
                 return {
                     ...prevError,
-                    password: "Hasło musi zawierać co najmnniej 6 znaków!"
+                    password: "Niepoprawne hasło!"
                 }
             })
             return false
@@ -80,8 +80,31 @@ function Login() {
 
         const isEmailCorrect = checkEmail(login.email)
         const isPasswordCorrect = checkPassword(login.password)
+        const rememberAuthChecked = login.rememberAuth
 
-        if(isEmailCorrect && isPasswordCorrect) {
+        if(isEmailCorrect && isPasswordCorrect && !rememberAuthChecked) {
+            axios
+                .post("http://localhost:8080/api/login", {email: login.email,
+                password: login.password})
+                .then(res => {
+                   const accessToken = res.headers.access_token
+                   const refreshToken = res.headers.refresh_token
+
+                    localStorage.setItem('access_token', accessToken)
+                    localStorage.setItem('refresh_token', refreshToken)
+
+                    navigate('/')
+                })
+                .catch(err => {
+                    console.log(err.response)
+            })
+        } else if (isEmailCorrect && isPasswordCorrect && rememberAuthChecked) {
+                    axios
+                        .post("http://localhost:8080/api/authentication/remember/" + login.email)
+                        .catch(err => {
+                            console.log(err.response)
+                    })
+
             axios
                 .post("http://localhost:8080/api/login", {email: login.email,
                 password: login.password})
@@ -99,6 +122,8 @@ function Login() {
             })
         }
     }
+
+
 
     return (
     <div>

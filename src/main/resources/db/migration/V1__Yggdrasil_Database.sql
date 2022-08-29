@@ -15,6 +15,7 @@ CREATE TABLE users (
     zip_Code VARCHAR(6),
     voivodeship VARCHAR(50),
     refresh_Token INTEGER REFERENCES refresh_Token(id),
+    remember_Me BOOLEAN,
     accepted_Terms BOOLEAN NOT NULL,
     accepted_Rodo BOOLEAN NOT NULL,
     is_Account_Non_Expired BOOLEAN NOT NULL,

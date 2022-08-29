@@ -66,9 +66,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 12))
                 .withClaim("ROLES", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(secret));
+        Users users = userService.findByEmail(user.getUsername());
+
+        boolean rememberMe = users.isRememberMe();
+        long expireDate;
+
+        if (rememberMe) {
+            expireDate = 1461;
+        } else {
+            expireDate = 4;
+        }
+
         String refresh_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30L * 60 * 1000 * 1461))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30L * 60 * 1000 * expireDate))
                 .sign(Algorithm.HMAC256(secret));
         response.setHeader("access_token", access_token);
         response.setHeader("refresh_token", refresh_token);
@@ -77,7 +88,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         refreshToken.setToken(refresh_token);
         refreshTokenService.addToken(refreshToken);
 
-        Users users = userService.findByEmail(user.getUsername());
+
         Long usersPrevToken = users.getRefreshToken();
 
         if (usersPrevToken != null) {
