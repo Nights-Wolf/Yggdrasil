@@ -32,6 +32,10 @@ public class Users {
 
     private String voivodeship;
 
+    private Long refreshToken;
+
+    private boolean rememberMe;
+
     private boolean acceptedTerms;
 
     private boolean acceptedRodo;
@@ -45,7 +49,7 @@ public class Users {
     }
 
     public Users(Long id, String username, String surname, String password, String email, String street, String zipCode,
-                 String voivodeship, boolean acceptedTerms, boolean acceptedRodo, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired,
+                 String voivodeship, Long refreshToken, boolean rememberMe, boolean acceptedTerms, boolean acceptedRodo, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired,
                  boolean isEnabled, String grantedAuthorities) {
         this.id = id;
         this.grantedAuthorities = grantedAuthorities;
@@ -56,6 +60,8 @@ public class Users {
         this.street = street;
         this.zipCode = zipCode;
         this.voivodeship = voivodeship;
+        this.refreshToken = refreshToken;
+        this.rememberMe = rememberMe;
         this.acceptedTerms = acceptedTerms;
         this.acceptedRodo = acceptedRodo;
         this.isAccountNonExpired = isAccountNonExpired;

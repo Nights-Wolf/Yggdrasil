@@ -63,6 +63,22 @@ public class UserDAO {
         userDatabase.save(user);
     }
 
+    public void setToken(Long id, Long refreshToken) {
+        Users user = userDatabase.findById(id).orElseThrow();
+
+        user.setRefreshToken(refreshToken);
+
+        userDatabase.save(user);
+    }
+
+    public void deleteToken(Long id) {
+        Users user = userDatabase.findById(id).orElseThrow();
+
+        user.setRefreshToken(null);
+
+        userDatabase.save(user);
+    }
+
 
     public void deleteUser(Long id) {
         userDatabase.deleteById(id);
@@ -77,5 +93,13 @@ public class UserDAO {
 
     public Users findByEmail(String email) {
         return userDatabase.findByEmail(email);
+    }
+
+    public void rememberMeCheck(String email) {
+        Users users = findByEmail(email);
+
+        users.setRememberMe(true);
+
+        userDatabase.save(users);
     }
 }

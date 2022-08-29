@@ -1,9 +1,11 @@
 package com.yggdrasil.security;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yggdrasil.model.RefreshToken;
 import com.yggdrasil.model.Users;
+import com.yggdrasil.service.RefreshTokenService;
+import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,16 +25,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.security.config.Elements.JWT;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
+    private final UserService userService;
     private final String secret;
 
     @Autowired
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, @Value("$(jwt.secret)") String secret) {
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, RefreshTokenService refreshTokenService, UserService userService, @Value("$(jwt.secret)") String secret) {
         this.authenticationManager = authenticationManager;
+        this.refreshTokenService = refreshTokenService;
+        this.userService = userService;
         this.secret = secret;
     }
 
@@ -58,20 +63,46 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authResult.getPrincipal();
         String access_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 * 12))
+                .withClaim("ROLES", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(secret));
+        Users users = userService.findByEmail(user.getUsername());
+
+        boolean rememberMe = users.isRememberMe();
+        long expireDate;
+
+        if (rememberMe) {
+            expireDate = 1461;
+        } else {
+            expireDate = 4;
+        }
+
         String refresh_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30L * 60 * 1000 * expireDate))
                 .sign(Algorithm.HMAC256(secret));
         response.setHeader("access_token", access_token);
         response.setHeader("refresh_token", refresh_token);
+
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setToken(refresh_token);
+        refreshTokenService.addToken(refreshToken);
+
+
+        Long usersPrevToken = users.getRefreshToken();
+
+        if (usersPrevToken != null) {
+            userService.deleteToken(users.getId());
+            refreshTokenService.deleteToken(usersPrevToken);
+        }
+
+        userService.setToken(users.getId(), refreshToken.getId());
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
         response.setContentType(APPLICATION_JSON_VALUE);
+
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

@@ -1,6 +1,9 @@
 package com.yggdrasil.security;
 
+import com.yggdrasil.datasource.PostgresDatasource;
 import com.yggdrasil.service.ApplicationUserDetailsService;
+import com.yggdrasil.service.RefreshTokenService;
+import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -27,19 +32,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserDetailsService applicationUserDetailsService;
+    private final RefreshTokenService refreshTokenService;
+    private final UserService userService;
     private final String secret;
 
     @Autowired
     public SecurityConfiguration(PasswordEncoder passwordEncoder, ApplicationUserDetailsService applicationUserDetailsService,
-                                 @Value("$(jwt.secret)") String secret) {
+                                 RefreshTokenService refreshTokenService, UserService userService, @Value("$(jwt.secret)") String secret) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserDetailsService = applicationUserDetailsService;
+        this.refreshTokenService = refreshTokenService;
+        this.userService = userService;
         this.secret = secret;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), secret);
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), refreshTokenService, userService, secret);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter(customAuthenticationFilter);
@@ -48,10 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/api/login/**", "/api/refresh/token/**").permitAll()
-                .antMatchers("/login", "/", "index", "template", "/css/*", "/js/*").permitAll()
+                .antMatchers("/login", "/", "index", "template", "/css/**", "/js/**", "/vendor/**").permitAll()
+                .antMatchers("/api/login/**", "/api/authentication/refresh/token/**", "/api/authentication/create/refresh/token/**", "/api/authentication/signOut/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/user/**").hasAuthority(USER_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/transaction/**").hasAuthority(TRANSACTION_ADD.getPermission())
@@ -64,18 +73,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission())
-                .anyRequest().authenticated();
-
-              /**  .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                .key("Secret")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
-                .logoutSuccessUrl("/login"); **/
+                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
+                //.anyRequest().authenticated();
     }
 
     @Override
@@ -102,4 +101,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
