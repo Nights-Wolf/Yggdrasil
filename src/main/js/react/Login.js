@@ -138,7 +138,7 @@ function Login() {
             </div>
             <button>Zaloguj się</button>
         </form>
-        <Link to="/login" className="resetPassword">Nie pamiętam hasła</Link>
+        <Link to="/forgotPassword" className="remindPassword">Nie pamiętam hasła</Link>
        </section>
        <Footer />
      </div>

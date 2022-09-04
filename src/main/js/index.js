@@ -17,6 +17,9 @@ import ProductAmethyst from "./react/ProductAmethyst";
 import ProductLapiz from "./react/ProductLapiz";
 import ProductQuartz from "./react/ProductQuartz";
 import ProductMntGem from "./react/ProductMntGem";
+import RemindPassword from "./react/RemindPassword"
+import ForgotPassword from "./react/ForgotPassword";
+import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
 
 ReactDOM.render(
@@ -30,6 +33,9 @@ ReactDOM.render(
                 <Route path="/rodo" element={<Rodo />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/remindPassword" element={<RemindPassword />} />
+                <Route path="/forgotPassword" element={<ForgotPassword />} />
+                <Route path="/resetPasswordEmailSent" element={<ResetPasswordEmailSent />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
                 <Route path="/products/amber" element={<ProductAmber />} />

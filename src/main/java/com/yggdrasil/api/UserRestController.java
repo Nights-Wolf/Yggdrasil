@@ -9,6 +9,7 @@ import com.yggdrasil.model.Users;
 import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -53,6 +54,21 @@ public class UserRestController {
     @GetMapping("{id}")
     private void getUser(@PathVariable("id") Long id) {
         userService.getUser(id);
+    }
+
+    @GetMapping("/getByEmail/{email}")
+    private void getUserByEmail(@PathVariable("email") String email) {
+       userService.findByEmail(email);
+    }
+
+    @GetMapping("/checkPassword/{email}/{passwordToCheck}")
+    private HttpStatus getUserPassword(@PathVariable("email") String email, @PathVariable("passwordToCheck") String passwordToCheck) {
+        return userService.getUserPassword(email, passwordToCheck);
+    }
+
+    @PutMapping("/changePassword/{email}")
+    private void changePassword(@PathVariable("email") String email, @RequestBody Users users) {
+        userService.changePassword(email, users);
     }
 
     @PutMapping("{id}")

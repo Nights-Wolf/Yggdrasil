@@ -3,6 +3,7 @@ package com.yggdrasil.service;
 import com.yggdrasil.DAO.UserDAO;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,6 +42,14 @@ public class UserService {
 
     public Users findByEmail(String email) {
         return userDAO.findByEmail(email);
+    }
+
+    public HttpStatus getUserPassword(String email, String passwordToCheck) {
+        return userDAO.getUserPassword(email, passwordToCheck);
+    }
+
+    public void changePassword(String email, Users users) {
+        userDAO.changePassword(email, users);
     }
 
     public void rememberMeCheck(String email) {

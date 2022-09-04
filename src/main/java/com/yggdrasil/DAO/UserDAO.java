@@ -3,6 +3,7 @@ package com.yggdrasil.DAO;
 import com.yggdrasil.databaseInterface.UserDatabase;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -95,8 +96,26 @@ public class UserDAO {
         return userDatabase.findByEmail(email);
     }
 
+    public HttpStatus getUserPassword(String email, String passwordToCheck) {
+        Users user = userDatabase.findByEmail(email);
+        String encodedPasswordToCheck = passwordEncoder.encode(passwordToCheck);
+        if (user.getPassword().equals(encodedPasswordToCheck)) {
+           return HttpStatus.OK;
+        }
+
+        return HttpStatus.FORBIDDEN;
+    }
+
+    public void changePassword(String email, Users users) {
+        Users user = userDatabase.findByEmail(email);
+
+        user.setPassword(passwordEncoder.encode(users.getPassword()));
+
+        userDatabase.save(users);
+    }
+
     public void rememberMeCheck(String email) {
-        Users users = findByEmail(email);
+        Users users = userDatabase.findByEmail(email);
 
         users.setRememberMe(true);
 
