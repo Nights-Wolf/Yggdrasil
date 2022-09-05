@@ -6,13 +6,44 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
 
+    const navigate = useNavigate()
+
+    const [emailDetails, setEmailDetails] = React.useState({
+        email: "",
+        msgBody: "Witaj! \n\nAby zmienić hasło kliknij w link poniżej: link \n\n Życzymy udanych zakupów, \nZespół Yggdrasil",
+        subject: "Prośba o zmianę hasła"
+    })
+
+    function handleChange(event) {
+        setEmailDetails(prevEmailDetails => {
+            return {
+                ...prevEmailDetails,
+                email: event.target
+            }
+        })
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        axios
+            .post("http://localhost:8080/api/mail/sendMail", emailDetails)
+            .then(res => {
+                console.log(res.data)
+                navigate("/resetPasswordEmailSent")
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }
+
     return (
     <div>
        <Header />
        <section className="forgotPassword-section">
-        <form>
-            <input type="email" placeholder="Email" name="email" />
-            <button><Link to="/resetPasswordEmailSent">Zmień hasło </Link></button>
+        <form onSubmit={handleSubmit}>
+            <input type="email" placeholder="Email" name="email" onChange={handleChange} />
+            <button>Zmień hasło</button>
         </form>
        </section>
        <Footer />

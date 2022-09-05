@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [user, setUser] = React.useState({
         username: "",
