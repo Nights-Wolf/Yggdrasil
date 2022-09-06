@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+
+import java.util.Map;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -30,10 +33,6 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
 
-            System.out.println(details.getRecipient());
-            System.out.println(details.getMsgBody());
-            System.out.println(details.getSubject());
-
             javaMailSender.send(mailMessage);
 
             return "Mail sent successfully";
@@ -47,4 +46,5 @@ public class EmailServiceImpl implements EmailService {
     public String sendMailWithAttachment(EmailDetails details) {
         return null;
     }
+
 }

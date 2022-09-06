@@ -18,7 +18,6 @@ public class EmailRestController {
 
     @PostMapping("/sendMail")
     private String sendSimpleMail(@RequestBody EmailDetails emailDetails) {
-        System.out.println("im working");
         String status = emailService.sendSimpleMail(emailDetails);
 
         return status;

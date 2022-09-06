@@ -9,7 +9,7 @@ function ForgotPassword() {
     const navigate = useNavigate()
 
     const [emailDetails, setEmailDetails] = React.useState({
-        email: "",
+        recipient: "",
         msgBody: "Witaj! \n\nAby zmienić hasło kliknij w link poniżej: link \n\n Życzymy udanych zakupów, \nZespół Yggdrasil",
         subject: "Prośba o zmianę hasła"
     })
@@ -18,7 +18,7 @@ function ForgotPassword() {
         setEmailDetails(prevEmailDetails => {
             return {
                 ...prevEmailDetails,
-                email: event.target
+                recipient: event.target.value
             }
         })
     }
