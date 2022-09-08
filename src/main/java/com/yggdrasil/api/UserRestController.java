@@ -60,11 +60,6 @@ public class UserRestController {
        userService.findByEmail(email);
     }
 
-    @GetMapping("/checkPassword/{email}/{passwordToCheck}")
-    private HttpStatus getUserPassword(@PathVariable("email") String email, @PathVariable("passwordToCheck") String passwordToCheck) {
-        return userService.getUserPassword(email, passwordToCheck);
-    }
-
     @PutMapping("/changePassword/{email}")
     private void changePassword(@PathVariable("email") String email, @RequestBody Users users) {
         userService.changePassword(email, users);

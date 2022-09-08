@@ -7,7 +7,6 @@ function RemindPassword() {
 
  const [remindPassword, setRemindPassword] = React.useState({
         email: "",
-        password: "",
         newPassword: ""
     })
 
@@ -17,7 +16,6 @@ function RemindPassword() {
 
     const [error, setError] = React.useState({
         email: "",
-        password: "",
         newPassword: "",
         repeatNewPassword: ""
     })
@@ -40,37 +38,8 @@ function RemindPassword() {
         })
     }
 
-    function checkPassword(email, passwordChecker) {
-            const user = ""
-            axios
-                .get("api/user/checkPassword/" + email +"/" + passwordChecker)
-                .then(res => {
-                user = res.data
-                })
-            .catch(err => {
-                console.log(err.response)
-                })
-
-         if (passwordChecker != user.password) {
-            setError(prevError => {
-                return {
-                    ...prevError,
-                    repeatPassword: "Wpisz poprawne hasło!"
-                }
-            })
-            return false
-         }
-         setError(prevError => {
-            return {
-                ...prevError,
-                repeatPassword: ""
-            }
-         })
-         return true
-        }
-
         function checkNewPassword(passwordChecker) {
-             if (passwordChecker != remindPassword.password) {
+             if (passwordChecker != remindPassword.newPassword) {
                 setError(prevError => {
                     return {
                         ...prevError,
@@ -107,43 +76,9 @@ function RemindPassword() {
         return true
     }
 
-    function checkEmail(email) {
-        const user = ""
-        axios
-            .get("api/user/getByEmail/" + email)
-            .then(res => {
-                user = res.data
-                console.log(res.data)
-                console.log(user)
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
-
-        if (user == "" || user == null) {
-            setError(prevError => {
-                return {
-                    ...prevError,
-                    email: "Podaj prawidłowy email!"
-                }
-            })
-            console.log("ZŁY EMAIL")
-            return false
-        }
-        setError(prevError => {
-            return {
-                ...prevError,
-                email: ""
-                }
-        })
-        return true
-    }
-
     const handleSubmit = event => {
             event.preventDefault()
 
-            const isEmailCorrect = checkEmail(remindPassword.email)
-            const isPasswordCorrect = checkPassword(remindPassword.email, remindPassword.password)
             const isNewPasswordCorrect = checkNewPassword(remindPassword.newPassword)
             const isPasswordLengthCorrect = checkPasswordLength(remindPassword.newPassword)
 
@@ -165,8 +100,6 @@ function RemindPassword() {
        <Header />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
-            <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
-            <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} />
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>
             <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={handleChange}/>
             <button>Zmień hasło</button>

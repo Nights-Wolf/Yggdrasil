@@ -44,10 +44,6 @@ public class UserService {
         return userDAO.findByEmail(email);
     }
 
-    public HttpStatus getUserPassword(String email, String passwordToCheck) {
-        return userDAO.getUserPassword(email, passwordToCheck);
-    }
-
     public void changePassword(String email, Users users) {
         userDAO.changePassword(email, users);
     }

@@ -96,16 +96,6 @@ public class UserDAO {
         return userDatabase.findByEmail(email);
     }
 
-    public HttpStatus getUserPassword(String email, String passwordToCheck) {
-        Users user = userDatabase.findByEmail(email);
-        String encodedPasswordToCheck = passwordEncoder.encode(passwordToCheck);
-        if (user.getPassword().equals(encodedPasswordToCheck)) {
-           return HttpStatus.OK;
-        }
-
-        return HttpStatus.FORBIDDEN;
-    }
-
     public void changePassword(String email, Users users) {
         Users user = userDatabase.findByEmail(email);
 
