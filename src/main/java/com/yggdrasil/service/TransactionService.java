@@ -1,6 +1,6 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.TransactionDAO;
+import com.yggdrasil.databaseInterface.TransactionDatabase;
 import com.yggdrasil.model.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,18 +8,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionService {
 
+    private final TransactionDatabase transactionDatabase;
+
     @Autowired
-    private TransactionDAO transactionDAO;
+    public TransactionService(TransactionDatabase transactionDatabase) {
+        this.transactionDatabase = transactionDatabase;
+    }
 
     public void createTransaction(Transactions transactions) {
-        transactionDAO.createTransaction(transactions);
+        transactionDatabase.save(transactions);
     }
 
     public void editTransaction(Long id, Transactions transactions) {
-        transactionDAO.editTransaction(id, transactions);
+        Transactions transaction = transactionDatabase.findById(id).orElseThrow();
+
+        transaction.setTransactionNumber(transactions.getTransactionNumber());
+        transaction.setTransactionValue(transactions.getTransactionValue());
+        transaction.setItemId(transactions.getItemId());
+        transaction.setUserId(transactions.getUserId());
+        transaction.setTransactionDate(transactions.getTransactionDate());
+        transaction.setStreet(transactions.getStreet());
+        transaction.setZipCode(transactions.getZipCode());
+
+        transactionDatabase.save(transaction);
     }
 
     public void deleteTransaction(Long id) {
-        transactionDAO.deleteTransaction(id);
+        transactionDatabase.deleteById(id);
     }
 }
