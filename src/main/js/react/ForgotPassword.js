@@ -10,7 +10,7 @@ function ForgotPassword() {
 
     const [emailDetails, setEmailDetails] = React.useState({
         recipient: "",
-        msgBody: "Witaj! \n\nAby zmienić hasło kliknij w link poniżej: link \n\n Życzymy udanych zakupów, \nZespół Yggdrasil",
+        msgBody: "",
         subject: "Prośba o zmianę hasła"
     })
 
@@ -26,8 +26,11 @@ function ForgotPassword() {
     const handleSubmit = event => {
         event.preventDefault()
 
+        const uuid = require('uuid')
+        const token = uuid.v1()
+
         axios
-            .post("http://localhost:8080/api/mail/sendMail", emailDetails)
+            .post("http://localhost:8080/api/mail/sendMail/" + token, emailDetails)
             .then(res => {
                 console.log(res.data)
                 navigate("/resetPasswordEmailSent")

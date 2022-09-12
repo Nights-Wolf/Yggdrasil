@@ -16,8 +16,12 @@ public class EmailRestController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/sendMail")
-    private String sendSimpleMail(@RequestBody EmailDetails emailDetails) {
+    @PostMapping("/sendMail/{token}")
+    private String sendSimpleMail(@RequestBody EmailDetails emailDetails, @PathVariable String token) {
+        EmailDetails email = emailDetails;
+
+        email.setMsgBody("Witaj! \n\nAby zmienić hasło kliknij w link poniżej: \n" +  "http://localhost:8080/" + token + "\n\n Życzymy udanych zakupów, \nZespół Yggdrasil");
+
         String status = emailService.sendSimpleMail(emailDetails);
 
         return status;
