@@ -73,5 +73,5 @@ CREATE TABLE transactions (
 CREATE TABLE reset_Password_Token (
     id SERIAL PRIMARY KEY NOT NULL,
     token VARCHAR(100) NOT NULL,
-    expiration_Date DATE DEFAULT CURRENT_DATE NOT NULL
+    expiration_Date TIME NOT NULL
 );

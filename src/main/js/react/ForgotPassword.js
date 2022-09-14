@@ -28,11 +28,21 @@ function ForgotPassword() {
 
         const uuid = require('uuid')
         const token = uuid.v1()
+        const today = new Date(Date.now())
+        const expirationTime = today.getTime() + 1000000
 
         axios
             .post("http://localhost:8080/api/mail/sendMail/" + token, emailDetails)
+            .catch(err => {
+                console.log(err.response)
+            })
+
+        axios
+            .post("http://localhost:8080/api/resetPasswordToken/add", {
+            token: token,
+            expirationDate: expirationTime
+            })
             .then(res => {
-                console.log(res.data)
                 navigate("/resetPasswordEmailSent")
             })
             .catch(err => {
