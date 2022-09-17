@@ -3,10 +3,9 @@ package com.yggdrasil.api;
 import com.yggdrasil.model.ResetPasswordToken;
 import com.yggdrasil.service.ResetPasswordTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/resetPasswordToken")
@@ -22,5 +21,10 @@ public class ResetPasswordTokenRestController {
     @PostMapping("/add")
     private void addResetPasswordToken(@RequestBody ResetPasswordToken resetPasswordToken) {
         resetPasswordTokenService.addResetPasswordToken(resetPasswordToken);
+    }
+
+    @GetMapping("/check/{token}")
+    private ResponseEntity<Void> checkPassToken(@PathVariable("token") String token) {
+       return resetPasswordTokenService.checkPassToken(token);
     }
 }

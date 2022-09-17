@@ -19,5 +19,6 @@ public class ResetPasswordToken {
     private Long id;
 
     private String token;
+
     private Date expirationDate;
 }

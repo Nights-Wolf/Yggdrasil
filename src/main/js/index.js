@@ -21,6 +21,8 @@ import RemindPassword from "./react/RemindPassword"
 import ForgotPassword from "./react/ForgotPassword";
 import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
+import PassResetTokenExpire from "./react/PassResetTokenExpire";
+import PassResetTokenNotFound from "./react/PassResetTokenNotFound";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -44,6 +46,8 @@ ReactDOM.render(
                 <Route path="/products/lapiz_lazuli" element={<ProductLapiz />} />
                 <Route path="/products/quartz" element={<ProductQuartz />} />
                 <Route path="/products/mountain_gem" element={<ProductMntGem />} />
+                <Route path="/passResetExpired" element={<PassResetTokenExpire />} />
+                <Route path="/resetExpired" element={<PassResetTokenNotFound />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>
