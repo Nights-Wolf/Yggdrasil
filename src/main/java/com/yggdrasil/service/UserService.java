@@ -96,7 +96,7 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        userDatabase.save(users);
+        userDatabase.save(user);
     }
 
     public void rememberMeCheck(String email) {

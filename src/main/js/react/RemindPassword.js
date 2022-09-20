@@ -2,11 +2,26 @@ import React from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useParams } from "react-router-dom";
 
 function RemindPassword() {
 
+const { token } = useParams()
+
+ React.useEffect(async () => {
+           await axios
+            .get("http://localhost:8080/api/resetPasswordToken/check/" + token)
+            .then(res => {
+                const user = res.headers.user
+
+                localStorage.setItem('user', user)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }, [])
+
  const [remindPassword, setRemindPassword] = React.useState({
-        email: "",
         newPassword: ""
     })
 
@@ -15,7 +30,6 @@ function RemindPassword() {
     })
 
     const [error, setError] = React.useState({
-        email: "",
         newPassword: "",
         repeatNewPassword: ""
     })
@@ -81,11 +95,12 @@ function RemindPassword() {
 
             const isNewPasswordCorrect = checkNewPassword(remindPassword.newPassword)
             const isPasswordLengthCorrect = checkPasswordLength(remindPassword.newPassword)
+            const user = localStorage.getItem("user")
 
-            if (isEmailCorrect && isPasswordCorrect && isNewPasswordCorrect) {
+            if (isPasswordLengthCorrect && isNewPasswordCorrect) {
                 axios
-                    .post("http://localhost:8080/api/user/changePassword/" + login.email, {email: login.email,
-                    password: login.password})
+                    .put("http://localhost:8080/api/user/changePassword/" + user, {
+                    password: remindPassword.newPassword})
                     .then(res => {
                         navigate('/login')
                     })

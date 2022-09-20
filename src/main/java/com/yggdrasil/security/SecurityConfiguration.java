@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/", "index", "template", "/css/**", "/js/**", "/vendor/**").permitAll()
-                .antMatchers("/api/login/**", "/api/authentication/refresh/token/**", "/api/authentication/create/refresh/token/**", "/api/authentication/signOut/**", "/api/mail/**", "/api/resetPasswordToken/**").permitAll()
+                .antMatchers("/api/login/**", "/api/authentication/refresh/token/**", "/api/authentication/create/refresh/token/**", "/api/authentication/signOut/**", "/api/mail/**", "/api/resetPasswordToken/**", "/api/user/changePassword/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").hasAuthority(USER_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()

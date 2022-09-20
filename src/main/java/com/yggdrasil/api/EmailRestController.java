@@ -20,7 +20,7 @@ public class EmailRestController {
     private String sendSimpleMail(@RequestBody EmailDetails emailDetails, @PathVariable String token) {
         EmailDetails email = emailDetails;
 
-        email.setMsgBody("Witaj! \n\nAby zmienić hasło kliknij w link poniżej: \n" +  "http://localhost:8080/api/resetPasswordToken/check/" + token + "\n\n Życzymy udanych zakupów, \nZespół Yggdrasil");
+        email.setMsgBody("Witaj! \n\nAby zmienić hasło kliknij w link poniżej: \n" +  "http://localhost:8080/remindPassword/" + token + "\n\n Życzymy udanych zakupów, \nZespół Yggdrasil");
 
         String status = emailService.sendSimpleMail(emailDetails);
 

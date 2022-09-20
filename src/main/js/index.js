@@ -35,7 +35,7 @@ ReactDOM.render(
                 <Route path="/rodo" element={<Rodo />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/remindPassword" element={<RemindPassword />} />
+                <Route path="/remindPassword/:token" element={<RemindPassword />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/resetPasswordEmailSent" element={<ResetPasswordEmailSent />} />
                 <Route path="/products" element={<Products />} />

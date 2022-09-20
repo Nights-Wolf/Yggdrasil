@@ -14,6 +14,18 @@ function ForgotPassword() {
         subject: "Prośba o zmianę hasła"
     })
 
+    const [error, setError] = React.useState({
+            recipient: "",
+        })
+
+        const errorVisible = {
+            color: "red"
+        }
+
+        const errorInvisible = {
+            color: "default"
+        }
+
     function handleChange(event) {
         setEmailDetails(prevEmailDetails => {
             return {
@@ -23,6 +35,25 @@ function ForgotPassword() {
         })
     }
 
+    function checkEmail(email) {
+            if (email == "") {
+                setError(prevError => {
+                    return {
+                        ...prevError,
+                        recipient: "Podaj email!"
+                    }
+                })
+                return false
+            }
+            setError(prevError => {
+                return {
+                    ...prevError,
+                    recipient: ""
+                    }
+            })
+            return true
+    }
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -30,24 +61,28 @@ function ForgotPassword() {
         const token = uuid.v1()
         const today = new Date(Date.now())
         const expirationTime = today.getTime() + 1000000
+        const isEmailCorrect = checkEmail(emailDetails.recipient)
 
-        axios
-            .post("http://localhost:8080/api/mail/sendMail/" + token, emailDetails)
-            .catch(err => {
-                console.log(err.response)
-            })
+        if(isEmailCorrect) {
+            axios
+                .post("http://localhost:8080/api/mail/sendMail/" + token, emailDetails)
+                .catch(err => {
+                    console.log(err.response)
+                })
 
-        axios
-            .post("http://localhost:8080/api/resetPasswordToken/add", {
-            token: token,
-            expirationDate: expirationTime
-            })
-            .then(res => {
-                navigate("/resetPasswordEmailSent")
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
+            axios
+                .post("http://localhost:8080/api/resetPasswordToken/add", {
+                email: emailDetails.recipient,
+                token: token,
+                expirationDate: expirationTime
+                })
+                .then(res => {
+                    navigate("/resetPasswordEmailSent")
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        }
     }
 
     return (
@@ -55,8 +90,8 @@ function ForgotPassword() {
        <Header />
        <section className="forgotPassword-section">
         <form onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-            <button>Zmień hasło</button>
+            <input type="email" style={error.recipient === "" ? errorInvisible : errorVisible} placeholder={error.recipient === "" ? "Email*" : error.recipient} name="email" onChange={handleChange} />
+            <button>Wyślij link do zmiany hasła</button>
         </form>
        </section>
        <Footer />

@@ -5,8 +5,11 @@ import com.yggdrasil.model.ResetPasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.Date;
 
@@ -31,12 +34,11 @@ public class ResetPasswordTokenService {
             Date expirationTime = resetPasswordToken.getExpirationDate();
             Date currentTime = new Date();
             if (currentTime.getTime() > expirationTime.getTime()) {
-                System.out.println("Expiration time!");
                 return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:8080/passResetExpired")).build();
             }
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:8080/remindPassword")).build();
+
+            return ResponseEntity.ok().header("user", resetPasswordToken.getEmail()).build();
         }
-        System.out.println("there is none");
         return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:8080/passResetNotFound")).build();
     }
 }
