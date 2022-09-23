@@ -2,11 +2,13 @@ import React from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function RemindPassword() {
 
 const { token } = useParams()
+
+const navigate = useNavigate()
 
  React.useEffect(async () => {
            await axios
@@ -43,11 +45,21 @@ const { token } = useParams()
     }
 
     function handleChange(event) {
-        const {name, value, type, checked} = event.target
+        const {name, value} = event.target
         setRemindPassword(prevRemindPassword => {
             return {
                 ...prevRemindPassword,
-                [name]: type === "checkbox" ? checked : value
+                [name]: value
+            }
+        })
+    }
+
+    function validatePassword(event) {
+        const {name, value} = event.target
+        setPasswordChecker(prevPasswordChecker => {
+            return {
+                ...prevPasswordChecker,
+                [name] : value
             }
         })
     }
@@ -57,7 +69,7 @@ const { token } = useParams()
                 setError(prevError => {
                     return {
                         ...prevError,
-                        repeatPassword: "Wpisz poprawne hasło!"
+                        repeatNewPassword: "Wpisz poprawne hasło!"
                     }
                 })
                 return false
@@ -65,7 +77,7 @@ const { token } = useParams()
              setError(prevError => {
                 return {
                     ...prevError,
-                    repeatPassword: ""
+                    repeatNewPassword: ""
                 }
              })
              return true
@@ -76,7 +88,7 @@ const { token } = useParams()
             setError(prevError => {
                 return {
                     ...prevError,
-                    password: "Hasło musi zawierać co najmnniej 6 znaków!"
+                    newPassword: "Hasło musi zawierać co najmnniej 6 znaków!"
                 }
             })
             return false
@@ -84,7 +96,7 @@ const { token } = useParams()
         setError(prevError => {
             return {
                 ...prevError,
-                password: ""
+                newPassword: ""
             }
         })
         return true
@@ -93,15 +105,16 @@ const { token } = useParams()
     const handleSubmit = event => {
             event.preventDefault()
 
-            const isNewPasswordCorrect = checkNewPassword(remindPassword.newPassword)
+            const isNewPasswordCorrect = checkNewPassword(passwordChecker.repeatNewPassword)
             const isPasswordLengthCorrect = checkPasswordLength(remindPassword.newPassword)
             const user = localStorage.getItem("user")
 
-            if (isPasswordLengthCorrect && isNewPasswordCorrect) {
+            if(isNewPasswordCorrect && isPasswordLengthCorrect) {
                 axios
                     .put("http://localhost:8080/api/user/changePassword/" + user, {
                     password: remindPassword.newPassword})
                     .then(res => {
+                        localStorage.removeItem("user")
                         navigate('/login')
                     })
                     .catch(err => {
@@ -116,7 +129,7 @@ const { token } = useParams()
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>
-            <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={handleChange}/>
+            <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={validatePassword}/>
             <button>Zmień hasło</button>
         </form>
        </section>
