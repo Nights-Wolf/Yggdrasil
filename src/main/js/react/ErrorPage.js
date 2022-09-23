@@ -1,7 +1,9 @@
 
 function Error() {
     return(
-        <div>ERROR! Page doesnt exist!</div>
+        <div>
+            <p>ERROR! Page doesnt exist!</p>
+        </div>
     )
 }
 

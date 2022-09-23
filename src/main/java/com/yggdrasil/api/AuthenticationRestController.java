@@ -74,7 +74,7 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/remember/{email}")
-    private void rememberMeCheck(@PathVariable String email) throws IOException {
+    private void rememberMeCheck(@PathVariable("email") String email) throws IOException {
         userService.rememberMeCheck(email);
     }
 

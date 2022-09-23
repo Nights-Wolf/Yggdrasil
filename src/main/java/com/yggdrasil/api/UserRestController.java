@@ -9,6 +9,7 @@ import com.yggdrasil.model.Users;
 import com.yggdrasil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +34,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/user")
-
 public class UserRestController {
 
 
@@ -53,6 +53,16 @@ public class UserRestController {
     @GetMapping("{id}")
     private void getUser(@PathVariable("id") Long id) {
         userService.getUser(id);
+    }
+
+    @GetMapping("/getByEmail/{email}")
+    private void getUserByEmail(@PathVariable("email") String email) {
+       userService.findByEmail(email);
+    }
+
+    @PutMapping("/changePassword/{email}")
+    private void changePassword(@PathVariable("email") String email, @RequestBody Users users) {
+        userService.changePassword(email, users);
     }
 
     @PutMapping("{id}")

@@ -1,6 +1,6 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.CategoryDAO;
+import com.yggdrasil.databaseInterface.CategoryDatabase;
 import com.yggdrasil.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,18 +8,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService {
 
+
+    private final CategoryDatabase categoryDatabase;
+
     @Autowired
-    private CategoryDAO categoryDAO;
+    public CategoryService(CategoryDatabase categoryDatabase) {
+        this.categoryDatabase = categoryDatabase;
+    }
 
     public void addCategory(Category category) {
-        categoryDAO.addCategory(category);
+        categoryDatabase.save(category);
     }
 
     public void editCategory(Long id, Category category) {
-        categoryDAO.editCategory(id, category);
+        Category editedCategory = categoryDatabase.findById(id).orElseThrow();
+
+        editedCategory.setCategoryName(category.getCategoryName());
+
+        categoryDatabase.save(editedCategory);
     }
 
     public void deleteCategory(Long id) {
-        categoryDAO.deleteCategory(id);
+        categoryDatabase.deleteById(id);
     }
 }

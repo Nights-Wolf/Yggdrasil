@@ -1,49 +1,109 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.UserDAO;
+import com.yggdrasil.databaseInterface.UserDatabase;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
+
+    private final UserDatabase userDatabase;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private UserDAO userDAO;
+    public UserService(UserDatabase userDatabase, PasswordEncoder passwordEncoder) {
+        this.userDatabase = userDatabase;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public void createUser(Users users) {
-        userDAO.createUser(users);
+        String checkIfUserExists = String.valueOf(userDatabase.findByEmail(users.getEmail()));
+        boolean checkIfUserAcceptedTerms = users.isAcceptedTerms();
+        boolean checkIfUserAcceptedRodo = users.isAcceptedRodo();
+        String checkIfPasswordIsCorrect = users.getPassword();
+        String checkIfNameIsCorrect = users.getUsername();
+        String checkIfSurnameIsCorrect = users.getSurname();
+
+        if (checkIfUserExists.equals("null") || checkIfUserExists.equals("") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo &&
+                checkIfPasswordIsCorrect != null || !checkIfPasswordIsCorrect.equals("") && !checkIfNameIsCorrect.equals("") && !checkIfSurnameIsCorrect.equals("")) {
+            users.setGrantedAuthorities("USER");
+            users.setPassword(passwordEncoder.encode(users.getPassword()));
+            users.setAccountNonExpired(true);
+            users.setAccountNonLocked(true);
+            users.setCredentialsNonExpired(true);
+            users.setEnabled(true);
+            userDatabase.save(users);
+        } else {
+            System.out.println("This email is already in use! You must accept terms! You must accept RODO!");
+        }
     }
 
     public Users getUser(Long id) {
-       return userDAO.getUser(id);
+        Users users = userDatabase.getById(id);
+        return users;
     }
 
     public void editUser(Long id, Users users) {
-        userDAO.editUser(id, users);
+        Users user = userDatabase.findById(id).orElseThrow();
+
+        user.setUsername(users.getUsername());
+        user.setSurname(users.getSurname());
+        user.setPassword(users.getPassword());
+        user.setEmail(users.getEmail());
+        user.setStreet(users.getStreet());
+        user.setZipCode(users.getZipCode());
+        user.setVoivodeship(users.getVoivodeship());
+
+        userDatabase.save(user);
     }
 
     public void setToken(Long id, Long refreshToken) {
-        userDAO.setToken(id, refreshToken);
+        Users user = userDatabase.findById(id).orElseThrow();
+
+        user.setRefreshToken(refreshToken);
+
+        userDatabase.save(user);
     }
 
     public void deleteToken(Long id) {
-        userDAO.deleteToken(id);
+        Users user = userDatabase.findById(id).orElseThrow();
+
+        user.setRefreshToken(null);
+
+        userDatabase.save(user);
     }
 
     public void deleteUser(Long id) {
-        userDAO.deleteUser(id);
+        userDatabase.deleteById(id);
     }
 
     public void grantAdmin(Long id) {
-        userDAO.grantAdmin(id);
+        Users users = userDatabase.findById(id).orElseThrow();
+
+        //users.setGrantedAuthorities("ADMIN");
+        userDatabase.save(users);
     }
 
     public Users findByEmail(String email) {
-        return userDAO.findByEmail(email);
+        return userDatabase.findByEmail(email);
+    }
+
+    public void changePassword(String email, Users users) {
+        Users user = userDatabase.findByEmail(email);
+
+        user.setPassword(passwordEncoder.encode(users.getPassword()));
+
+        userDatabase.save(user);
     }
 
     public void rememberMeCheck(String email) {
-        userDAO.rememberMeCheck(email);
+        Users users = userDatabase.findByEmail(email);
+
+        users.setRememberMe(true);
+
+        userDatabase.save(users);
     }
 }

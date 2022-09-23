@@ -1,9 +1,8 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.ItemDAO;
+import com.yggdrasil.databaseInterface.ItemDatabase;
 import com.yggdrasil.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,29 +10,41 @@ import java.util.List;
 @Service
 public class ItemService {
 
+    private final ItemDatabase itemDatabase;
+
     @Autowired
-    private ItemDAO itemDAO;
+    public ItemService(ItemDatabase itemDatabase) {
+        this.itemDatabase = itemDatabase;
+    }
 
     public Item getItem(Long id) {
-        return itemDAO.getItem(id);
+        return itemDatabase.findById(id).orElseThrow();
     }
 
     public List<Item> getAllItems() {
-        return itemDAO.getAllItems();
+        return itemDatabase.findAll();
     }
 
     public List<Item> getItemsByCategory(Long categoryId) {
-        return itemDAO.getItemsByCategory(categoryId);
+        return itemDatabase.findByCategoryId(categoryId);
     }
     public void addItem(Item item) {
-        itemDAO.addItem(item);
+        itemDatabase.save(item);
     }
 
     public void editItem(Long id, Item item) {
-        itemDAO.editItem(id, item);
+        Item editedItem = itemDatabase.findById(id).orElseThrow();
+
+        editedItem.setItemName(item.getItemName());
+        editedItem.setCreated(item.getCreated());
+        editedItem.setCategoryId(item.getCategoryId());
+        editedItem.setPrice(item.getPrice());
+        editedItem.setItemsLeft(item.getItemsLeft());
+
+        itemDatabase.save(editedItem);
     }
 
     public void deleteItem(Long id) {
-        itemDAO.deleteItem(id);
+        itemDatabase.deleteById(id);
     }
 }

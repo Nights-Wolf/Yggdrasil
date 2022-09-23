@@ -69,3 +69,10 @@ CREATE TABLE transactions (
     street VARCHAR(100) NOT NULL,
     zip_Code VARCHAR(6) NOT NULL
 );
+
+CREATE TABLE reset_Password_Token (
+    id SERIAL PRIMARY KEY NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    token VARCHAR(100) NOT NULL,
+    expiration_Date TIMESTAMP NOT NULL
+);

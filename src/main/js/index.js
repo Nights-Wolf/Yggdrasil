@@ -17,7 +17,12 @@ import ProductAmethyst from "./react/ProductAmethyst";
 import ProductLapiz from "./react/ProductLapiz";
 import ProductQuartz from "./react/ProductQuartz";
 import ProductMntGem from "./react/ProductMntGem";
+import RemindPassword from "./react/RemindPassword"
+import ForgotPassword from "./react/ForgotPassword";
+import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
+import PassResetTokenExpire from "./react/PassResetTokenExpire";
+import PassResetTokenNotFound from "./react/PassResetTokenNotFound";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -30,6 +35,9 @@ ReactDOM.render(
                 <Route path="/rodo" element={<Rodo />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/remindPassword/:token" element={<RemindPassword />} />
+                <Route path="/forgotPassword" element={<ForgotPassword />} />
+                <Route path="/resetPasswordEmailSent" element={<ResetPasswordEmailSent />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
                 <Route path="/products/amber" element={<ProductAmber />} />
@@ -38,6 +46,8 @@ ReactDOM.render(
                 <Route path="/products/lapiz_lazuli" element={<ProductLapiz />} />
                 <Route path="/products/quartz" element={<ProductQuartz />} />
                 <Route path="/products/mountain_gem" element={<ProductMntGem />} />
+                <Route path="/passResetExpired" element={<PassResetTokenExpire />} />
+                <Route path="/resetExpired" element={<PassResetTokenNotFound />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>

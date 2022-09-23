@@ -1,23 +1,25 @@
 package com.yggdrasil.service;
 
-import com.yggdrasil.DAO.RefreshTokenDAO;
+import com.yggdrasil.databaseInterface.RefreshTokenDatabase;
 import com.yggdrasil.model.RefreshToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RefreshTokenService {
 
-    private final RefreshTokenDAO refreshTokenDAO;
+    private final RefreshTokenDatabase refreshTokenDatabase;
 
-    public RefreshTokenService(RefreshTokenDAO refreshTokenDAO) {
-        this.refreshTokenDAO = refreshTokenDAO;
+    @Autowired
+    public RefreshTokenService(RefreshTokenDatabase refreshTokenDatabase) {
+        this.refreshTokenDatabase = refreshTokenDatabase;
     }
 
     public void addToken(RefreshToken refreshToken) {
-        refreshTokenDAO.addToken(refreshToken);
+        refreshTokenDatabase.save(refreshToken);
     }
 
     public void deleteToken(Long id) {
-        refreshTokenDAO.deleteToken(id);
+        refreshTokenDatabase.deleteById(id);
     }
 }
