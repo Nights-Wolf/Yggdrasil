@@ -57,8 +57,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/", "index", "template", "/css/**", "/js/**", "/vendor/**").permitAll()
-                .antMatchers("/api/login/**", "/api/authentication/refresh/token/**", "/api/authentication/create/refresh/token/**", "/api/authentication/signOut/**", "/api/mail/**", "/api/resetPasswordToken/**", "/api/user/changePassword/**").permitAll()
+                .antMatchers("/login", "/", "index", "template", "/css/**", "/js/**", "/main**", "/vendor**", "/imgs/**", "/favicon**").permitAll()
+                .antMatchers("/api/login/**", "/api/authentication/signOut/**", "/remindPassword/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/mail/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/authentication/refresh/token/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/resetPasswordToken/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/resetPasswordToken/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").hasAuthority(USER_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
@@ -73,8 +77,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/item/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/item/**").hasAuthority(ITEM_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/item/**").hasAuthority(ITEM_EDIT.getPermission())
-                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission());
-                //.anyRequest().authenticated();
+                .antMatchers(HttpMethod.PUT, "/api/user/promote/**").hasAuthority(PROMOTE_ADMIN.getPermission())
+                .anyRequest().authenticated();
     }
 
     @Override
