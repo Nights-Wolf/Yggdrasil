@@ -3,8 +3,17 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useParams, useNavigate } from "react-router-dom";
+import useCheckLogin from "./CheckLogin";
 
 function RemindPassword() {
+
+const [data] = useCheckLogin()
+
+if(data) {
+    console.log("Jestem zalogowany")
+} else {
+    console.log("nie jestem zalogowany")
+}
 
 const { token } = useParams()
 

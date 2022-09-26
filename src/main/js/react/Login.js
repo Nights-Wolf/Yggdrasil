@@ -3,8 +3,17 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
+import useCheckLogin from "./CheckLogin";
 
 function Login() {
+
+    const [data] = useCheckLogin()
+
+    if(data) {
+        console.log("Jestem zalogowany")
+    } else {
+        console.log("nie jestem zalogowany")
+    }
 
     const navigate = useNavigate();
 

@@ -4,8 +4,17 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useParams } from "react-router-dom";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
+import useCheckLogin from "./CheckLogin";
 
 function ProductPage(props) {
+
+const [data] = useCheckLogin()
+
+if(data) {
+    console.log("Jestem zalogowany")
+} else {
+    console.log("nie jestem zalogowany")
+}
 
     const { productId } = useParams()
     const { categoryId } = useParams()

@@ -3,8 +3,6 @@ import Footer from "./Footer";
 import MainSection from "./Main_section";
 import useCheckLogin from "./CheckLogin";
 
-
-
 function App() {
 
 const [data] = useCheckLogin()

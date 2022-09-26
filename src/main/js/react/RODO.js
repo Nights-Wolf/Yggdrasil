@@ -1,7 +1,17 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import useCheckLogin from "./CheckLogin";
 
 function Rodo() {
+
+const [data] = useCheckLogin()
+
+if(data) {
+    console.log("Jestem zalogowany")
+} else {
+    console.log("nie jestem zalogowany")
+}
+
     return (
     <div>
        <Header />

@@ -6,8 +6,17 @@ import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
+import useCheckLogin from "./CheckLogin";
 
 function ProductTopaz() {
+
+const [data] = useCheckLogin()
+
+if(data) {
+    console.log("Jestem zalogowany")
+} else {
+    console.log("nie jestem zalogowany")
+}
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
