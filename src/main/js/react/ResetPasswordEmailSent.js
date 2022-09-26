@@ -6,15 +6,9 @@ function resetPasswordEmailSent() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     return(
         <div>
-            <Header />
+            <Header isLogged={data} />
             <section>
                 <p>Na podany adres wysłano link umożliwiający zmianę hasła.</p>
             </section>

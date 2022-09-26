@@ -9,12 +9,6 @@ function Login() {
 
     const [data] = useCheckLogin()
 
-    if(data) {
-        console.log("Jestem zalogowany")
-    } else {
-        console.log("nie jestem zalogowany")
-    }
-
     const navigate = useNavigate();
 
     const [login, setLogin] = React.useState({
@@ -136,7 +130,7 @@ function Login() {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="login-section">
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />

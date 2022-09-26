@@ -2,8 +2,21 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "./assets/images/logo.png";
 
-function Header() {
+function Header(props) {
+
     const [mobileNavVisibility, setVisibility] = React.useState(false)
+
+    const logOut = () => {
+        const accessToken = localStorage.getItem("access_token")
+        const refreshToken = localStorage.getItem("refresh_token")
+
+        if (accessToken && refreshToken) {
+            localStorage.removeItem("access_token")
+            localStorage.removeItem("refresh_token")
+
+            window.location.reload(false)
+        }
+    }
 
         function showNavbar() {
             setVisibility(prevShow => !prevShow)
@@ -38,10 +51,10 @@ function Header() {
                     isActive ? {background: '#0F9F49'} : null}>Kwarc</NavLink>
                     <NavLink to="/products/mountain_gem" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Kryształ Górski</NavLink>
-                    <div className="nav-btn__login"><NavLink to="/login" style={({ isActive })=>
-                    isActive ? {background: '#0F9F49'} : null}>Zaloguj się</NavLink></div>
-                    <div className="nav-btn__register"><NavLink to="/register" style={({ isActive })=>
-                    isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink></div>
+                    <div className="nav-btn__login">{props.isLogged === false ? <NavLink to="/login" style={({ isActive })=>
+                    isActive ? {background: '#0F9F49'} : null}>Zaloguj się</NavLink> : <NavLink to="/" style={({ isActive })=>isActive ? {background: '#0F9F49'} : null}>Moje konto</NavLink>}</div>
+                    <div className="nav-btn__register">{props.isLogged === false ? <NavLink to="/register" style={({ isActive })=>
+                    isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink> : <button onClick={logOut}>Wyloguj się</button>}</div>
                 </nav>
                 <form className="search-engine">
                     <button><i className="fa fa-eye"></i></button>
@@ -49,7 +62,5 @@ function Header() {
                 </form>
             </header>
 )}
-
-
 
 export default Header

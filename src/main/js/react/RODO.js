@@ -6,15 +6,9 @@ function Rodo() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <div>
         <p>To jest sekcja "O nas" WIP</p>
        </div>

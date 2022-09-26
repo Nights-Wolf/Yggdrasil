@@ -9,12 +9,6 @@ function Register() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     const navigate = useNavigate()
 
     const [user, setUser] = React.useState({
@@ -187,7 +181,7 @@ if(data) {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="register-section">
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />

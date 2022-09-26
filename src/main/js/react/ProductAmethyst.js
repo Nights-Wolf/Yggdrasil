@@ -12,12 +12,6 @@ function ProductAmethyst() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     const [filterData, setFilterData] = React.useState({
         price: "0",
         availability: "0"
@@ -83,7 +77,7 @@ if(data) {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="products-section">
         <div className="filters-container">
             <div className="filters-container__price-filter">

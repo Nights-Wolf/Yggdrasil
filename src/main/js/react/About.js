@@ -6,15 +6,9 @@ function About() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="about-page">
         <article>
          <h1>Nasza działalność</h1>

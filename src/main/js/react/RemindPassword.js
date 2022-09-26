@@ -9,12 +9,6 @@ function RemindPassword() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
 const { token } = useParams()
 
 const navigate = useNavigate()
@@ -134,7 +128,7 @@ const navigate = useNavigate()
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>

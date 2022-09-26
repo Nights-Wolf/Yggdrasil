@@ -7,15 +7,9 @@ function App() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
    return (
    <div>
-      <Header />
+      <Header isLogged={data} />
       <MainSection />
       <Footer />
     </div>

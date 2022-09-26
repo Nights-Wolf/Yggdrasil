@@ -10,12 +10,6 @@ function ProductPage(props) {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     const { productId } = useParams()
     const { categoryId } = useParams()
     const { title } = useParams()
@@ -39,7 +33,7 @@ if(data) {
 
     return(
         <div>
-            <Header />
+            <Header isLogged={data} />
             <section className="product--page">
                 <div className="product--details">
                     <img src= {discount_picture_2} />

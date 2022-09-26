@@ -9,12 +9,6 @@ function ForgotPassword() {
 
 const [data] = useCheckLogin()
 
-if(data) {
-    console.log("Jestem zalogowany")
-} else {
-    console.log("nie jestem zalogowany")
-}
-
     const navigate = useNavigate()
 
     const [emailDetails, setEmailDetails] = React.useState({
@@ -96,7 +90,7 @@ if(data) {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="forgotPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.recipient === "" ? errorInvisible : errorVisible} placeholder={error.recipient === "" ? "Email*" : error.recipient} name="email" onChange={handleChange} />
