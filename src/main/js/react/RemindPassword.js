@@ -3,8 +3,11 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useParams, useNavigate } from "react-router-dom";
+import useCheckLogin from "./CheckLogin";
 
 function RemindPassword() {
+
+const [data] = useCheckLogin()
 
 const { token } = useParams()
 
@@ -125,7 +128,7 @@ const navigate = useNavigate()
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>

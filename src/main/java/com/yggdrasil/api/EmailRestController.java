@@ -1,7 +1,6 @@
 package com.yggdrasil.api;
 
 import com.yggdrasil.mailing.EmailDetails;
-import com.yggdrasil.mailing.EmailService;
 import com.yggdrasil.service.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,7 @@ public class EmailRestController {
     private final EmailServiceImpl emailService;
     private URL url;
 
+    @Autowired
     public EmailRestController(EmailServiceImpl emailService) {
         this.emailService = emailService;
     }

@@ -1,10 +1,14 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import useCheckLogin from "./CheckLogin";
 
 function About() {
+
+const [data] = useCheckLogin()
+
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="about-page">
         <article>
          <h1>Nasza działalność</h1>

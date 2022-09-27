@@ -3,8 +3,11 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
+import useCheckLogin from "./CheckLogin";
 
 function ForgotPassword() {
+
+const [data] = useCheckLogin()
 
     const navigate = useNavigate()
 
@@ -87,7 +90,7 @@ function ForgotPassword() {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="forgotPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.recipient === "" ? errorInvisible : errorVisible} placeholder={error.recipient === "" ? "Email*" : error.recipient} name="email" onChange={handleChange} />

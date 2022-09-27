@@ -3,8 +3,11 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
+import useCheckLogin from "./CheckLogin";
 
 function Register() {
+
+const [data] = useCheckLogin()
 
     const navigate = useNavigate()
 
@@ -178,7 +181,7 @@ function Register() {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="register-section">
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />

@@ -6,8 +6,11 @@ import Card from "./Card";
 import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
+import useCheckLogin from "./CheckLogin";
 
 function Products() {
+
+const [data] = useCheckLogin()
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
@@ -74,7 +77,7 @@ function Products() {
 
     return (
     <div>
-       <Header />
+       <Header isLogged={data} />
        <section className="products-section">
         <div className="filters-container">
             <div className="filters-container__price-filter">
