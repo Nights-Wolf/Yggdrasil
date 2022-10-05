@@ -135,7 +135,7 @@ const [data] = useCheckLogin()
             <button>Zmień dane</button>
         </form>
         <Link to="/changePassword" className="change_login_data">Zmień hasło</Link>
-        <Link to="/" className="change_login_data">Edytuj Email</Link>
+        <Link to="/changeEmail" className="change_login_data">Edytuj Email</Link>
        </section>
        <Footer />
      </div>

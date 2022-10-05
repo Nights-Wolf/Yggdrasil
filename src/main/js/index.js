@@ -21,6 +21,7 @@ import RemindPassword from "./react/RemindPassword"
 import ForgotPassword from "./react/ForgotPassword";
 import EditProfile from "./react/EditProfile";
 import ChangePassword from "./react/ChangePassword";
+import ChangeEmail from "./react/ChangeEmail";
 import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
 import PassResetTokenExpire from "./react/PassResetTokenExpire";
@@ -39,6 +40,7 @@ ReactDOM.render(
                 <Route path="/login" element={<Login />} />
                 <Route path="/editProfile" element={<EditProfile />} />
                 <Route path="/changePassword" element={<ChangePassword />} />
+                <Route path="/changeEmail" element={<ChangeEmail />} />
                 <Route path="/remindPassword/:token" element={<RemindPassword />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/resetPasswordEmailSent" element={<ResetPasswordEmailSent />} />

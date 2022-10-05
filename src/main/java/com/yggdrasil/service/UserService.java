@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yggdrasil.databaseInterface.UserDatabase;
+import com.yggdrasil.model.ChangeEmail;
 import com.yggdrasil.model.ChangePassword;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,6 +154,21 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED.value()).build();
         }
         return ResponseEntity.status(FORBIDDEN.value()).build();
+    }
+
+    public ResponseEntity changeEmail(ChangeEmail changeEmail) {
+        Users user = userDatabase.findByEmail(changeEmail.getEmail());
+        String checkIfUserExists = String.valueOf(userDatabase.findByEmail(changeEmail.getNewEmail()));
+
+        if (checkIfUserExists.equals("null") || checkIfUserExists.equals("")) {
+            user.setEmail(changeEmail.getNewEmail());
+
+            userDatabase.save(user);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED.value()).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT.value()).build();
     }
 
     public void rememberMeCheck(String email) {

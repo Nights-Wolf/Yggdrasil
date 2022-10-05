@@ -1,5 +1,6 @@
 package com.yggdrasil.api;
 
+import com.yggdrasil.model.ChangeEmail;
 import com.yggdrasil.model.ChangePassword;
 import com.yggdrasil.model.Users;
 import com.yggdrasil.service.UserService;
@@ -47,6 +48,11 @@ public class UserRestController {
     @PutMapping("/changePassword")
     private ResponseEntity changePassword(@RequestBody ChangePassword changePassword) {
         return userService.changePassword(changePassword);
+    }
+
+    @PutMapping("/changeEmail")
+    private ResponseEntity changeEmail(@RequestBody ChangeEmail changeEmail) {
+        return userService.changeEmail(changeEmail);
     }
 
     @PutMapping("/edit")
