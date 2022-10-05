@@ -23,12 +23,13 @@ public class Users {
     private Long id;
     private String grantedAuthorities;
     private String username;
-
     private String surname;
     private String password;
     private String email;
     private String street;
     private String zipCode;
+
+    private String city;
 
     private String voivodeship;
 
@@ -49,7 +50,7 @@ public class Users {
     }
 
     public Users(Long id, String username, String surname, String password, String email, String street, String zipCode,
-                 String voivodeship, Long refreshToken, boolean rememberMe, boolean acceptedTerms, boolean acceptedRodo, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired,
+                 String city, String voivodeship, Long refreshToken, boolean rememberMe, boolean acceptedTerms, boolean acceptedRodo, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired,
                  boolean isEnabled, String grantedAuthorities) {
         this.id = id;
         this.grantedAuthorities = grantedAuthorities;
@@ -59,6 +60,7 @@ public class Users {
         this.email = email;
         this.street = street;
         this.zipCode = zipCode;
+        this.city = city;
         this.voivodeship = voivodeship;
         this.refreshToken = refreshToken;
         this.rememberMe = rememberMe;

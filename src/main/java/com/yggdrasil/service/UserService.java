@@ -1,10 +1,28 @@
 package com.yggdrasil.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yggdrasil.databaseInterface.UserDatabase;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Service
 public class UserService {
@@ -13,10 +31,13 @@ public class UserService {
     private final UserDatabase userDatabase;
     private final PasswordEncoder passwordEncoder;
 
+    private final String secret;
+
     @Autowired
-    public UserService(UserDatabase userDatabase, PasswordEncoder passwordEncoder) {
+    public UserService(UserDatabase userDatabase, PasswordEncoder passwordEncoder, @Value("$(jwt.secret)") String secret) {
         this.userDatabase = userDatabase;
         this.passwordEncoder = passwordEncoder;
+        this.secret = secret;
     }
 
     public void createUser(Users users) {
@@ -41,9 +62,23 @@ public class UserService {
         }
     }
 
-    public Users getUser(Long id) {
-        Users users = userDatabase.getById(id);
-        return users;
+    public ResponseEntity<Users> getUser(HttpServletRequest request, HttpServletResponse response) {
+        String authorizationHeader = request.getHeader(AUTHORIZATION);
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            try {
+                String accessToken = authorizationHeader.substring("Bearer ".length());
+                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
+                DecodedJWT decodedJWT = verifier.verify(accessToken);
+                String email = decodedJWT.getSubject();
+                Users users = userDatabase.findByEmail(email);
+                return new ResponseEntity<Users>(users, HttpStatus.OK);
+
+            } catch (Exception exception) {
+                response.setHeader("error", exception.getMessage());
+                response.setStatus(FORBIDDEN.value());
+            }
+        }
+        return ResponseEntity.status(FORBIDDEN).build();
     }
 
     public void editUser(Long id, Users users) {

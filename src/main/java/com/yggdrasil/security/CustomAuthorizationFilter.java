@@ -36,13 +36,14 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/api/login")  || request.getServletPath().equals("/api/authentication/refresh/token")) {
+        if (request.getServletPath().equals("/api/login")  || request.getServletPath().equals("/api/authentication/refresh/token") || request.getServletPath().equals("/api/user/getByToken")) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
+                    System.out.println(token);
                     JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String email = decodedJWT.getSubject();

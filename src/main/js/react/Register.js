@@ -17,6 +17,7 @@ const [data] = useCheckLogin()
         password: "",
         email: "",
         street: "",
+        city: "",
         zipCode: "",
         voivodeship: "",
         acceptedTerms: false,

@@ -34,6 +34,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/user")
+@CrossOrigin(origins = "*")
 public class UserRestController {
 
 
@@ -50,9 +51,9 @@ public class UserRestController {
         userService.createUser(users);
     }
 
-    @GetMapping("{id}")
-    private void getUser(@PathVariable("id") Long id) {
-        userService.getUser(id);
+    @GetMapping("/getByToken")
+    private ResponseEntity<Users> getUser(HttpServletRequest request, HttpServletResponse response) {
+       return userService.getUser(request, response);
     }
 
     @GetMapping("/getByEmail/{email}")
