@@ -134,7 +134,7 @@ const [data] = useCheckLogin()
             <input type="text" placeholder="Województwo" value={user.voivodeship} name="voivodeship" onChange={handleChange} />
             <button>Zmień dane</button>
         </form>
-        <Link to="/" className="change_login_data">Zmień hasło</Link>
+        <Link to="/changePassword" className="change_login_data">Zmień hasło</Link>
         <Link to="/" className="change_login_data">Edytuj Email</Link>
        </section>
        <Footer />

@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yggdrasil.databaseInterface.UserDatabase;
+import com.yggdrasil.model.ChangePassword;
 import com.yggdrasil.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +19,13 @@ import org.springframework.util.MimeTypeUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 
 @Service
 public class UserService {
@@ -125,12 +128,31 @@ public class UserService {
         return userDatabase.findByEmail(email);
     }
 
-    public void changePassword(String email, Users users) {
+    public void remindPassword(String email, Users users) {
         Users user = userDatabase.findByEmail(email);
 
         user.setPassword(passwordEncoder.encode(users.getPassword()));
 
         userDatabase.save(user);
+    }
+
+    public ResponseEntity changePassword(ChangePassword changePassword) {
+        Users user = userDatabase.findByEmail(changePassword.getEmail());
+
+        String usersPassword = user.getPassword();
+        String usersOldPassword = changePassword.getPassword();
+        String usersNewPassword = changePassword.getNewPassword();
+
+        if (passwordEncoder.matches(usersOldPassword, usersPassword) && !passwordEncoder.matches(usersNewPassword, usersPassword)) {
+            user.setPassword(passwordEncoder.encode(changePassword.getNewPassword()));
+
+            userDatabase.save(user);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED.value()).build();
+        } else if (passwordEncoder.matches(usersNewPassword, usersPassword)) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED.value()).build();
+        }
+        return ResponseEntity.status(FORBIDDEN.value()).build();
     }
 
     public void rememberMeCheck(String email) {
