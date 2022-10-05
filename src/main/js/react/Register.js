@@ -17,6 +17,7 @@ const [data] = useCheckLogin()
         password: "",
         email: "",
         street: "",
+        city: "",
         zipCode: "",
         voivodeship: "",
         acceptedTerms: false,
@@ -170,7 +171,7 @@ const [data] = useCheckLogin()
             .post("http://localhost:8080/api/user/create", user)
             .then(res => {
                 if(res.status == 200) {
-                navigate('/')
+                navigate('/login')
                 }
             })
             .catch(err => {

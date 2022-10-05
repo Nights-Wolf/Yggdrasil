@@ -2,31 +2,41 @@ import React from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 
-function RemindPassword() {
+function ChangePassword() {
 
 const [data] = useCheckLogin()
 
-const { token } = useParams()
-
 const navigate = useNavigate()
 
- React.useEffect(async () => {
-           await axios
-            .get("http://localhost:8080/api/resetPasswordToken/check/" + token)
-            .then(res => {
-                const user = res.headers.user
+    const [user, setUser] = React.useState({
+        email: "",
+    })
 
-                localStorage.setItem('user', user)
+ React.useEffect(async () => {
+    const accessToken = localStorage.getItem("access_token")
+
+           await axios
+            .get("http://localhost:8080/api/user/getByToken", {headers: {
+                Authorization: "Bearer " + accessToken
+            }})
+            .then(res => {
+                setUser(prevUser => {
+                    return {
+                        ...prevUser,
+                        email: res.data.email
+                    }
+                })
             })
             .catch(err => {
-                console.log(err)
+                navigate("/")
             })
         }, [])
 
- const [remindPassword, setRemindPassword] = React.useState({
+ const [changePassword, setChangePassword] = React.useState({
+        oldPassword: "",
         newPassword: ""
     })
 
@@ -35,6 +45,7 @@ const navigate = useNavigate()
     })
 
     const [error, setError] = React.useState({
+        oldPassword: "",
         newPassword: "",
         repeatNewPassword: ""
     })
@@ -49,9 +60,9 @@ const navigate = useNavigate()
 
     function handleChange(event) {
         const {name, value} = event.target
-        setRemindPassword(prevRemindPassword => {
+        setChangePassword(prevChangePassword => {
             return {
-                ...prevRemindPassword,
+                ...prevChangePassword,
                 [name]: value
             }
         })
@@ -68,7 +79,7 @@ const navigate = useNavigate()
     }
 
         function checkNewPassword(passwordChecker) {
-             if (passwordChecker != remindPassword.newPassword) {
+             if (passwordChecker != changePassword.newPassword) {
                 setError(prevError => {
                     return {
                         ...prevError,
@@ -109,19 +120,35 @@ const navigate = useNavigate()
             event.preventDefault()
 
             const isNewPasswordCorrect = checkNewPassword(passwordChecker.repeatNewPassword)
-            const isPasswordLengthCorrect = checkPasswordLength(remindPassword.newPassword)
-            const user = localStorage.getItem("user")
+            const isPasswordLengthCorrect = checkPasswordLength(changePassword.newPassword)
 
             if(isNewPasswordCorrect && isPasswordLengthCorrect) {
                 axios
-                    .put("http://localhost:8080/api/user/remindPassword/" + user, {
-                    password: remindPassword.newPassword})
+                    .put("http://localhost:8080/api/user/changePassword", {
+                        email: user.email,
+                        password: changePassword.oldPassword,
+                        newPassword: changePassword.newPassword
+                    })
                     .then(res => {
-                        localStorage.removeItem("user")
-                        navigate('/login')
+
+                        window.location.reload(false)
                     })
                     .catch(err => {
-                        console.log(err.response)
+                        if (err.response.status === 403) {
+                            setError(prevError => {
+                                return {
+                                    ...prevError,
+                                    oldPassword: "Hasło nie pasuje do obecnego hasła!"
+                                }
+                            })
+                     } else if (err.response.status === 417){
+                        setError(prevError => {
+                             return {
+                                ...prevError,
+                                newPassword: "Nowe hasło nie może być starym hasłem!"
+                                }
+                            })
+                     }
                 })
             }
           }
@@ -131,6 +158,7 @@ const navigate = useNavigate()
        <Header isLogged={data} />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
+            <input type="password" style={error.oldPassword === "" ? errorInvisible : errorVisible} placeholder={error.oldPassword === "" ? "Stare hasło" : error.oldPassword} id="oldPassword"  name="oldPassword"  onChange={handleChange}/>
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>
             <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={validatePassword}/>
             <button>Zmień hasło</button>
@@ -141,4 +169,4 @@ const navigate = useNavigate()
     )
 }
 
-export default RemindPassword
+export default ChangePassword

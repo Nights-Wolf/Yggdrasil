@@ -13,6 +13,7 @@ CREATE TABLE users (
     email VARCHAR(50) NOT NULL,
     street VARCHAR(100),
     zip_Code VARCHAR(6),
+    city VARCHAR(50),
     voivodeship VARCHAR(50),
     refresh_Token INTEGER REFERENCES refresh_Token(id),
     remember_Me BOOLEAN,
