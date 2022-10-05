@@ -12,6 +12,7 @@ const [data] = useCheckLogin()
     const navigate = useNavigate()
 
     const [user, setUser] = React.useState({
+        email: "",
         username: "",
         surname: "",
         street: "",
@@ -43,6 +44,7 @@ const [data] = useCheckLogin()
                  setUser(prevUser => {
                      return {
                         ...prevUser,
+                        email: res.data.email,
                         username: res.data.username,
                         surname: res.data.surname,
                         street: res.data.street,
@@ -62,16 +64,6 @@ const [data] = useCheckLogin()
             return {
                 ...prevUser,
                 [name]: type === "checkbox" ? checked : value
-            }
-        })
-    }
-
-    function validatePassword(event) {
-        const {name, value} = event.target
-        setPasswordChecker(prevPasswordChecker => {
-            return {
-                ...prevPasswordChecker,
-                [name] : value
             }
         })
     }
@@ -121,14 +113,10 @@ const [data] = useCheckLogin()
 
      if (isNameCorrect && isSurnameCorrect) {
         axios
-            .post("http://localhost:8080/api/user/create", user)
-            .then(res => {
-                if(res.status == 200) {
-                navigate('/')
-                }
-            })
+            .put("http://localhost:8080/api/user/edit", user)
+            .then(window.location.reload(false))
             .catch(err => {
-                console.log(err.response)
+                navigate("/")
             })
         }
         }

@@ -81,14 +81,13 @@ public class UserService {
         return ResponseEntity.status(FORBIDDEN).build();
     }
 
-    public void editUser(Long id, Users users) {
-        Users user = userDatabase.findById(id).orElseThrow();
+    public void editUser(Users users) {
+        Users user = userDatabase.findByEmail(users.getEmail());
 
         user.setUsername(users.getUsername());
         user.setSurname(users.getSurname());
-        user.setPassword(users.getPassword());
-        user.setEmail(users.getEmail());
         user.setStreet(users.getStreet());
+        user.setCity(users.getCity());
         user.setZipCode(users.getZipCode());
         user.setVoivodeship(users.getVoivodeship());
 

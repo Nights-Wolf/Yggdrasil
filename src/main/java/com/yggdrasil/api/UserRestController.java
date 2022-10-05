@@ -66,9 +66,9 @@ public class UserRestController {
         userService.changePassword(email, users);
     }
 
-    @PutMapping("{id}")
-    private void editUser(@PathVariable("id") Long id, @RequestBody Users users) {
-        userService.editUser(id, users);
+    @PutMapping("/edit")
+    private void editUser(@RequestBody Users users) {
+        userService.editUser(users);
     }
 
     @DeleteMapping("{id}")
