@@ -62,7 +62,7 @@ function Header(props) {
                     <div className="nav-profile" style={navProfileVisibility}>
                         <ul>
                             <li><NavLink to="/editProfile">Edytuj profil</NavLink></li>
-                            <li><NavLink to="/">Moje zamówienia</NavLink></li>
+                            <li><NavLink to="/myOrders">Moje zamówienia</NavLink></li>
                             <li onClick={logOut}>Wyloguj się</li>
                         </ul>
                     </div>

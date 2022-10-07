@@ -59,17 +59,24 @@ INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) 
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kryształ Górski Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 6, 500, 'Jest to super Kryształowe Drzewko!', 4);
 
 
-CREATE TABLE transactions (
+CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
-    transaction_Number INTEGER NOT NULL,
-    transaction_Value INTEGER NOT NULL,
+    order_Value INTEGER NOT NULL,
     item_Id INTEGER REFERENCES item(id) NOT NULL,
+    item_Name VARCHAR(100) NOT NULL,
     user_Id INTEGER REFERENCES users(id),
     user_email VARCHAR(50) NOT NULL,
-    transaction_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    order_Date DATE NOT NULL DEFAULT CURRENT_DATE,
     street VARCHAR(100) NOT NULL,
-    zip_Code VARCHAR(6) NOT NULL
+    zip_Code VARCHAR(6) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    voivodeship VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL
 );
+
+INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
+INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
+
 
 CREATE TABLE reset_Password_Token (
     id SERIAL PRIMARY KEY NOT NULL,

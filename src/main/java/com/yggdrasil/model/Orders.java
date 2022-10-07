@@ -12,33 +12,40 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Transactions {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private long transactionNumber;
-    private int transactionValue;
+    private int orderValue;
     private Long itemId;
+    private String itemName;
     private Long userId;
     private String userEmail;
-    private Date transactionDate;
+    private Date orderDate;
     private String street;
     private String zipCode;
+    private String city;
+    private String voivodeship;
+    private String status;
 
-    public Transactions() {
+    public Orders() {
         super();
     }
 
-    public Transactions(long transactionNumber, int transactionValue, Long itemId, Long userId, String userEmail, Date transactionDate, String street, String zipCode) {
-        this.transactionNumber = transactionNumber;
-        this.transactionValue = transactionValue;
+    public Orders(int orderValue, Long itemId, String itemName, Long userId, String userEmail, Date orderDate, String street, String zipCode, String city,
+                  String voivodeship, String status) {
+        this.orderValue = orderValue;
         this.itemId = itemId;
+        this.itemName = itemName;
         this.userId = userId;
         this.userEmail = userEmail;
-        this.transactionDate = transactionDate;
+        this.orderDate = orderDate;
         this.street = street;
         this.zipCode = zipCode;
+        this.city = city;
+        this.voivodeship = voivodeship;
+        this.status = status;
     }
 }

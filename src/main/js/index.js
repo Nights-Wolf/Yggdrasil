@@ -20,6 +20,7 @@ import ProductMntGem from "./react/ProductMntGem";
 import RemindPassword from "./react/RemindPassword"
 import ForgotPassword from "./react/ForgotPassword";
 import EditProfile from "./react/EditProfile";
+import MyOrdersPage from "./react/MyOrdersPage";
 import ChangePassword from "./react/ChangePassword";
 import ChangeEmail from "./react/ChangeEmail";
 import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
@@ -39,6 +40,7 @@ ReactDOM.render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/editProfile" element={<EditProfile />} />
+                <Route path="/myOrders" element={<MyOrdersPage />} />
                 <Route path="/changePassword" element={<ChangePassword />} />
                 <Route path="/changeEmail" element={<ChangeEmail />} />
                 <Route path="/remindPassword/:token" element={<RemindPassword />} />
