@@ -4,10 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function Login() {
 
     const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     const navigate = useNavigate();
 
@@ -130,7 +132,10 @@ function Login() {
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+         />
        <section className="login-section">
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />

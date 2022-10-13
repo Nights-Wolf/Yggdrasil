@@ -4,10 +4,12 @@ import useCheckLogin from "./CheckLogin";
 import Header from "./Header";
 import Footer from "./Footer";
 import MyOrders from "./MyOrders";
+import useCheckCart from "./CheckCart";
 
 function MyOrdersPage() {
 
     const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     const [user, setUser] = React.useState({
         email: ""
@@ -68,7 +70,10 @@ function MyOrdersPage() {
 
     return(
         <div>
-            <Header isLogged={data} />
+            <Header
+             isLogged={data}
+             cartItems={cartItemsData}
+             />
             <section className="my-orders-section">
                 {orderCards}
             </section>

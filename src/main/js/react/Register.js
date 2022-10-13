@@ -4,10 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function Register() {
 
-const [data] = useCheckLogin()
+    const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     const navigate = useNavigate()
 
@@ -182,7 +184,10 @@ const [data] = useCheckLogin()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+        />
        <section className="register-section">
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />

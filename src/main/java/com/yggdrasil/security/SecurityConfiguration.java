@@ -57,9 +57,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/", "/about/**", "/terms/**", "/contact/**", "/rodo/**", "/register/**", "/remindPassword/**", "/forgotPassword", "/resetPasswordEmailSent/**", "/products/**", "/passResetExpired", "/resetExpired", "/*", "index", "template", "/css/**", "/js/**", "/main**", "/vendor**", "/imgs/**", "/favicon**", "/editProfile").permitAll()
+                .antMatchers("/login", "/", "/about/**", "/terms/**", "/contact/**", "/rodo/**", "/register/**", "/remindPassword/**", "/forgotPassword", "/resetPasswordEmailSent/**", "/products/**", "/passResetExpired", "/resetExpired", "/*", "index", "template", "/css/**", "/js/**", "/main**", "/vendor**", "/imgs/**", "/favicon**", "/editProfile", "/product/**").permitAll()
                 .antMatchers("/api/login/**", "/api/authentication/signOut/**", "/remindPassword/**").permitAll()
                 //.antMatchers("/editProfile/**").hasAuthority(USER_EDIT.getPermission())
+                .antMatchers(HttpMethod.POST, "/api/cart/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/cart/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/cart/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/cart/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/mail/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/authentication/refresh/token/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/resetPasswordToken/**").permitAll()

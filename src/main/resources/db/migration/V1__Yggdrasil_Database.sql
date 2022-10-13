@@ -77,6 +77,20 @@ CREATE TABLE orders (
 INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
 INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
 
+CREATE TABLE cart (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_Id INTEGER REFERENCES users(id),
+    created_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    token VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE cart_Item (
+    id SERIAL PRIMARY KEY NOT NULL,
+    item_Id INTEGER REFERENCES item(id) NOT NULL,
+    quantity INTEGER NOT NULL,
+    created_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    cart_Id INTEGER REFERENCES cart(id)
+);
 
 CREATE TABLE reset_Password_Token (
     id SERIAL PRIMARY KEY NOT NULL,

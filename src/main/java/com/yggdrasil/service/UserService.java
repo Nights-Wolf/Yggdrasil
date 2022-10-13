@@ -75,7 +75,7 @@ public class UserService {
                 DecodedJWT decodedJWT = verifier.verify(accessToken);
                 String email = decodedJWT.getSubject();
                 Users users = userDatabase.findByEmail(email);
-                return new ResponseEntity<Users>(users, HttpStatus.OK);
+                return new ResponseEntity<>(users, HttpStatus.OK);
 
             } catch (Exception exception) {
                 response.setHeader("error", exception.getMessage());

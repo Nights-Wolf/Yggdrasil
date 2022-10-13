@@ -7,10 +7,12 @@ import Pagination from "./Pagination";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function ProductMntGem() {
 
-const [data] = useCheckLogin()
+    const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
@@ -77,7 +79,10 @@ const [data] = useCheckLogin()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+        />
        <section className="products-section">
         <div className="filters-container">
             <div className="filters-container__price-filter">

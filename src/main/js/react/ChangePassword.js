@@ -4,10 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function ChangePassword() {
 
 const [data] = useCheckLogin()
+const [cartItemsData] = useCheckCart()
 
 const navigate = useNavigate()
 
@@ -155,7 +157,10 @@ const navigate = useNavigate()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+         />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="password" style={error.oldPassword === "" ? errorInvisible : errorVisible} placeholder={error.oldPassword === "" ? "Stare hasło" : error.oldPassword} id="oldPassword"  name="oldPassword"  onChange={handleChange}/>

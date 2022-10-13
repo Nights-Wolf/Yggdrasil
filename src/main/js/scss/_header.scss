@@ -27,7 +27,7 @@ header {
             background: $secondary-color;
             top: 36px;
             height: 22px;
-            width: 120px;
+            width: 70px;
             border: none;
             color: white;
         }
@@ -39,6 +39,32 @@ header {
             width: 28px;
         }
     }
+
+    .cart {
+        position: absolute;
+        right: 25px;
+        top: 30px;
+        height: fit-content;
+        width: fit-content;
+        text-align: center;
+
+        i {
+            color: $secondary-color;
+        }
+
+        &-count {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            height: 15px;
+            width: 15px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: red;
+            color: white;
+        }
+    }
+
     .menu-btn {
         position: absolute;
         z-index: 1;
