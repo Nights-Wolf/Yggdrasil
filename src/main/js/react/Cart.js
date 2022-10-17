@@ -42,13 +42,13 @@ function Cart(props) {
            {
              label: 'Tak',
              onClick: () => axios
-                                        .delete("http://localhost:8080/api/cart/cartItem/" + item.id)
-                                        .then(res => {
-                                            window.location.reload(false)
-                                        })
-                                        .catch(err => {
-                                            console.log(err.response)
-                                        })
+                    .delete("http://localhost:8080/api/cart/cartItem/" + item.id)
+                    .then(res => {
+                        window.location.reload(false)
+                    })
+                    .catch(err => {
+                        console.log(err.response)
+                    })
            },
            {
              label: 'Nie',
