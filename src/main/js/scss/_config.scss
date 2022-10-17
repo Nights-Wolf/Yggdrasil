@@ -58,4 +58,15 @@ $buttons-color: #C4C4C4 !default;
             background: $buttons-color;
         }
     }
+
+    .custom-ui {
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        width: 250px;
+        height: 320px;
+        border: 2px solid black;
+        background-color: red;
+        color: white;
+    }
 }

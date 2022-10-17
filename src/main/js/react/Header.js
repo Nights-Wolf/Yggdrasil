@@ -80,7 +80,7 @@ function Header(props) {
                     <input type="text"/>
                 </form>
                 <div className="cart">
-                    <Link to="/"><i class="fas fa-shopping-cart fa-2x"></i></Link>
+                    <Link to="/cart"><i class="fas fa-shopping-cart fa-2x"></i></Link>
                     <span className="cart-count" style={cartItemsCountVisibility}>{props.cartItems}</span>
                 </div>
             </header>

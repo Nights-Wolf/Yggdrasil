@@ -17,6 +17,7 @@ import ProductAmethyst from "./react/ProductAmethyst";
 import ProductLapiz from "./react/ProductLapiz";
 import ProductQuartz from "./react/ProductQuartz";
 import ProductMntGem from "./react/ProductMntGem";
+import CartPage from "./react/CartPage"
 import RemindPassword from "./react/RemindPassword"
 import ForgotPassword from "./react/ForgotPassword";
 import EditProfile from "./react/EditProfile";
@@ -54,6 +55,7 @@ ReactDOM.render(
                 <Route path="/products/lapiz_lazuli" element={<ProductLapiz />} />
                 <Route path="/products/quartz" element={<ProductQuartz />} />
                 <Route path="/products/mountain_gem" element={<ProductMntGem />} />
+                <Route path="/cart" element={<CartPage />} />
                 <Route path="/passResetExpired" element={<PassResetTokenExpire />} />
                 <Route path="/resetExpired" element={<PassResetTokenNotFound />} />
                 <Route path="*" element={<Error />} />

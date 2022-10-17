@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/cart")
@@ -39,5 +40,15 @@ public class CartRestController {
     @PostMapping("/addItem/{token}")
     private void addItemToCart(@RequestBody CartItem cartItem, @PathVariable("token") String token) {
         cartService.addItemToCart(cartItem, token);
+    }
+
+    @GetMapping("/getItems/{token}")
+    private ResponseEntity<List<CartItem>> getCartItems(@PathVariable("token") String token) {
+        return cartService.getCartItems(token);
+    }
+
+    @DeleteMapping("/cartItem/{id}")
+    private void deleteCartItem(@PathVariable("id") Long id) {
+        cartService.deleteCartItem(id);
     }
 }

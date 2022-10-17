@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -57,5 +58,20 @@ public class CartService {
         cartItem.setCartId(cart.getId());
 
         cartItemDatabase.save(cartItem);
+    }
+
+    public ResponseEntity<List<CartItem>>getCartItems(String token) {
+        Cart cart = cartDatabase.findByToken(token);
+
+        List<CartItem> cartItems = cartItemDatabase.findByCartId(cart.getId());
+
+        return new ResponseEntity<>(cartItems, HttpStatus.OK);
+    }
+
+    public void deleteCartItem(Long id) {
+        List<CartItem> itemList = cartItemDatabase.findByItemId(id);
+        for (CartItem cartItem: itemList) {
+            cartItemDatabase.deleteById(cartItem.getId());
+        }
     }
 }

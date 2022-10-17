@@ -88,7 +88,7 @@ function ProductPage(props) {
                 axios
                     .post("http://localhost:8080/api/cart/addItem/" + usersCart, cartItem)
                     .then(res => {
-                        navigate("/")
+                        navigate("/cart")
                     })
                     .catch(err =>
                         console.log(err.response)
@@ -123,7 +123,7 @@ function ProductPage(props) {
                 axios
                     .post("http://localhost:8080/api/cart/addItem/" + cartToken, cartItem)
                     .then(res => {
-                        navigate("/")
+                        navigate("/cart")
                     })
                     .catch(err =>
                         console.log(err.response)
