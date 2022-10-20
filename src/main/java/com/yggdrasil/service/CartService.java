@@ -74,4 +74,15 @@ public class CartService {
             cartItemDatabase.deleteById(cartItem.getId());
         }
     }
+
+    public void adjustQuantity( Long id, Integer quantity) {
+        CartItem cartItem = cartItemDatabase.findById(id).orElseThrow();
+
+        if(quantity >= 1) {
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+        } else {
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
+        }
+        cartItemDatabase.save(cartItem);
+    }
 }

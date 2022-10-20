@@ -58,6 +58,17 @@ INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) 
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kwarcowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 5, 500, 'Jest to super Kwarcowe Drzewko!', 23);
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kryształ Górski Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 6, 500, 'Jest to super Kryształowe Drzewko!', 4);
 
+CREATE TABLE shipments (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR NOT NULL,
+    price INTEGER NOT NULL,
+    shipment_Days INTEGER NOT NULL
+);
+
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Kurier Inpost', 11.99, 2);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Paczkomat Inpost', 11.99, 2);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('DPD', 9.99, 4);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Poczta Polska', 4.99, 6);
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -71,7 +82,8 @@ CREATE TABLE orders (
     zip_Code VARCHAR(6) NOT NULL,
     city VARCHAR(50) NOT NULL,
     voivodeship VARCHAR(50) NOT NULL,
-    status VARCHAR(20) NOT NULL
+    status VARCHAR(20) NOT NULL,
+    shipments_Id INTEGER REFERENCES shipments(id)
 );
 
 INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');

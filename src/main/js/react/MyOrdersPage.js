@@ -27,7 +27,8 @@ function MyOrdersPage() {
         zipCode: "",
         city: "",
         voivodeship: "",
-        status: ""
+        status: "",
+        shipment: ""
     }])
 
         React.useEffect(() => {

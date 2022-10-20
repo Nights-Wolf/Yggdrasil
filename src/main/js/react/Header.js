@@ -76,8 +76,8 @@ function Header(props) {
                     isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink> : null}</div>
                 </nav>
                 <form className="search-engine">
-                    <button><i className="fa fa-eye"></i></button>
-                    <input type="text"/>
+                    <input type="search"/>
+                    <button><i className="fa fa-eye" description="Szukaj"></i></button>
                 </form>
                 <div className="cart">
                     <Link to="/cart"><i class="fas fa-shopping-cart fa-2x"></i></Link>

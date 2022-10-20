@@ -15,8 +15,10 @@ function Cart(props) {
     function adjustCount(amount) {
        if (itemCount || itemCount != 0) {
             setItemCount(amount + parseInt(itemCount, 10))
+            adjustQuantity()
        } else {
             setItemCount(1)
+            adjustQuantity()
        }
     }
 
@@ -58,17 +60,29 @@ function Cart(props) {
        });
      };
 
+    const adjustQuantity = (quantity) => {
+    console.log(quantity)
+        axios
+            .put("http://localhost:8080/api/cart/adjustQuantity/" + props.id + "/" + quantity)
+            .then(res => {
+                window.location.reload(false)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }
+
     return(
         <div className="cart-Card">
-            <img src= {discount_picture_2} />
+            <img src= {discount_picture_2} alt="zdjęcie produktu" />
             <div className="cart-details">
                 <p className="name">{item.itemName}</p>
                 <form>
                     <div className="item-quantity">
-                        <button type="button" name="add" onClick={() => adjustCount(1)} >+</button>
+                        <button type="button" name="add" description="Kliknij aby dodać produkt do koszyka" onClick={() => adjustQuantity(1)} >+</button>
                         <input type="number" name="quantity"  value={itemCount} onChange={handleChange} />
-                        <button type="button" name="subtract" onClick={() => adjustCount(-1)} >-</button>
-                        <button type="button" name="delete" onClick={deleteItem} ><i class="fa fa-trash fa-2x"></i></button>
+                        <button type="button" name="subtract" description="Kliknij aby odjąć produkt do koszyka" onClick={() => adjustQuantity(-1)} >-</button>
+                        <button type="button" name="delete" description="Kliknij aby usunąć produkt do koszyka" onClick={deleteItem} ><i class="fa fa-trash fa-2x"></i></button>
                     </div>
                 </form>
                 <p className="price">{item.price * props.quantity} zł</p>

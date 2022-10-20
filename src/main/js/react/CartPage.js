@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
 import Cart from "./Cart";
+import { Link } from "react-router-dom";
 
 function CartPage() {
 
@@ -43,6 +44,10 @@ function CartPage() {
             />
             <section className="cart-section">
             {cartCards}
+            <div className="cart-submit-buttons">
+                <Link to="/products">Kontynuuj zakupy</Link>
+                <Link to= "/order">Złóż zamówienie</Link>
+            </div>
             </section>
             <Footer />
         </div>
