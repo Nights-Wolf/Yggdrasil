@@ -30,7 +30,8 @@ function CartPage() {
         }
     }, [])
 
-       const cartCards = cartItems.map(cartItems => {return <Cart key={cartItems.id}
+       const cartCards = cartItems.map(cartItems => {
+       return <Cart key={cartItems.id}
                     id={cartItems.id}
                     item= {cartItems.itemId}
                     quantity= {cartItems.quantity} />
