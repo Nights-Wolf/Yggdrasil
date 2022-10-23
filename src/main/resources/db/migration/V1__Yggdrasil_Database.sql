@@ -61,14 +61,14 @@ INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) 
 CREATE TABLE shipments (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR NOT NULL,
-    price INTEGER NOT NULL,
+    price DECIMAL NOT NULL,
     shipment_Days INTEGER NOT NULL
 );
 
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('Kurier Inpost', 11.99, 2);
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('Paczkomat Inpost', 11.99, 2);
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('DPD', 9.99, 4);
-INSERT INTO shipments(name, price, shipment_Days) VALUES ('Poczta Polska', 4.99, 6);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Poczta Polska', 15.99, 6);
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -76,6 +76,8 @@ CREATE TABLE orders (
     item_Id INTEGER REFERENCES item(id) NOT NULL,
     item_Name VARCHAR(100) NOT NULL,
     user_Id INTEGER REFERENCES users(id),
+    username VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
     user_email VARCHAR(50) NOT NULL,
     order_Date DATE NOT NULL DEFAULT CURRENT_DATE,
     street VARCHAR(100) NOT NULL,
@@ -85,9 +87,6 @@ CREATE TABLE orders (
     status VARCHAR(20) NOT NULL,
     shipments_Id INTEGER REFERENCES shipments(id)
 );
-
-INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
-INSERT INTO orders(order_Value, item_Id, item_Name, user_Id, user_email, street, zip_Code, city, voivodeship, status) VALUES (100, 1, 'Bursztynowe Drzewko', 1, 'dawid.calkowski@wp.pl', 'Podolska', '55-555', 'Gdynia', 'Pomorskie', 'W trakcie realizacji');
 
 CREATE TABLE cart (
     id SERIAL PRIMARY KEY NOT NULL,

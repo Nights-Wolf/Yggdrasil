@@ -18,12 +18,12 @@ public class Shipments {
     private Long id;
 
     private String name;
-    private int price;
+    private float price;
     private int shipmentDays;
 
     public Shipments() {super();}
 
-    public Shipments(Long id, String name, int price, int shipmentDays) {
+    public Shipments(Long id, String name, float price, int shipmentDays) {
         this.id = id;
         this.name = name;
         this.price = price;

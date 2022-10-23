@@ -22,6 +22,8 @@ public class Orders {
     private Long itemId;
     private String itemName;
     private Long userId;
+    private String username;
+    private String surname;
     private String userEmail;
     private Date orderDate;
     private String street;
@@ -34,12 +36,14 @@ public class Orders {
         super();
     }
 
-    public Orders(int orderValue, Long itemId, String itemName, Long userId, String userEmail, Date orderDate, String street, String zipCode, String city,
+    public Orders(int orderValue, Long itemId, String itemName, Long userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
                   String voivodeship, String status) {
         this.orderValue = orderValue;
         this.itemId = itemId;
         this.itemName = itemName;
         this.userId = userId;
+        this.username = username;
+        this.surname = surname;
         this.userEmail = userEmail;
         this.orderDate = orderDate;
         this.street = street;
