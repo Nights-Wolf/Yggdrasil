@@ -1,3 +1,4 @@
+CREATE SCHEMA public
 
 CREATE TABLE refresh_Token (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -60,7 +61,7 @@ INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) 
 
 CREATE TABLE shipments (
     id SERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR NOT NULL,
+    name VARCHAR(30) NOT NULL,
     price DECIMAL NOT NULL,
     shipment_Days INTEGER NOT NULL
 );
@@ -69,6 +70,14 @@ INSERT INTO shipments(name, price, shipment_Days) VALUES ('Kurier Inpost', 11.99
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('Paczkomat Inpost', 11.99, 2);
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('DPD', 9.99, 4);
 INSERT INTO shipments(name, price, shipment_Days) VALUES ('Poczta Polska', 15.99, 6);
+
+CREATE TABLE payment (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL
+);
+
+INSERT INTO payment(name) VALUES ('Przelew Tradycyjny');
+INSERT INTO payment(name) VALUES ('PayPal');
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -85,7 +94,8 @@ CREATE TABLE orders (
     city VARCHAR(50) NOT NULL,
     voivodeship VARCHAR(50) NOT NULL,
     status VARCHAR(20) NOT NULL,
-    shipments_Id INTEGER REFERENCES shipments(id)
+    shipments_Id INTEGER REFERENCES shipments(id),
+    payment_Id INTEGER REFERENCES payment(id)
 );
 
 CREATE TABLE cart (

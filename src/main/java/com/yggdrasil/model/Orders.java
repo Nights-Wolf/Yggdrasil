@@ -31,13 +31,15 @@ public class Orders {
     private String city;
     private String voivodeship;
     private String status;
+    private Long shipmentId;
+    private Long paymentId;
 
     public Orders() {
         super();
     }
 
     public Orders(int orderValue, Long itemId, String itemName, Long userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
-                  String voivodeship, String status) {
+                  String voivodeship, String status, Long shipmentId, Long paymentId) {
         this.orderValue = orderValue;
         this.itemId = itemId;
         this.itemName = itemName;
@@ -51,5 +53,7 @@ public class Orders {
         this.city = city;
         this.voivodeship = voivodeship;
         this.status = status;
+        this.shipmentId = shipmentId;
+        this.paymentId = paymentId;
     }
 }
