@@ -37,7 +37,6 @@ public class OrdersService {
         Orders order = ordersDatabase.findById(id).orElseThrow();
 
         order.setOrderValue(orders.getOrderValue());
-        order.setItemId(orders.getItemId());
         order.setUserId(orders.getUserId());
         order.setOrderDate(orders.getOrderDate());
         order.setStreet(orders.getStreet());

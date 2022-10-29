@@ -44,11 +44,13 @@ function CartPage() {
                 cartItems={cartItemsData}
             />
             <section className="cart-section">
+            {cartItemsData ? <>
             {cartCards}
             <div className="cart-submit-buttons">
                 <Link to="/products">Kontynuuj zakupy</Link>
                 <Link to= "/order">Złóż zamówienie</Link>
-            </div>
+            </div></>
+             : <h1>Twój koszyk jest pusty!</h1>}
             </section>
             <Footer />
         </div>

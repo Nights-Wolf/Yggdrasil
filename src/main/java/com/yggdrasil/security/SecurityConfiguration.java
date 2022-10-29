@@ -70,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/order/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/order/**").hasAuthority(TRANSACTION_ADD.getPermission())
+                .antMatchers(HttpMethod.POST, "/api/order/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/order/**").hasAuthority(TRANSACTION_DELETE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/api/order/**").hasAuthority(TRANSACTION_EDIT.getPermission())
                 .antMatchers(HttpMethod.POST, "/api/category/**").hasAuthority(CATEGORY_ADD.getPermission())

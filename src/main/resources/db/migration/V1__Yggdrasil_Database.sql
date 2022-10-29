@@ -1,4 +1,3 @@
-CREATE SCHEMA public
 
 CREATE TABLE refresh_Token (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -79,25 +78,6 @@ CREATE TABLE payment (
 INSERT INTO payment(name) VALUES ('Przelew Tradycyjny');
 INSERT INTO payment(name) VALUES ('PayPal');
 
-CREATE TABLE orders (
-    id SERIAL PRIMARY KEY NOT NULL,
-    order_Value INTEGER NOT NULL,
-    item_Id INTEGER REFERENCES item(id) NOT NULL,
-    item_Name VARCHAR(100) NOT NULL,
-    user_Id INTEGER REFERENCES users(id),
-    username VARCHAR(20) NOT NULL,
-    surname VARCHAR(20) NOT NULL,
-    user_email VARCHAR(50) NOT NULL,
-    order_Date DATE NOT NULL DEFAULT CURRENT_DATE,
-    street VARCHAR(100) NOT NULL,
-    zip_Code VARCHAR(6) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    voivodeship VARCHAR(50) NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    shipments_Id INTEGER REFERENCES shipments(id),
-    payment_Id INTEGER REFERENCES payment(id)
-);
-
 CREATE TABLE cart (
     id SERIAL PRIMARY KEY NOT NULL,
     user_Id INTEGER REFERENCES users(id),
@@ -111,6 +91,24 @@ CREATE TABLE cart_Item (
     quantity INTEGER NOT NULL,
     created_Date DATE NOT NULL DEFAULT CURRENT_DATE,
     cart_Id INTEGER REFERENCES cart(id)
+);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY NOT NULL,
+    order_Value INTEGER NOT NULL,
+    cart_Id INTEGER REFERENCES cart(id) NOT NULL,
+    user_Id INTEGER REFERENCES users(id),
+    username VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
+    user_email VARCHAR(50) NOT NULL,
+    order_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    street VARCHAR(100) NOT NULL,
+    zip_Code VARCHAR(6) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    voivodeship VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    shipments_Id INTEGER REFERENCES shipments(id),
+    payment_Id INTEGER REFERENCES payment(id)
 );
 
 CREATE TABLE reset_Password_Token (

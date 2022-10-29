@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
 
 function Order() {
 
+    const navigate = useNavigate()
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
 
@@ -16,8 +17,7 @@ function Order() {
     })
     const [order, setOrder] = React.useState({
         orderValue: "",
-        itemId: "",
-        itemName: "",
+        cartId: "",
         userId: "",
         username: "",
         surname: "",
@@ -27,8 +27,8 @@ function Order() {
         zipCode: "",
         city: "",
         voivodeship: "",
-        status: "",
-        shipmentId: "",
+        status: "Nieopłacone",
+        shipmentsId: "",
         paymentId: ""
     })
 
@@ -43,7 +43,9 @@ function Order() {
         street: "",
         zipCode: "",
         city: "",
-        voivodeship: ""
+        voivodeship: "",
+        shipmentsId: "",
+        paymentId: ""
     })
 
     const errorVisible = {
@@ -101,6 +103,24 @@ function Order() {
             .get("http://localhost:8080/api/payment")
             .then(res => {
                 setPayments(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }, [])
+
+    React.useEffect(async () => {
+        const cartToken = localStorage.getItem("cart")
+
+        await axios
+            .get("http://localhost:8080/api/cart/" + cartToken)
+            .then(res => {
+                setOrder(prevOrder => {
+                    return {
+                        ...prevOrder,
+                        cartId: res.data.id
+                    }
+                })
             })
             .catch(err => {
                 console.log(err.response)
@@ -248,8 +268,44 @@ function Order() {
             return true
         }
 
+        function checkShipment(shipment) {
+                    if (shipment == "") {
+                        setError(prevError => {
+                        return {
+                            ...prevError,
+                            shipmentsId: "Musisz wybrać dostawcę!"
+                        }})
+                        return false
+                    }
+                    setError(prevError => {
+                        return {
+                            ...prevError,
+                            shipmentsId: ""
+                    }})
+                    return true
+                }
+
+        function checkPayment(payment) {
+                    if (payment == "") {
+                        setError(prevError => {
+                        return {
+                            ...prevError,
+                            paymentId: "Musisz wybrać sposób płatności!"
+                        }})
+                        return false
+                    }
+                    setError(prevError => {
+                        return {
+                            ...prevError,
+                            paymentId: ""
+                    }})
+                    return true
+                }
+
     const handleSubmit = (event) => {
         event.preventDefault()
+
+        const date = new Date(Date.now())
 
         const isNameCorrect = checkName(order.name)
         const isSurnameCorrect = checkSurname(order.surname)
@@ -258,15 +314,45 @@ function Order() {
         const isZipCodeCorrect = checkZipCode(order.zipCode)
         const isCityCorrect = checkCity(order.city)
         const isVoivodeshipCorrect = checkVoivodeship(order.voivodeship)
+        const isShipmentCorrect = checkShipment(order.shipmentsId)
+        const isPaymentCorrect = checkPayment(order.paymentId)
+
+        if (isNameCorrect && isSurnameCorrect && isEmailCorrect && isStreetCorrect && isZipCodeCorrect && isCityCorrect
+        && isVoivodeshipCorrect && isShipmentCorrect && isPaymentCorrect) {
+            axios
+                .post("http://localhost:8080/api/order", {
+                    orderValue: order.orderValue,
+                    cartId: order.cartId,
+                    userId: order.userId,
+                    username: order.username,
+                    surname: order.surname,
+                    userEmail: order.userEmail,
+                    orderDate: date,
+                    street: order.street,
+                    zipCode: order.zipCode,
+                    city: order.city,
+                    voivodeship: order.voivodeship,
+                    status: order.status,
+                    shipmentsId: order.shipmentsId,
+                    paymentId: order.paymentId
+                })
+                .then(res => {
+                    localStorage.removeItem("cart")
+                    navigate("/")
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+            }
     }
 
     const shipmentOptions = shipment.map(shipment => {
-        return  <div className="shipment-option"> <label htmlFor={shipment.id}>{shipment.name}<span>({shipment.price} zł)</span></label>
-        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentId" onChange={handleChange} /></div>
+        return  <div className="shipment-option"  style={error.shipmentsId === "" ? errorInvisible : errorVisible}> <label htmlFor={shipment.id}>{shipment.name}<span>({shipment.price} zł)</span></label>
+        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentsId" onChange={handleChange} /></div>
     })
 
     const paymentsOptions = payments.map(payment => {
-        return  <div className="payment-option"> <label htmlFor={payment.id}>{payment.name}</label>
+        return  <div className="payment-option"  style={error.paymentId === "" ? errorInvisible : errorVisible}> <label htmlFor={payment.id}>{payment.name}</label>
         <input key={payment.id} id={payment.id} type="radio" value={payment.id} name="paymentId" onChange={handleChange} /></div>
     })
 
@@ -280,10 +366,10 @@ function Order() {
                 <form onSubmit={handleSubmit}>
                     <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={order.username} name="username" onChange={handleChange} />
                     <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} value={order.surname} name="surname" onChange={handleChange} />
-                    <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email*" : error.email} value={order.userEmail} name="email" onChange={handleChange} />
+                    <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email*" : error.email} value={order.userEmail} name="userEmail" onChange={handleChange} />
                     <input type="text" style={error.street === "" ? errorInvisible : errorVisible} placeholder={error.street === "" ? "Adres*" : error.street} value={order.street} name="street" onChange={handleChange} />
                     <input type="text" style={error.zipCode === "" ? errorInvisible : errorVisible} placeholder={error.zipCode === "" ? "Kod pocztowy*" : error.zipCode} value={order.zipCode} name="zipCode" onChange={handleChange} />
-                    <input type="text" style={error.city === "" ? errorInvisible : errorVisible} placeholder={error.city === "" ? "Miasto*" : error.city} value={order.city} onChange={handleChange} />
+                    <input type="text" style={error.city === "" ? errorInvisible : errorVisible} placeholder={error.city === "" ? "Miasto*" : error.city} value={order.city} name="city" onChange={handleChange} />
                     <input type="text" style={error.voivodeship === "" ? errorInvisible : errorVisible} placeholder={error.voivodeship === "" ? "Województwo*" : error.voivodeship} value={order.voivodeship} name="voivodeship" onChange={handleChange} />
                     <div className="shipment">
                         {shipmentOptions}
