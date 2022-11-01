@@ -48,12 +48,41 @@
            padding: 0;
         }
 
-        a {
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: fit-content;
+            width: fit-content;
+
+            .item-quantity {
+                display: flex;
+                flex-direction: row;
+
+                input {
+                    width: 25px;
+                    height: 25px;
+                    margin-left: 3px;
+                    margin-right: 3px;
+                    margin-bottom: 5px;
+                }
+
+                button {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        button {
            position: relative;
            display: flex;
            justify-content: center;
            align-items: center;
            text-align: center;
+           border: none;
+           font-family: 'Macondo', cursive;
 
            height: 40px;
            width: 160px;

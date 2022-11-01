@@ -10,4 +10,5 @@ import java.util.List;
 public interface ItemDatabase extends JpaRepository<Item, Long> {
 
     List<Item> findByCategoryId(Long categoryId);
+    Item getItemsById(Long id);
 }

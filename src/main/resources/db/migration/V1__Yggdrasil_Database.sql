@@ -58,17 +58,57 @@ INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) 
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kwarcowe Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 5, 500, 'Jest to super Kwarcowe Drzewko!', 23);
 INSERT INTO item(item_Name, image, category_Id, price, description, items_Left) VALUES ('Kryształ Górski Drzewko','C:\Users\dawin\IdeaProjects\Yggdrasil\src\main\js\react\assets\images\promotion_image_2.jpg' , 6, 500, 'Jest to super Kryształowe Drzewko!', 4);
 
-
-CREATE TABLE transactions (
+CREATE TABLE shipments (
     id SERIAL PRIMARY KEY NOT NULL,
-    transaction_Number INTEGER NOT NULL,
-    transaction_Value INTEGER NOT NULL,
-    item_Id INTEGER REFERENCES item(id) NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    price DECIMAL NOT NULL,
+    shipment_Days INTEGER NOT NULL
+);
+
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Kurier Inpost', 11.99, 2);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Paczkomat Inpost', 11.99, 2);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('DPD', 9.99, 4);
+INSERT INTO shipments(name, price, shipment_Days) VALUES ('Poczta Polska', 15.99, 6);
+
+CREATE TABLE payment (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL
+);
+
+INSERT INTO payment(name) VALUES ('Przelew Tradycyjny');
+INSERT INTO payment(name) VALUES ('PayPal');
+
+CREATE TABLE cart (
+    id SERIAL PRIMARY KEY NOT NULL,
     user_Id INTEGER REFERENCES users(id),
+    created_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    token VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE cart_Item (
+    id SERIAL PRIMARY KEY NOT NULL,
+    item_Id INTEGER REFERENCES item(id) NOT NULL,
+    quantity INTEGER NOT NULL,
+    created_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    cart_Id INTEGER REFERENCES cart(id)
+);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY NOT NULL,
+    order_Value INTEGER NOT NULL,
+    cart_Id INTEGER REFERENCES cart(id) NOT NULL,
+    user_Id INTEGER REFERENCES users(id),
+    username VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
     user_email VARCHAR(50) NOT NULL,
-    transaction_Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    order_Date DATE NOT NULL DEFAULT CURRENT_DATE,
     street VARCHAR(100) NOT NULL,
-    zip_Code VARCHAR(6) NOT NULL
+    zip_Code VARCHAR(6) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    voivodeship VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    shipments_Id INTEGER REFERENCES shipments(id),
+    payment_Id INTEGER REFERENCES payment(id)
 );
 
 CREATE TABLE reset_Password_Token (

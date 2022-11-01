@@ -17,11 +17,15 @@ import ProductAmethyst from "./react/ProductAmethyst";
 import ProductLapiz from "./react/ProductLapiz";
 import ProductQuartz from "./react/ProductQuartz";
 import ProductMntGem from "./react/ProductMntGem";
+import CartPage from "./react/CartPage"
 import RemindPassword from "./react/RemindPassword"
 import ForgotPassword from "./react/ForgotPassword";
 import EditProfile from "./react/EditProfile";
+import MyOrdersPage from "./react/MyOrdersPage";
 import ChangePassword from "./react/ChangePassword";
 import ChangeEmail from "./react/ChangeEmail";
+import Order from "./react/Order";
+import SummaryPage from "./react/SummaryPage";
 import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
 import PassResetTokenExpire from "./react/PassResetTokenExpire";
@@ -39,6 +43,7 @@ ReactDOM.render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/editProfile" element={<EditProfile />} />
+                <Route path="/myOrders" element={<MyOrdersPage />} />
                 <Route path="/changePassword" element={<ChangePassword />} />
                 <Route path="/changeEmail" element={<ChangeEmail />} />
                 <Route path="/remindPassword/:token" element={<RemindPassword />} />
@@ -52,6 +57,9 @@ ReactDOM.render(
                 <Route path="/products/lapiz_lazuli" element={<ProductLapiz />} />
                 <Route path="/products/quartz" element={<ProductQuartz />} />
                 <Route path="/products/mountain_gem" element={<ProductMntGem />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/summary/:cartId" element={<SummaryPage />} />
                 <Route path="/passResetExpired" element={<PassResetTokenExpire />} />
                 <Route path="/resetExpired" element={<PassResetTokenNotFound />} />
                 <Route path="*" element={<Error />} />

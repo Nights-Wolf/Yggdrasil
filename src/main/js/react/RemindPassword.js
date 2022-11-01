@@ -4,16 +4,18 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useParams, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function RemindPassword() {
 
-const [data] = useCheckLogin()
+    const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
-const { token } = useParams()
+    const { token } = useParams()
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
- React.useEffect(async () => {
+    React.useEffect(async () => {
            await axios
             .get("http://localhost:8080/api/resetPasswordToken/check/" + token)
             .then(res => {
@@ -26,7 +28,7 @@ const navigate = useNavigate()
             })
         }, [])
 
- const [remindPassword, setRemindPassword] = React.useState({
+    const [remindPassword, setRemindPassword] = React.useState({
         newPassword: ""
     })
 
@@ -128,7 +130,10 @@ const navigate = useNavigate()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+        />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>

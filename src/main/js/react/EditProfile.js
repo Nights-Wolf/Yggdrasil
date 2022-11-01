@@ -4,10 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function EditProfile() {
 
-const [data] = useCheckLogin()
+    const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     const navigate = useNavigate()
 
@@ -123,7 +125,10 @@ const [data] = useCheckLogin()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+         />
        <section className="edit_profile-section">
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={user.username} name="username" onChange={handleChange} />

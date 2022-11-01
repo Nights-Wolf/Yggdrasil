@@ -1,14 +1,19 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function About() {
 
 const [data] = useCheckLogin()
+    const [cartItemsData] = useCheckCart()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+       isLogged={data}
+       cartItems={cartItemsData}
+       />
        <section className="about-page">
         <article>
          <h1>Nasza działalność</h1>

@@ -1,0 +1,57 @@
+package com.yggdrasil.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
+@Entity
+@Getter
+@Setter
+public class Orders {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private int orderValue;
+    private Long cartId;
+    private Long userId;
+    private String username;
+    private String surname;
+    private String userEmail;
+    private Date orderDate;
+    private String street;
+    private String zipCode;
+    private String city;
+    private String voivodeship;
+    private String status;
+    private Long shipmentsId;
+    private Long paymentId;
+
+    public Orders() {
+        super();
+    }
+
+    public Orders(int orderValue, Long cartId, Long userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
+                  String voivodeship, String status, Long shipmentsId, Long paymentId) {
+        this.orderValue = orderValue;
+        this.cartId = cartId;
+        this.userId = userId;
+        this.username = username;
+        this.surname = surname;
+        this.userEmail = userEmail;
+        this.orderDate = orderDate;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.voivodeship = voivodeship;
+        this.status = status;
+        this.shipmentsId = shipmentsId;
+        this.paymentId = paymentId;
+    }
+}

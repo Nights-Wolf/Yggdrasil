@@ -35,6 +35,10 @@ function Header(props) {
             display: profileNavVisibility ? 'block' : 'none'
         }
 
+        const cartItemsCountVisibility = {
+            display: props.cartItems >= 1 ? 'block' : 'none'
+        }
+
         return(
             <header>
                 <div className="menu-btn">
@@ -62,7 +66,7 @@ function Header(props) {
                     <div className="nav-profile" style={navProfileVisibility}>
                         <ul>
                             <li><NavLink to="/editProfile">Edytuj profil</NavLink></li>
-                            <li><NavLink to="/">Moje zamówienia</NavLink></li>
+                            <li><NavLink to="/myOrders">Moje zamówienia</NavLink></li>
                             <li onClick={logOut}>Wyloguj się</li>
                         </ul>
                     </div>
@@ -72,9 +76,13 @@ function Header(props) {
                     isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink> : null}</div>
                 </nav>
                 <form className="search-engine">
-                    <button><i className="fa fa-eye"></i></button>
-                    <input type="text"/>
+                    <input type="search"/>
+                    <button><i className="fa fa-eye" description="Szukaj"></i></button>
                 </form>
+                <div className="cart">
+                    <Link to="/cart"><i class="fas fa-shopping-cart fa-2x"></i></Link>
+                    <span className="cart-count" style={cartItemsCountVisibility}>{props.cartItems}</span>
+                </div>
             </header>
 )}
 

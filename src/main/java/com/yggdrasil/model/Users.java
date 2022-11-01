@@ -32,11 +32,8 @@ public class Users {
     private String city;
 
     private String voivodeship;
-
     private Long refreshToken;
-
     private boolean rememberMe;
-
     private boolean acceptedTerms;
 
     private boolean acceptedRodo;

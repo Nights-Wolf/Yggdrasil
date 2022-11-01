@@ -18,10 +18,16 @@ public class ItemRestController {
     private ItemService itemService;
 
     @GetMapping("/{id}")
-    private ResponseEntity<Item> getItem(@PathVariable Long id) {
+    private ResponseEntity<Item> getItem(@PathVariable("id") Long id) {
         Item item = itemService.getItem(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
     };
+
+    @GetMapping("/all/{id}")
+    private Item getItemsById(@PathVariable("id") Long id) {
+        return itemService.getItemsById(id);
+    }
+
     @GetMapping("/all")
     private List<Item> getAllItems() {
         return itemService.getAllItems();

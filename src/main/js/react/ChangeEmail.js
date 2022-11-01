@@ -4,10 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
+import useCheckCart from "./CheckCart";
 
 function ChangeEmail() {
 
 const [data] = useCheckLogin()
+const [cartItemsData] = useCheckCart()
 
 const navigate = useNavigate()
 
@@ -114,7 +116,10 @@ const navigate = useNavigate()
 
     return (
     <div>
-       <Header isLogged={data} />
+       <Header
+        isLogged={data}
+        cartItems={cartItemsData}
+        />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.newEmail === "" ? errorInvisible : errorVisible} placeholder={error.newEmail === "" ? "Nowy email" : error.newEmail} id="newEmail"  name="newEmail"  onChange={handleChange}/>

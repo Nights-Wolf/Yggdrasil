@@ -9,6 +9,14 @@
 @import 'remind_password';
 @import 'forgot_password';
 @import 'edit_profile';
+@import 'my_order_card';
+@import 'my_orders_page';
+@import 'cart_page';
+@import 'cart';
+@import 'custom_alert';
+@import 'order';
+@import 'summary';
+@import 'summary_page';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
@@ -23,6 +31,11 @@ body{
     font-family: 'Macondo', cursive;
     margin: 0;
     padding: 0; 
+}
+
+#root {
+    min-height: 100vh;
+    max-width: 100%;
 }
 
 a {
