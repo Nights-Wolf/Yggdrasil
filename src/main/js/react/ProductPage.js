@@ -77,6 +77,7 @@ function ProductPage(props) {
             const usersCart = localStorage.getItem("cart")
 
             if (usersCart) {
+                if (itemCount > 0) {
                 const date = new Date(Date.now())
 
                 const cartItem = {
@@ -93,7 +94,9 @@ function ProductPage(props) {
                     .catch(err =>
                         console.log(err.response)
                     )
+                }
             } else {
+              if (itemCount > 0) {
                 const uuid = require('uuid')
                 const cartToken = uuid.v1()
                 const date = new Date(Date.now())
@@ -129,6 +132,7 @@ function ProductPage(props) {
                         console.log(err.response)
                     )
             }
+         }
         }
 
     return(

@@ -2,8 +2,10 @@ package com.yggdrasil.service;
 
 import com.yggdrasil.databaseInterface.CartDatabase;
 import com.yggdrasil.databaseInterface.CartItemDatabase;
+import com.yggdrasil.databaseInterface.ItemDatabase;
 import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.CartItem;
+import com.yggdrasil.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -21,11 +23,13 @@ public class CartService {
 
     private final CartDatabase cartDatabase;
     private final CartItemDatabase cartItemDatabase;
+    private final ItemDatabase itemDatabase;
 
     @Autowired
-    public CartService(CartDatabase cartDatabase, CartItemDatabase cartItemDatabase) {
+    public CartService(CartDatabase cartDatabase, CartItemDatabase cartItemDatabase, ItemDatabase itemDatabase) {
         this.cartDatabase = cartDatabase;
         this.cartItemDatabase = cartItemDatabase;
+        this.itemDatabase = itemDatabase;
     }
 
     public void createCart(Cart cart, HttpServletResponse response) {
@@ -66,6 +70,17 @@ public class CartService {
         List<CartItem> cartItems = cartItemDatabase.findByCartId(cart.getId());
 
         return new ResponseEntity<>(cartItems, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Item>>getCartItemsByCartId(Long id) {
+        List<CartItem> cartItemList = new ArrayList<>(cartItemDatabase.findByCartId(id));
+        List<Item> itemList = new ArrayList<>();
+
+        for (CartItem cartItem: cartItemList) {
+            itemList.add(itemDatabase.getItemsById(cartItem.getItemId()));
+        }
+
+        return new ResponseEntity<>(itemList, HttpStatus.OK);
     }
 
     public void deleteCartItem(Long id) {

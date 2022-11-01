@@ -338,7 +338,7 @@ function Order() {
                 })
                 .then(res => {
                     localStorage.removeItem("cart")
-                    navigate("/")
+                    navigate("/summary/" + order.cartId)
                 })
                 .catch(err => {
                     console.log(err.response)

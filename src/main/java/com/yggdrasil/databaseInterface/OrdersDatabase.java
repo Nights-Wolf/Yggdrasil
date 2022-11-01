@@ -12,4 +12,5 @@ import java.util.ArrayList;
 public interface OrdersDatabase extends JpaRepository<Orders, Long> {
 
     ArrayList<Orders> findByUserEmail(String email);
+    Orders findByCartId(Long id);
 }

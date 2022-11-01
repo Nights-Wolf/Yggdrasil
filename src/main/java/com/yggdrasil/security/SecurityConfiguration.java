@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/", "/about/**", "/terms/**", "/contact/**", "/rodo/**", "/register/**", "/remindPassword/**", "/forgotPassword", "/resetPasswordEmailSent/**", "/products/**", "/passResetExpired", "/resetExpired", "/*", "index", "template", "/css/**", "/js/**", "/main**", "/vendor**", "/imgs/**", "/favicon**", "/editProfile", "/product/**").permitAll()
+                .antMatchers("/login", "/", "/about/**", "/terms/**", "/contact/**", "/rodo/**", "/register/**", "/remindPassword/**", "/forgotPassword", "/resetPasswordEmailSent/**", "/products/**", "/passResetExpired", "/resetExpired", "/*", "index", "template", "/css/**", "/js/**", "/main**", "/vendor**", "/imgs/**", "/favicon**", "/editProfile", "/product/**", "/summary/**").permitAll()
                 .antMatchers("/api/login/**", "/api/authentication/signOut/**", "/remindPassword/**").permitAll()
                 .antMatchers("/api/shipments/**", "/api/cart/**", "/api/payment/**").permitAll()
                 //.antMatchers("/editProfile/**").hasAuthority(USER_EDIT.getPermission())

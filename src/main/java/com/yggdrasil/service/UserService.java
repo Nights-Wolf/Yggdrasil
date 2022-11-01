@@ -34,7 +34,6 @@ public class UserService {
 
     private final UserDatabase userDatabase;
     private final PasswordEncoder passwordEncoder;
-
     private final String secret;
 
     @Autowired

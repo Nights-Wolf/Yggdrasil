@@ -25,6 +25,7 @@ import MyOrdersPage from "./react/MyOrdersPage";
 import ChangePassword from "./react/ChangePassword";
 import ChangeEmail from "./react/ChangeEmail";
 import Order from "./react/Order";
+import SummaryPage from "./react/SummaryPage";
 import ResetPasswordEmailSent from "./react/ResetPasswordEmailSent";
 import Error from "./react/ErrorPage";
 import PassResetTokenExpire from "./react/PassResetTokenExpire";
@@ -58,6 +59,7 @@ ReactDOM.render(
                 <Route path="/products/mountain_gem" element={<ProductMntGem />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/order" element={<Order />} />
+                <Route path="/summary/:cartId" element={<SummaryPage />} />
                 <Route path="/passResetExpired" element={<PassResetTokenExpire />} />
                 <Route path="/resetExpired" element={<PassResetTokenNotFound />} />
                 <Route path="*" element={<Error />} />

@@ -3,6 +3,7 @@ package com.yggdrasil.service;
 import com.yggdrasil.databaseInterface.OrdersDatabase;
 import com.yggdrasil.model.Orders;
 import com.yggdrasil.model.Users;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,12 @@ public class OrdersService {
         return new ResponseEntity<>(ordersList, HttpStatus.OK);
 
 
+    }
+
+    public ResponseEntity<Orders> getOrderById(Long id) {
+        Orders order = ordersDatabase.findByCartId(id);
+
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     public void createOrder(Orders orders) {

@@ -2,6 +2,7 @@ package com.yggdrasil.api;
 
 import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.CartItem;
+import com.yggdrasil.model.Item;
 import com.yggdrasil.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,11 @@ public class CartRestController {
     @GetMapping("/getItems/{token}")
     private ResponseEntity<List<CartItem>> getCartItems(@PathVariable("token") String token) {
         return cartService.getCartItems(token);
+    }
+
+    @GetMapping("/getByCartId/{id}")
+    private ResponseEntity<List<Item>> getCartItemsByCartId(@PathVariable("id") Long id) {
+        return cartService.getCartItemsByCartId(id);
     }
 
     @DeleteMapping("/cartItem/{id}")

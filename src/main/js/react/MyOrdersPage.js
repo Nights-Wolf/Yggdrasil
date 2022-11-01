@@ -18,8 +18,8 @@ function MyOrdersPage() {
     const [order, setOrder] = React.useState([{
         id: "",
         orderValue: "",
+        cartId: "",
         itemId: "",
-        itemName: "",
         userId: "",
         userEmail: "",
         orderDate: "",
@@ -62,7 +62,7 @@ function MyOrdersPage() {
 
    const orderCards = order.map(order => {return <MyOrders key={order.id}
                 orderNum={order.id}
-                item={order.itemName}
+
                 price={order.orderValue + " zł"}
                 address={order.street + ", " + order.zipCode + " " + order.city + ", " + order.voivodeship}
                 date={order.orderDate}

@@ -2,6 +2,7 @@ package com.yggdrasil.api;
 
 import com.yggdrasil.model.Orders;
 import com.yggdrasil.service.OrdersService;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,11 @@ public class OrdersRestController {
     @GetMapping("/getOrder/{email}")
     private ResponseEntity<List<Orders>> getOrder(@PathVariable String email) {
        return ordersService.getOrder(email);
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<Orders> getOrderById(@PathVariable("id") Long id) {
+        return ordersService.getOrderById(id);
     }
 
     @PostMapping
