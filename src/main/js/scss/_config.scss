@@ -59,3 +59,15 @@ $buttons-color: #C4C4C4 !default;
         }
     }
 }
+    @mixin media-md {
+        @media screen and (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @mixin media-lg {
+        @media screen and (min-width: 1024px) {
+            @content;
+        }
+    }
+

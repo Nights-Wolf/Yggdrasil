@@ -1,0 +1,138 @@
+@include media-md {
+    header {
+        z-index: 1;
+
+        .menu-btn {
+            display: none;
+        }
+
+        .logo {
+            left: 15px;
+
+            h1 {
+                display: block;
+                font-size: 2.5rem;
+            }
+        }
+
+        .search-engine {
+            left: 350px;
+
+            input {
+                height: 35px;
+                width: 200px;
+            }
+
+            button {
+                height: 35px;
+                width: 35px;
+            }
+        }
+
+        nav {
+            z-index: 0;
+            min-height: 100vh;
+
+            .nav-btn__login {
+                top: 89%;
+            }
+
+            .nav-btn__my-account {
+                top: 89%;
+            }
+
+            .nav-profile {
+                top: 81%;
+            }
+
+            .nav-btn__register{
+                top: 89%;
+            }
+        }
+    }
+}
+
+@include media-lg {
+    header {
+        z-index: 1;
+
+        .menu-btn {
+            display: none;
+        }
+
+        .logo {
+            left: 15px;
+
+            h1 {
+                display: block;
+                font-size: 2.5rem;
+            }
+        }
+
+        .search-engine {
+            left: 350px;
+
+            input {
+                height: 35px;
+                width: 200px;
+            }
+
+            button {
+                height: 35px;
+                width: 35px;
+            }
+        }
+
+        nav {
+            z-index: 0;
+            min-height: 100vh;
+
+            .nav-btn__login {
+             top: -9%;
+             left: 800%;
+             width: 150px;
+             font-size: 1.5rem;
+
+             a {
+                background: none;
+                box-shadow: none;
+             }
+            }
+
+            .nav-btn__my-account {
+                top: -9%;
+                left: 927%;
+                width: 150px;
+
+                button {
+                    font-size: 1.5rem;
+                    background: none;
+                    box-shadow: none;
+                }
+            }
+
+            .nav-profile {
+                top: -4%;
+                left: 927%;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-top: 5px solid black;
+                background-color: $secondary-color;
+            }
+
+            .nav-btn__register{
+                top: -9%;
+                left: 927%;
+                width: 150px;
+                font-size: 1.5rem;
+
+                a {
+                    background: none;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

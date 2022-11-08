@@ -1,8 +1,11 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "./assets/images/logo.png";
+import useWindowDimensions from "./useWindowDimensions";
 
 function Header(props) {
+
+    const { height, width } = useWindowDimensions();
 
     const [mobileNavVisibility, setVisibility] = React.useState(false)
     const [profileNavVisibility, setProfileVisibility] = React.useState(false)
@@ -28,6 +31,10 @@ function Header(props) {
             zIndex: mobileNavVisibility ? '2' : '0'
         }
 
+        const navVisibilityBiggerScreen = {
+            transform: 'translate(0, 0)'
+        }
+
         function showProfileNav() {
             setProfileVisibility(prevVisibility => !prevVisibility)
             }
@@ -44,13 +51,13 @@ function Header(props) {
                 <div className="menu-btn">
                 <span className="menu-btn__hamburger" onClick={showNavbar}></span>
                 </div>
-                <div>
+                <div className="logo">
                     <Link to="/"><img src={logo}></img></Link>
+                    <h1>Yggdrasil</h1>
                 </div>
-                <nav style={navVisibility}>
+                <nav style={width >= 768 ? navVisibilityBiggerScreen : navVisibility}>
                     <NavLink to="/products" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Produkty</NavLink>
-                    <p>Kategorie</p>
                     <NavLink to="/products/amber" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Bursztyn</NavLink>
                     <NavLink to="/products/topaz" style={({ isActive })=>

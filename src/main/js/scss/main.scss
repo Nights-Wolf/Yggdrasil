@@ -17,6 +17,7 @@
 @import 'order';
 @import 'summary';
 @import 'summary_page';
+@import './responsive/responsive_header';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
@@ -30,7 +31,7 @@ body{
     max-width: 100%;
     font-family: 'Macondo', cursive;
     margin: 0;
-    padding: 0; 
+    padding: 0;
 }
 
 #root {
