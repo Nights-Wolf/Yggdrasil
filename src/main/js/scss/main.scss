@@ -19,13 +19,14 @@
 @import 'summary_page';
 @import './responsive/responsive_header';
 @import './responsive/responsive_main_section';
+@import './responsive/responsive_products';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
     height: 100vh;
 }
 
-body{
+body {
     box-sizing: border-box;
     position: relative;
     min-height: 100vh;
