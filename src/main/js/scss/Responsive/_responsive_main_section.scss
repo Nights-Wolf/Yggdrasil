@@ -1,0 +1,38 @@
+@include media-md {
+    section {
+        width: 81.7%;
+        top: 18px;
+        left: 18.2%;
+
+        .discounts__container {
+         height: 464px;
+     }
+        .main__section-h2 {
+            font-size: 2.5rem;
+        }
+
+        .news__container {
+            height: 464px;
+        }
+    }
+}
+
+@include media-lg {
+    section {
+        width: 89.7%;
+        top: 95px;
+        left: 10.3%;
+
+        .discounts__container {
+         height: 630px;
+     }
+        .main__section-h2 {
+            font-size: 3.5rem;
+            height: 100px;
+        }
+
+        .news__container {
+            height: 630px;
+        }
+    }
+}
