@@ -137,6 +137,7 @@ function Login() {
         cartItems={cartItemsData}
          />
        <section className="login-section">
+        <h1>Zaloguj się</h1>
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
             <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} />

@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    min-height: 100vh;
+    height: 94vh;
     left: 0px;
     top: 95px;
     z-index: 0;
@@ -19,23 +19,6 @@
         height: 300px;
 
         @include carousel__content-setup
-    }
-
-    .main__section-h2 {
-        position: relative;
-        width: 100%;
-        height: 39px;
-        
-
-        h2 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.5rem;
-            margin: 0 auto;
-        }
     }
 
     .news__container {
