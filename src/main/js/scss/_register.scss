@@ -1,11 +1,18 @@
 @import 'config';
 
 .register-section {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100%;
+    background: $background-color;
+
+    h1 {
+        display: none;
+    }
 
     form {
         display: flex;

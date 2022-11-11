@@ -189,6 +189,7 @@ function Register() {
         cartItems={cartItemsData}
         />
        <section className="register-section">
+       <h1>Zarejestruj się</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />
             <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} name="surname" onChange={handleChange} />
