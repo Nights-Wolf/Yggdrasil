@@ -1,11 +1,11 @@
 @import 'config';
 
 .products-section {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 542px;
+    min-height: 100vh;
     left: 0px;
-    top: 95px;
+    top: 157px;
     overflow: auto;
 
     .filters-container {

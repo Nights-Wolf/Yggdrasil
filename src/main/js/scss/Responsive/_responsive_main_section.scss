@@ -1,5 +1,5 @@
 @include media-md {
-    section {
+    .main-section {
         width: 81.7%;
         top: 18px;
         left: 18.2%;
@@ -18,7 +18,7 @@
 }
 
 @include media-lg {
-    section {
+    .-main-section {
         width: 89.7%;
         top: 95px;
         left: 10.3%;
