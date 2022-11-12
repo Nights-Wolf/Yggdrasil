@@ -57,6 +57,7 @@
                         }
                     }
                     input {
+                        cursor: pointer;
                         margin: 0;
                         width: 30px;
                         height: 30px;
@@ -76,6 +77,7 @@
 
 
             &-option {
+                cursor: pointer;
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -87,6 +89,10 @@
 
                 label {
                     text-align: center;
+                }
+
+                input {
+                    cursor: pointer;
                 }
             }
         }
@@ -100,6 +106,7 @@
             height: 100px;
 
                 button, a {
+                    cursor: pointer;
                     display: inline-block;
                     text-decoration: none;
                     text-align: center;
