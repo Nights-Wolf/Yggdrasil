@@ -1,12 +1,13 @@
 @import 'config';
 
 .cart-section {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 542px;
+    height: 100vh;
+    top: 95px;
 
     .cart-submit-buttons {
         position: relative;

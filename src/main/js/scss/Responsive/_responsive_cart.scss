@@ -1,0 +1,29 @@
+@include media-md {
+    .cart-section {
+        left: 18%;
+        width: 82%;
+    }
+}
+
+@include media-lg {
+    .cart-section {
+        left: 9%;
+        top: 95px;
+        width: 91%;
+
+        .cart-submit-buttons {
+            justify-content: space-evenly;
+        }
+    }
+
+    .cart-Card {
+        justify-content: space-evenly;
+        height: 250px;
+        width: 44%;
+
+        img {
+            height: 150px;
+            width: 150px;
+        }
+    }
+}
