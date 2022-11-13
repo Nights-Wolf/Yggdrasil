@@ -1,11 +1,13 @@
 @import 'config';
 
 .edit_profile-section {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100%;
 
     form {
         display: flex;
@@ -25,6 +27,7 @@
         }
 
         button {
+            cursor: pointer;
             width: 198px;
             height: 40px;
             border: none;

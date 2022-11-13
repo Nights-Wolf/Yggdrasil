@@ -1,0 +1,13 @@
+@include media-md {
+    .edit_profile-section {
+        left: 18%;
+        width: 82%;
+    }
+}
+
+@include media-lg {
+    .edit_profile-section {
+        left: 0;
+        width: 100%;
+    }
+}

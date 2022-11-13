@@ -27,6 +27,7 @@
 @import './responsive/responsive_order';
 @import './responsive/responsive_summary';
 @import './responsive/responsive_password_change';
+@import './responsive/responsive_edit_profile';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
@@ -51,4 +52,8 @@ body {
 a {
     cursor: pointer !important;
     text-decoration: none !important;
+}
+
+section {
+    background: $background-color;
 }
