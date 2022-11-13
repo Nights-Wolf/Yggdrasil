@@ -24,4 +24,10 @@ public class PaymentService {
 
         return new ResponseEntity<>(payments, HttpStatus.OK);
     }
+
+    public ResponseEntity<Payment> getPaymentById(Long id) {
+        Payment payment = paymentDatabase.findById(id).orElseThrow();
+
+        return new ResponseEntity<>(payment, HttpStatus.OK);
+    }
 }

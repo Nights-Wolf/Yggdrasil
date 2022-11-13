@@ -9,6 +9,8 @@ function Summary() {
 
     const [order, setOrder] = React.useState({})
     const [item, setItem] = React.useState([{}])
+    const [shipment, setShipment] = React.useState([])
+    const [payment, setPayment] = React.useState([])
 
     React.useEffect(async () => {
         await axios
@@ -31,6 +33,26 @@ function Summary() {
                 console.log(err.response)
             })
     }, [])
+
+    React.useEffect(() => {
+         axios
+            .get("http://localhost:8080/api/shipments/" + order.shipmentsId)
+            .then(res => {
+                setShipment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+         axios
+            .get("http://localhost:8080/api/payment/" + order.paymentId)
+            .then(res => {
+                setPayment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }, [order])
+
 
     const itemDetails = item.map(item => {
         return <div key={item.id} className="summary-order_card">
@@ -59,6 +81,8 @@ function Summary() {
                 <ul>
                     <li>Numer zamówienia: {order.id}</li>
                     <li>Data: {order.orderDate}</li>
+                    <li>Rodzaj wysyłki: {shipment.name}</li>
+                    <li>Metoda płatności: {payment.name}</li>
                     <li>Status: {order.status}</li>
                 </ul>
             </div>

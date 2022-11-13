@@ -1,0 +1,43 @@
+@include media-md {
+    .my-orders-section {
+        left: 18%;
+        width: 82%;
+
+        .item-section {
+
+            .item-card {
+                justify-content: space-evenly;
+
+                img {
+                    height: 100px;
+                    width: 130px;
+                }
+            }
+        }
+    }
+}
+
+@include media-lg {
+    .my-orders-section {
+        left: 9%;
+        width: 91%;
+
+        .my-Order_card {
+            height: 380px;
+        }
+
+        .item-section {
+            height: 178px;
+
+            .item-card {
+                justify-content: space-evenly;
+
+
+                img {
+                    height: 150px;
+                    width: 180px;
+                }
+            }
+        }
+    }
+}

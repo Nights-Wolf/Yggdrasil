@@ -15,21 +15,10 @@ function MyOrdersPage() {
         email: ""
     })
 
-    const [order, setOrder] = React.useState([{
-        id: "",
-        orderValue: "",
-        cartId: "",
-        itemId: "",
-        userId: "",
-        userEmail: "",
-        orderDate: "",
-        street: "",
-        zipCode: "",
-        city: "",
-        voivodeship: "",
-        status: "",
-        shipment: ""
-    }])
+    const [order, setOrder] = React.useState([{}])
+    const [item, setItem] = React.useState([{}])
+    const [shipment, setShipment] = React.useState([{}])
+    const [payment, setPayment] = React.useState([{}])
 
         React.useEffect(() => {
             const accessToken = localStorage.getItem("access_token")
@@ -60,13 +49,59 @@ function MyOrdersPage() {
             })
     }, [user])
 
+
+    React.useEffect(() => {
+        order.forEach(order => {console.log(order.shipmentsId)})
+        order.forEach(order => {
+         axios
+            .get("http://localhost:8080/api/cart/getByCartId/" + order.cartId)
+            .then(res => {
+                setItem(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+         })
+    }, [order])
+
+   React.useEffect(() => {
+        order.forEach(order => {
+         axios
+            .get("http://localhost:8080/api/shipments/" + order.shipmentsId)
+            .then(res => {
+                setShipment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+         })
+         axios
+            .get("http://localhost:8080/api/payment/" + order.paymentId)
+            .then(res => {
+                setPayment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }, [order])
+
    const orderCards = order.map(order => {return <MyOrders key={order.id}
                 orderNum={order.id}
-
+                username={order.username}
+                surname={order.surname}
+                itemName={item.itemName}
+                itemPrice={item.price}
+                itemPhoto={item.image}
                 price={order.orderValue + " zł"}
-                address={order.street + ", " + order.zipCode + " " + order.city + ", " + order.voivodeship}
+                street={order.street}
+                zipCode={order.zipCode}
+                city={order.city}
+                voivodeship={order.voivodeship}
                 date={order.orderDate}
-                status={order.status} />
+                status={order.status}
+                payment={payment.name}
+                shipment={shipment.name}
+                />
     })
 
     return(
