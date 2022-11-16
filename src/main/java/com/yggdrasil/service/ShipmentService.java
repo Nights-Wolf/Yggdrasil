@@ -24,4 +24,10 @@ public class ShipmentService {
 
         return new ResponseEntity<>(shipments, HttpStatus.OK);
     }
+
+    public ResponseEntity<Shipments> getShipmentById(Long id) {
+        Shipments shipments = shipmentsDatabase.findById(id).orElseThrow();
+
+        return new ResponseEntity<>(shipments, HttpStatus.OK);
+    }
 }

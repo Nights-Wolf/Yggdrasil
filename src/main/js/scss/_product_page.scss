@@ -4,6 +4,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    height: 90vh;
+    top: 94px;
 
     .product--details {
         position: relative;
@@ -18,7 +21,7 @@
             position: relative;
             width: 150px;
             height: 200px;
-            margin-left: 5px;
+            margin-right: 20px;
             border-radius: 5px;
         }
 
@@ -26,21 +29,23 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-center: center;
+            justify-content: center;
             align-items: center;
             text-align: center;
-            height: 300px;
             margin-left: 10px;
-            margin-top: 100px;
 
         &--title {
             position: relative;
             padding: 0;
+            font-weight: bold;
+            font-size: 1.5rem;
         }
 
         &--price {
             position: relative;
             padding: 0;
+            margin-top: 0;
+            font-size: 1.2rem;
         }
 
         &--availability {
@@ -76,6 +81,7 @@
         }
 
         button {
+           cursor: pointer;
            position: relative;
            display: flex;
            justify-content: center;
@@ -97,6 +103,7 @@
         min-height: 241px;
         width: 100%;
         box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        overflow: auto;
     }
 
     p {

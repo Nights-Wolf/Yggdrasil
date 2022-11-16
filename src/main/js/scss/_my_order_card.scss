@@ -2,36 +2,67 @@
 
 .my-Order_card {
     position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    display: inline-block;
+    height: 350px;
     width: 100%;
-    min-height: 250px;
-    left: 0px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-    img {
-        position: relative;
-        left: 30px;
-        width: 106px;
-        min-height: 170px;
-        border-radius: 5px;
-    }
 
     .order-details {
         position: relative;
         display: flex;
-        flex-direction: column;
-        width: 200px;
-        min-height: 151px;
-        margin-top: 5px;
-        bottom: 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        min-height: 200px;
+        width: 100%;
 
-        p {
-            margin-bottom: 5px;
-            margin-top: 5px;
+        ul {
+            list-style-type: none;
+            height: 100%;
+            padding-left: 20px;
         }
+    }
+
+    .item-section {
+        position: relative;
+        height: 250px;
+        width: 100%;
+        border-top: 2px solid black;
+        overflow: scroll;
+
+       .item-card {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+            min-height: 150px;
+            left: 0px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+            img {
+                position: relative;
+                left: 30px;
+                width: 106px;
+                min-height: 50px;
+                border-radius: 5px;
+            }
+
+            .item-card_details {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 200px;
+                min-height: 151px;
+
+                ul {
+                    list-style-type: none;
+                    font-size: 1rem;
+                }
+            }
+       }
     }
 }

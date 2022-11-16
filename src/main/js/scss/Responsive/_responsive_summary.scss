@@ -1,0 +1,32 @@
+@include media-md {
+    .summary-section {
+        left: 18%;
+        width: 82%;
+
+        .summary-order_card {
+            justify-content: space-evenly;
+
+            img {
+                height: 100px;
+                width: 130px;
+            }
+        }
+    }
+}
+
+@include media-lg {
+    .summary-section {
+        left: 9%;
+        width: 91%;
+
+        .summary-order_card {
+            justify-content: space-evenly;
+            height: 196px;
+
+            img {
+                height: 150px;
+                width: 180px;
+            }
+        }
+    }
+}

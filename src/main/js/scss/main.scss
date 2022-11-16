@@ -17,20 +17,32 @@
 @import 'order';
 @import 'summary';
 @import 'summary_page';
+@import './responsive/responsive_header';
+@import './responsive/responsive_main_section';
+@import './responsive/responsive_products';
+@import './responsive/responsive_product_page';
+@import './responsive/responsive_login';
+@import './responsive/responsive_register';
+@import './responsive/responsive_cart';
+@import './responsive/responsive_order';
+@import './responsive/responsive_summary';
+@import './responsive/responsive_password_change';
+@import './responsive/responsive_edit_profile';
+@import './responsive/responsive_my_order';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
 html {
     height: 100vh;
 }
 
-body{
+body {
     box-sizing: border-box;
     position: relative;
     min-height: 100vh;
     max-width: 100%;
     font-family: 'Macondo', cursive;
     margin: 0;
-    padding: 0; 
+    padding: 0;
 }
 
 #root {
@@ -41,4 +53,8 @@ body{
 a {
     cursor: pointer !important;
     text-decoration: none !important;
+}
+
+section {
+    background: $background-color;
 }

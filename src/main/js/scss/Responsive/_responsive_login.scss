@@ -1,0 +1,18 @@
+@include media-md {
+    .login-section {
+        left: 18%;
+        width: 82%;
+
+        h1 {
+            display: inline-block;
+            font-size: 3rem;
+        }
+    }
+}
+
+@include media-lg {
+    .login-section {
+        left: 0;
+        width: 100%;
+    }
+}

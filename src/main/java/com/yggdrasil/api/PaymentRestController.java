@@ -4,10 +4,7 @@ import com.yggdrasil.model.Payment;
 import com.yggdrasil.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,10 @@ public class PaymentRestController {
     @GetMapping
     private ResponseEntity<List<Payment>> getPayments() {
         return paymentService.getPayments();
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<Payment> getPaymentById(@PathVariable("id") Long id) {
+        return paymentService.getPaymentById(id);
     }
 }

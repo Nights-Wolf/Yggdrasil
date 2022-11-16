@@ -2,6 +2,7 @@ $primary-color: #0F9F49 !default;
 $secondary-color: #755516 !default;
 $tertiary-color: #DFA316 !default;
 $buttons-color: #C4C4C4 !default;
+$background-color: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(232,228,236,1) 26%, rgba(236,232,232,1) 35%);
 
 @mixin transition-ease {
     transition: all 0.2s ease-in-out;
@@ -59,3 +60,15 @@ $buttons-color: #C4C4C4 !default;
         }
     }
 }
+    @mixin media-md {
+        @media screen and (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @mixin media-lg {
+        @media screen and (min-width: 1024px) {
+            @content;
+        }
+    }
+

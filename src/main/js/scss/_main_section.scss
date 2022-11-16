@@ -1,47 +1,30 @@
 @import 'config';
 
-section {
-    position: absolute;
+.main-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width: 100%;
-    height: 542px;
+    height: 94vh;
     left: 0px;
     top: 95px;
+    z-index: 0;
+    background: $background-color;
 
     .discounts__container {
-        position: absolute;
-        width: 312px;
-        height: 196px;
-        left: 24px;
-        top: 20px;
+        position: relative;
+        width: 100%;
+        height: 300px;
 
         @include carousel__content-setup
     }
 
-    .main__section-h2 {
-        position: absolute;
-        width: 312px;
-        height: 39px;
-        left: 24px;
-        top: 235px;
-        
-
-        h2 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.5rem;
-            margin: 0 auto;
-        }
-    }
-
     .news__container {
-        position: absolute;
-        width: 312px;
-        height: 196px;
-        left: 24px;
-        top: 295px;
+        position: relative;
+        width: 100%;
+        height: 300px;
         
         @include carousel__content-setup
     }

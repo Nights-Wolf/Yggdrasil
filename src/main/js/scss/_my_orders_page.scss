@@ -1,11 +1,14 @@
 @import 'config';
 
 .my-orders-section {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 542px;
+    height: 100vh;
     left: 0px;
+    top: 95px;
+    overflow: auto;
+    background: $background-color;
 }

@@ -1,0 +1,38 @@
+@include media-md {
+    .products-section {
+        left: 18%;
+        width: 82%;
+        top: 158px;
+
+        .filters-container {
+            left: 18%;
+            width: 82%;
+
+        }
+    }
+}
+
+@include media-lg {
+    .products-section {
+        left: 9%;
+        width: 91%;
+        top: 148px;
+
+        .filters-container {
+            left: 9%;
+            top: 12.5%;
+            width: 91%;
+
+        }
+
+        .products-container {
+            grid-template-columns: 200px 200px 200px 200px;
+            grid-template-rows: 300px;
+
+            .card {
+                height: 300px;
+                width: 200px;
+            }
+        }
+    }
+}

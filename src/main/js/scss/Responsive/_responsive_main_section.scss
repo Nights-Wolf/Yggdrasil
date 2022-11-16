@@ -1,0 +1,32 @@
+@include media-md {
+    .main-section {
+        width: 81.7%;
+        top: 18px;
+        left: 18.2%;
+
+        .discounts__container {
+         height: 464px;
+     }
+
+        .news__container {
+            height: 464px;
+        }
+    }
+}
+
+@include media-lg {
+    .-main-section {
+        width: 89.7%;
+        top: 95px;
+        left: 10.3%;
+        height: 94vh;
+
+        .discounts__container {
+         height: 630px;
+     }
+
+        .news__container {
+            height: 630px;
+        }
+    }
+}

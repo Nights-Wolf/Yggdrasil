@@ -15,26 +15,15 @@ function MyOrdersPage() {
         email: ""
     })
 
-    const [order, setOrder] = React.useState([{
-        id: "",
-        orderValue: "",
-        cartId: "",
-        itemId: "",
-        userId: "",
-        userEmail: "",
-        orderDate: "",
-        street: "",
-        zipCode: "",
-        city: "",
-        voivodeship: "",
-        status: "",
-        shipment: ""
-    }])
+    const [order, setOrder] = React.useState([{}])
+    const [item, setItem] = React.useState([{}])
+    const [shipment, setShipment] = React.useState([{}])
+    const [payment, setPayment] = React.useState([{}])
 
-        React.useEffect(() => {
+        React.useEffect(async () => {
             const accessToken = localStorage.getItem("access_token")
 
-            axios
+           await axios
                 .get("http://localhost:8080/api/user/getByToken", {headers: {
                     Authorization: "Bearer " + accessToken}})
                 .then(res => {
@@ -54,19 +43,65 @@ function MyOrdersPage() {
             .get("http://localhost:8080/api/order/getOrder/" + user.email)
             .then(res => {
                 setOrder(res.data)
-            })
+                })
             .catch(err => {
                 console.log(err)
             })
     }, [user])
 
+
+    React.useEffect(async () => {
+        await order.forEach(order => {
+         axios
+            .get("http://localhost:8080/api/cart/getByCartId/" + order.cartId)
+            .then(res => {
+            console.log(res.data)
+                setItem(res.data)
+                })
+            .catch(err => {
+                console.log(err.response)
+            })
+         })
+    }, [order])
+
+   React.useEffect(() => {
+        order.forEach(order => {
+         axios
+            .get("http://localhost:8080/api/shipments/" + order.shipmentsId)
+            .then(res => {
+                setShipment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+         })
+         axios
+            .get("http://localhost:8080/api/payment/" + order.paymentId)
+            .then(res => {
+                setPayment(res.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }, [])
+console.log(order)
    const orderCards = order.map(order => {return <MyOrders key={order.id}
                 orderNum={order.id}
-
+                username={order.username}
+                surname={order.surname}
+                itemName={item.itemName}
+                itemPrice={item.price}
+                itemPhoto={item.image}
                 price={order.orderValue + " zł"}
-                address={order.street + ", " + order.zipCode + " " + order.city + ", " + order.voivodeship}
+                street={order.street}
+                zipCode={order.zipCode}
+                city={order.city}
+                voivodeship={order.voivodeship}
                 date={order.orderDate}
-                status={order.status} />
+                status={order.status}
+                payment={payment.name}
+                shipment={shipment.name}
+                />
     })
 
     return(
