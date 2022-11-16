@@ -20,10 +20,10 @@ function MyOrdersPage() {
     const [shipment, setShipment] = React.useState([{}])
     const [payment, setPayment] = React.useState([{}])
 
-        React.useEffect(() => {
+        React.useEffect(async () => {
             const accessToken = localStorage.getItem("access_token")
 
-            axios
+           await axios
                 .get("http://localhost:8080/api/user/getByToken", {headers: {
                     Authorization: "Bearer " + accessToken}})
                 .then(res => {
@@ -43,21 +43,21 @@ function MyOrdersPage() {
             .get("http://localhost:8080/api/order/getOrder/" + user.email)
             .then(res => {
                 setOrder(res.data)
-            })
+                })
             .catch(err => {
                 console.log(err)
             })
     }, [user])
 
 
-    React.useEffect(() => {
-        order.forEach(order => {console.log(order.shipmentsId)})
-        order.forEach(order => {
+    React.useEffect(async () => {
+        await order.forEach(order => {
          axios
             .get("http://localhost:8080/api/cart/getByCartId/" + order.cartId)
             .then(res => {
+            console.log(res.data)
                 setItem(res.data)
-            })
+                })
             .catch(err => {
                 console.log(err.response)
             })
@@ -83,8 +83,8 @@ function MyOrdersPage() {
             .catch(err => {
                 console.log(err.response)
             })
-    }, [order])
-
+    }, [])
+console.log(order)
    const orderCards = order.map(order => {return <MyOrders key={order.id}
                 orderNum={order.id}
                 username={order.username}

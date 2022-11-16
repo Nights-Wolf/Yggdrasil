@@ -24,6 +24,10 @@
 
         .my-Order_card {
             height: 380px;
+
+            .order-details {
+                justify-content: space-evenly;
+            }
         }
 
         .item-section {
