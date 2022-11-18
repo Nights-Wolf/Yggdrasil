@@ -21,11 +21,19 @@ public class EmailRestController {
     }
 
     @PostMapping("/sendMail/{token}")
-    private String sendSimpleMail(@RequestBody EmailDetails emailDetails, @PathVariable String token) throws MalformedURLException {
+    private String sendResetPasswordMail(@RequestBody EmailDetails emailDetails, @PathVariable String token) throws MalformedURLException {
         EmailDetails email = emailDetails;
         url = new URL("http://localhost:8080/remindPassword/");
 
         email.setMsgBody("Witaj! \n\nAby zmienić hasło kliknij w link poniżej: \n" + url + token + "\n\n Życzymy udanych zakupów, \nZespół Yggdrasil");
+
+        String status = emailService.sendSimpleMail(emailDetails);
+
+        return status;
+    }
+
+    @PostMapping("/sendRegistrationMail")
+    private String sendCreateAccountMail(@RequestBody EmailDetails emailDetails) {
 
         String status = emailService.sendSimpleMail(emailDetails);
 

@@ -32,6 +32,7 @@
         }
 
         .checkbox {
+            cursor: pointer;
             display: flex;
             margin-bottom: 10px;
             align-items: center;
@@ -57,6 +58,7 @@
         }
 
         button {
+            cursor: pointer;
             width: 198px;
             height: 40px;
             border: none;
