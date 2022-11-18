@@ -22,7 +22,26 @@
             left: 9%;
             top: 12.5%;
             width: 91%;
+            justify-content: space-evenly;
 
+            &__price-filter {
+                position: relative;
+                top: 0;
+                bottom: 0;
+            }
+
+            &__availability-filter {
+                position: relative;
+                top: 0;
+            }
+
+            form {
+                flex-direction: row;
+
+                select {
+                    margin-left: 5px;
+                }
+            }
         }
 
         .products-container {
