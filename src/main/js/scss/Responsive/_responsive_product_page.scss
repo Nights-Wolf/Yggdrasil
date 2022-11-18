@@ -9,13 +9,13 @@
 @include media-lg {
     .product--page {
         top: 96px;
-        height: 87vh;
+        height: 100vh;
         left: 9%;
         width: 91%;
 
         .product--details {
             height: 510px;
-            justify-content: space-evenly;
+            justify-content: center;
 
             img {
                 height: 500px;
