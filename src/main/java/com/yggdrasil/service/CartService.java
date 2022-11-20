@@ -47,7 +47,7 @@ public class CartService {
         int sumQuantity = 0;
         Cart cart = cartDatabase.findByToken(token);
 
-        List<CartItem> cartItems = cartItemDatabase.findByCartId(cart.getId());
+        List<CartItem> cartItems = cartItemDatabase.findByCartId(cart);
 
         for (CartItem cartItem: cartItems) {
             int itemQuantity = cartItem.getQuantity();
@@ -59,7 +59,7 @@ public class CartService {
     public void addItemToCart(CartItem cartItem, String token) {
         Cart cart = cartDatabase.findByToken(token);
 
-        cartItem.setCartId(cart.getId());
+        cartItem.setCartId(cart);
 
         cartItemDatabase.save(cartItem);
     }
@@ -67,17 +67,19 @@ public class CartService {
     public ResponseEntity<List<CartItem>>getCartItems(String token) {
         Cart cart = cartDatabase.findByToken(token);
 
-        List<CartItem> cartItems = cartItemDatabase.findByCartId(cart.getId());
+        List<CartItem> cartItems = cartItemDatabase.findByCartId(cart);
 
         return new ResponseEntity<>(cartItems, HttpStatus.OK);
     }
 
     public ResponseEntity<List<Item>>getCartItemsByCartId(Long id) {
-        List<CartItem> cartItemList = new ArrayList<>(cartItemDatabase.findByCartId(id));
+        Cart cart = cartDatabase.getById(id);
+
+        List<CartItem> cartItemList = new ArrayList<>(cartItemDatabase.findByCartId(cart));
         List<Item> itemList = new ArrayList<>();
 
         for (CartItem cartItem: cartItemList) {
-            itemList.add(itemDatabase.getItemsById(cartItem.getItemId()));
+            itemList.add(itemDatabase.getItemsById(cartItem.getItemId().getId()));
         }
 
         return new ResponseEntity<>(itemList, HttpStatus.OK);

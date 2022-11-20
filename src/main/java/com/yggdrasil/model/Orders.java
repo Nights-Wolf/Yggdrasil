@@ -1,12 +1,10 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,8 +17,16 @@ public class Orders {
     private Long id;
 
     private int orderValue;
-    private Long cartId;
-    private Long userId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    @JsonBackReference
+    private Cart cartId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private Users userId;
     private String username;
     private String surname;
     private String userEmail;
@@ -30,15 +36,23 @@ public class Orders {
     private String city;
     private String voivodeship;
     private String status;
-    private Long shipmentsId;
-    private Long paymentId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shipments_Id")
+    @JsonBackReference
+    private Shipments shipmentsId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "paymentId")
+    @JsonBackReference
+    private Payment paymentId;
 
     public Orders() {
         super();
     }
 
-    public Orders(int orderValue, Long cartId, Long userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
-                  String voivodeship, String status, Long shipmentsId, Long paymentId) {
+    public Orders(int orderValue, Cart cartId, Users userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
+                  String voivodeship, String status, Shipments shipmentsId, Payment paymentId) {
         this.orderValue = orderValue;
         this.cartId = cartId;
         this.userId = userId;

@@ -27,6 +27,7 @@ function Cart(props) {
              await axios
                 .get("http://localhost:8080/api/item/all/" + props.item)
                 .then(res => {
+                console.log(res.data)
                         setItem(res.data)
                     })
                 .catch(err => {

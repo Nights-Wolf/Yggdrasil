@@ -1,12 +1,12 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,6 +18,10 @@ public class Category {
     private Long id;
 
     private String categoryName;
+
+    @OneToMany(mappedBy = "categoryId")
+    @JsonManagedReference
+    private Set<Item> item;
 
     public Category() {
         super();

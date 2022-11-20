@@ -1,10 +1,10 @@
 package com.yggdrasil.service;
 
+import com.yggdrasil.databaseInterface.CategoryDatabase;
 import com.yggdrasil.databaseInterface.ItemDatabase;
+import com.yggdrasil.model.Category;
 import com.yggdrasil.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +13,12 @@ import java.util.List;
 public class ItemService {
 
     private final ItemDatabase itemDatabase;
+    private final CategoryDatabase categoryDatabase;
 
     @Autowired
-    public ItemService(ItemDatabase itemDatabase) {
+    public ItemService(ItemDatabase itemDatabase, CategoryDatabase categoryDatabase) {
         this.itemDatabase = itemDatabase;
+        this.categoryDatabase = categoryDatabase;
     }
 
     public Item getItem(Long id) {
@@ -32,7 +34,8 @@ public class ItemService {
     }
 
     public List<Item> getItemsByCategory(Long categoryId) {
-        return itemDatabase.findByCategoryId(categoryId);
+        Category category = categoryDatabase.findById(categoryId).orElseThrow();
+        return itemDatabase.findByCategoryId(category.getId());
     }
     public void addItem(Item item) {
         itemDatabase.save(item);

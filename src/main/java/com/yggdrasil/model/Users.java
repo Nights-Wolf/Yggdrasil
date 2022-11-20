@@ -1,5 +1,6 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yggdrasil.security.ApplicationRoles;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -41,6 +40,14 @@ public class Users {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @JsonManagedReference
+    private Set<Orders> orders;
+
+    @OneToMany(mappedBy = "userId")
+    @JsonManagedReference
+    private Set<Cart> cart;
 
     public Users() {
         super();

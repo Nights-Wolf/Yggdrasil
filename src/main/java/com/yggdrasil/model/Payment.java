@@ -1,12 +1,12 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.criterion.Order;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -18,6 +18,10 @@ public class Payment {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "paymentId")
+    @JsonManagedReference
+    private Set<Orders> orders;
 
     public Payment() {super();}
 
