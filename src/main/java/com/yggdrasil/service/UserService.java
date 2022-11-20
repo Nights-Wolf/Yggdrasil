@@ -113,10 +113,6 @@ public class UserService {
         userDatabase.save(user);
     }
 
-    public void deleteUser(Long id) {
-        userDatabase.deleteById(id);
-    }
-
     public void grantAdmin(Long id) {
         Users users = userDatabase.findById(id).orElseThrow();
 
