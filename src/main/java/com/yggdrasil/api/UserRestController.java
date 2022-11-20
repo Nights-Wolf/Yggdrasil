@@ -60,11 +60,6 @@ public class UserRestController {
         userService.editUser(users);
     }
 
-    @DeleteMapping("{id}")
-    private void deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
-    }
-
     @RequestMapping(value = "/promote/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     private void grantAdmin(@PathVariable("id") Long id) {
         userService.grantAdmin(id);
