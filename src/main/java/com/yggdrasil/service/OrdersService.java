@@ -1,9 +1,9 @@
 package com.yggdrasil.service;
 
+import com.yggdrasil.databaseInterface.CartDatabase;
 import com.yggdrasil.databaseInterface.OrdersDatabase;
+import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.Orders;
-import com.yggdrasil.model.Users;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,12 @@ import java.util.List;
 public class OrdersService {
 
     private final OrdersDatabase ordersDatabase;
+    private final CartDatabase cartDatabase;
 
     @Autowired
-    public OrdersService(OrdersDatabase ordersDatabase) {
+    public OrdersService(OrdersDatabase ordersDatabase, CartDatabase cartDatabase) {
         this.ordersDatabase = ordersDatabase;
+        this.cartDatabase = cartDatabase;
     }
 
     public ResponseEntity<List<Orders>> getOrder(String email) {
@@ -30,8 +32,9 @@ public class OrdersService {
 
     }
 
-    public ResponseEntity<Orders> getOrderById(Long id) {
-        Orders order = ordersDatabase.findByCartId(id);
+    public ResponseEntity<Orders> getOrderByCartId(Long id) {
+        Cart cart = cartDatabase.findById(id).orElseThrow();
+        Orders order = ordersDatabase.findByCartId(cart);
 
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
@@ -44,7 +47,6 @@ public class OrdersService {
         Orders order = ordersDatabase.findById(id).orElseThrow();
 
         order.setOrderValue(orders.getOrderValue());
-        order.setUserId(orders.getUserId());
         order.setOrderDate(orders.getOrderDate());
         order.setStreet(orders.getStreet());
         order.setZipCode(orders.getZipCode());

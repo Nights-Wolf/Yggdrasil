@@ -1,17 +1,21 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Setter
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Item.class)
 public class Item {
 
     @Id
@@ -22,9 +26,11 @@ public class Item {
 
     private String image;
     private Date created;
-    private Long categoryId;
-    private int price;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_Id", referencedColumnName = "id")
+    private Category categoryId;
+    private int price;
     private String description;
     private int itemsLeft;
 
@@ -32,7 +38,7 @@ public class Item {
         super();
     }
 
-    public Item(String itemName, String image, Date created, Long categoryId, int price, String description, int itemsLeft) {
+    public Item(String itemName, String image, Date created, Category categoryId, int price, String description, int itemsLeft) {
         this.itemName = itemName;
         this.image = image;
         this.created = created;

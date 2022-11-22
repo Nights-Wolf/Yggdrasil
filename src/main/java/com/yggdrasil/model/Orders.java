@@ -1,17 +1,21 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Orders.class)
 public class Orders {
 
     @Id
@@ -19,8 +23,10 @@ public class Orders {
     private Long id;
 
     private int orderValue;
-    private Long cartId;
-    private Long userId;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cart_Id", referencedColumnName = "id")
+    private Cart cartId;
     private String username;
     private String surname;
     private String userEmail;
@@ -30,18 +36,23 @@ public class Orders {
     private String city;
     private String voivodeship;
     private String status;
-    private Long shipmentsId;
-    private Long paymentId;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "shipments_Id", referencedColumnName = "id")
+    private Shipments shipmentsId;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "payment_Id", referencedColumnName = "id")
+    private Payment paymentId;
 
     public Orders() {
         super();
     }
 
-    public Orders(int orderValue, Long cartId, Long userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
-                  String voivodeship, String status, Long shipmentsId, Long paymentId) {
+    public Orders(int orderValue, Cart cartId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
+                  String voivodeship, String status, Shipments shipmentsId, Payment paymentId) {
         this.orderValue = orderValue;
         this.cartId = cartId;
-        this.userId = userId;
         this.username = username;
         this.surname = surname;
         this.userEmail = userEmail;

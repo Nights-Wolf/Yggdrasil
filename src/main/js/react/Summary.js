@@ -17,6 +17,8 @@ function Summary() {
             .get("http://localhost:8080/api/order/" + cartId)
             .then(res => {
                 setOrder(res.data)
+                setShipment(res.data.shipmentsId)
+                setPayment(res.data.paymentId)
             })
             .catch(err => {
                 console.log(err.response)
@@ -24,7 +26,7 @@ function Summary() {
     }, [])
 
     React.useEffect(async () => {
-         axios
+         await axios
             .get("http://localhost:8080/api/cart/getByCartId/" + cartId)
             .then(res => {
                 setItem(res.data)
@@ -33,26 +35,6 @@ function Summary() {
                 console.log(err.response)
             })
     }, [])
-
-    React.useEffect(() => {
-         axios
-            .get("http://localhost:8080/api/shipments/" + order.shipmentsId)
-            .then(res => {
-                setShipment(res.data)
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
-         axios
-            .get("http://localhost:8080/api/payment/" + order.paymentId)
-            .then(res => {
-                setPayment(res.data)
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
-    }, [order])
-
 
     const itemDetails = item.map(item => {
         return <div key={item.id} className="summary-order_card">

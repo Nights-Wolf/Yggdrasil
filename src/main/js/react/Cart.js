@@ -22,10 +22,9 @@ function Cart(props) {
        }
     }
 
-    if(props.item != undefined) {
     React.useEffect(async () => {
              await axios
-                .get("http://localhost:8080/api/item/all/" + props.item)
+                .get("http://localhost:8080/api/cart/items/" + props.id)
                 .then(res => {
                         setItem(res.data)
                     })
@@ -33,7 +32,7 @@ function Cart(props) {
                         console.log(err.response)
                 })
     }, [])
-}
+
 
 
 
@@ -61,7 +60,7 @@ function Cart(props) {
      };
 
     const adjustQuantity = (quantity) => {
-    console.log(quantity)
+
         axios
             .put("http://localhost:8080/api/cart/adjustQuantity/" + props.id + "/" + quantity)
             .then(res => {

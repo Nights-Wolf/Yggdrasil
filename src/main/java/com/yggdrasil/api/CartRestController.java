@@ -62,4 +62,9 @@ public class CartRestController {
     private void adjustQuantity(@PathVariable Long id, @PathVariable("quantity") Integer quantity) {
         cartService.adjustQuantity(id, quantity);
     }
+
+    @GetMapping("/items/{id}")
+    private ResponseEntity<Item> getItemsByCartItemId(@PathVariable("id") Long id) {
+        return cartService.getItemsByCartItemId(id);
+    }
 }

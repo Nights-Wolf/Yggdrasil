@@ -1,31 +1,39 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Setter
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = CartItem.class)
 public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long itemId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "item_Id", referencedColumnName = "id")
+    private Item itemId;
     private int quantity;
     private Date createdDate;
-    private Long cartId;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cart_Id", referencedColumnName = "id")
+    private Cart cartId;
 
     public CartItem() {super();}
 
-    public CartItem(Long id, Long itemId, int quantity, Date createdDate, Long cartId) {
+    public CartItem(Long id, Item itemId, int quantity, Date createdDate, Cart cartId) {
         this.id = id;
         this.itemId = itemId;
         this.quantity = quantity;

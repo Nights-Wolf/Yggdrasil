@@ -20,13 +20,6 @@ function Products() {
     })
 
     const [product, setProduct] = React.useState([{
-        id: "",
-        itemName: "",
-        image: "",
-        created: "",
-        categoryId: "",
-        price: "",
-        itemsLeft: ""
     }])
 
     function handleFilterChange(event) {
@@ -57,7 +50,7 @@ function Products() {
        product.sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
     }
 
-   const card = product.map(product => {return <Card key={product.id}
+   const card = product.map(product => { return <Card key={product.id}
         img={product.image}
         id= {product.id}
         category= {product.categoryId}

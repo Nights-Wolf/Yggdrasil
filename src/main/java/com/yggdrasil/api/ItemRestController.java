@@ -24,8 +24,8 @@ public class ItemRestController {
     };
 
     @GetMapping("/all/{id}")
-    private Item getItemsById(@PathVariable("id") Long id) {
-        return itemService.getItemsById(id);
+    private ResponseEntity<Item> getItemsByCartItemId(@PathVariable("id") Long id) {
+        return itemService.getItemsByCartItemId(id);
     }
 
     @GetMapping("/all")
@@ -34,7 +34,7 @@ public class ItemRestController {
     }
 
     @GetMapping("/category/{categoryId}")
-    private List<Item> getItemsByCategory(@PathVariable Long categoryId) {
+    private ResponseEntity<List<Item>> getItemsByCategory(@PathVariable Long categoryId) {
         return itemService.getItemsByCategory(categoryId);
     }
 
