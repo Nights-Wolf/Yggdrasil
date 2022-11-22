@@ -58,7 +58,6 @@ public class CartService {
 
     public void addItemToCart(CartItem cartItem, String token) {
         Cart cart = cartDatabase.findByToken(token);
-
         cartItem.setCartId(cart);
 
         cartItemDatabase.save(cartItem);
@@ -75,18 +74,19 @@ public class CartService {
     public ResponseEntity<List<Item>>getCartItemsByCartId(Long id) {
         Cart cart = cartDatabase.getById(id);
 
-        List<CartItem> cartItemList = new ArrayList<>(cartItemDatabase.findByCartId(cart));
+        List<CartItem> cartItemList = cartItemDatabase.findByCartId(cart);
         List<Item> itemList = new ArrayList<>();
 
         for (CartItem cartItem: cartItemList) {
-            itemList.add(itemDatabase.getItemsById(cartItem.getItemId().getId()));
+            itemList.add(itemDatabase.findById(cartItem.getItemId().getId()).orElseThrow());
         }
 
         return new ResponseEntity<>(itemList, HttpStatus.OK);
     }
 
     public void deleteCartItem(Long id) {
-        List<CartItem> itemList = cartItemDatabase.findByItemId(id);
+        Item item = itemDatabase.findById(id).orElseThrow();
+        List<CartItem> itemList = cartItemDatabase.findByItemId(item.getId());
         for (CartItem cartItem: itemList) {
             cartItemDatabase.deleteById(cartItem.getId());
         }
@@ -101,5 +101,13 @@ public class CartService {
             cartItem.setQuantity(cartItem.getQuantity() - 1);
         }
         cartItemDatabase.save(cartItem);
+    }
+
+    public ResponseEntity<Item> getItemsByCartItemId(Long id) {
+        CartItem cartItem = cartItemDatabase.findById(id).orElseThrow();
+
+        Item item = itemDatabase.findById(cartItem.getItemId().getId()).orElseThrow();
+
+        return new ResponseEntity<>(item, HttpStatus.OK);
     }
 }

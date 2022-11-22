@@ -1,15 +1,21 @@
 package com.yggdrasil.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Orders.class)
 public class Orders {
 
     @Id
@@ -20,12 +26,10 @@ public class Orders {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
-    @JsonBackReference
     private Cart cartId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private Users userId;
     private String username;
     private String surname;
@@ -39,12 +43,10 @@ public class Orders {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipments_Id")
-    @JsonBackReference
     private Shipments shipmentsId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "paymentId")
-    @JsonBackReference
     private Payment paymentId;
 
     public Orders() {

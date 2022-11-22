@@ -1,6 +1,9 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.yggdrasil.security.ApplicationRoles;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +18,8 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Users.class)
 public class Users {
 
     @Id
@@ -40,14 +45,6 @@ public class Users {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    @JsonManagedReference
-    private Set<Orders> orders;
-
-    @OneToMany(mappedBy = "userId")
-    @JsonManagedReference
-    private Set<Cart> cart;
 
     public Users() {
         super();

@@ -18,6 +18,7 @@ function CartPage() {
     React.useEffect(async () => {
         const usersCart = localStorage.getItem("cart")
 
+
         if (usersCart) {
             await axios
                 .get("http://localhost:8080/api/cart/getItems/" + usersCart)
@@ -30,11 +31,10 @@ function CartPage() {
         }
     }, [])
 
-       const cartCards = cartItems.map(cartItems => {
-       return <Cart key={cartItems.id}
-                    id={cartItems.id}
-                    item= {cartItems.itemId}
-                    quantity= {cartItems.quantity} />
+       const cartCards = cartItems.map(cartItem => {
+       return <Cart key={cartItem.id}
+                    id={cartItem.id}
+                    quantity= {cartItem.quantity} />
         })
 
     return(

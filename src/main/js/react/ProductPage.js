@@ -81,7 +81,7 @@ function ProductPage(props) {
                 const date = new Date(Date.now())
 
                 const cartItem = {
-                    itemId: productId,
+                    itemId: visualizedProduct,
                     quantity: itemCount,
                     createdDate: date,
                 }

@@ -1,6 +1,9 @@
 package com.yggdrasil.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +13,8 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Shipments {
 
     @Id
@@ -19,10 +24,6 @@ public class Shipments {
     private String name;
     private float price;
     private int shipmentDays;
-
-    @OneToMany(mappedBy = "shipmentsId")
-    @JsonManagedReference
-    private Set<Orders> orders;
 
     public Shipments() {super();}
 
