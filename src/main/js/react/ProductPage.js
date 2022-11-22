@@ -18,9 +18,7 @@ function ProductPage(props) {
     const { categoryId } = useParams()
     const { title } = useParams()
 
-    const [user, setUser] = React.useState({
-        id: ""
-    })
+    const [user, setUser] = React.useState()
 
     const [itemCount, setItemCount] = React.useState(1)
 
@@ -37,11 +35,7 @@ function ProductPage(props) {
             .get("http://localhost:8080/api/user/getByToken", {headers: {
                 Authorization: "Bearer " + accessToken}})
             .then(res => {
-                setUser(prevUser => {
-                    return {
-                        ...prevUser,
-                        id: res.data.id,
-                    }})
+                setUser(res.data)
                 })
             .catch(err => {
                 console.log(err)
@@ -102,7 +96,7 @@ function ProductPage(props) {
                 const date = new Date(Date.now())
 
                 const cart = {
-                    userId: user.id,
+                    userId: user,
                     createdDate: date,
                     token: cartToken
                 }
@@ -118,7 +112,7 @@ function ProductPage(props) {
                     })
 
                 const cartItem = {
-                    itemId: productId,
+                    itemId: visualizedProduct,
                     quantity: itemCount,
                     createdDate: date,
                 }

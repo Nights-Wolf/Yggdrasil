@@ -12,13 +12,11 @@ function Order() {
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
 
-    const [user, setUser] = React.useState({
-        email: ""
-    })
+    const [user, setUser] = React.useState()
+    const [cart, setCart] = React.useState()
     const [order, setOrder] = React.useState({
         orderValue: "",
         cartId: "",
-        userId: "",
         username: "",
         surname: "",
         userEmail: "",
@@ -63,15 +61,10 @@ function Order() {
                 .get("http://localhost:8080/api/user/getByToken", {headers: {
                     Authorization: "Bearer " + accessToken}})
                 .then(res => {
-                    setUser(prevUser => {
-                        return {
-                            ...prevUser,
-                            email: res.data.email,
-                        }})
+                    setUser(res.data)
                     setOrder(prevOrder => {
                         return {
                             ...prevOrder,
-                            userId: res.data.id,
                             username: res.data.username,
                             surname: res.data.surname,
                             userEmail: res.data.email,
@@ -118,9 +111,10 @@ function Order() {
                 setOrder(prevOrder => {
                     return {
                         ...prevOrder,
-                        cartId: res.data.id
+                        cartId: res.data
                     }
                 })
+                setCart(res.data)
             })
             .catch(err => {
                 console.log(err.response)
@@ -137,6 +131,27 @@ function Order() {
         })
     }
 
+        function handleShipment(event) {
+            const {value} = event.target
+            const chosenShipment = shipment[value - 1]
+            setOrder(prevOrder => {
+                return {
+                    ...prevOrder,
+                    shipmentsId: chosenShipment
+                }
+            })
+        }
+
+        function handlePayment(event) {
+            const {value} = event.target
+            const chosenPayment = payments[value - 1]
+            setOrder(prevOrder => {
+                return {
+                    ...prevOrder,
+                    paymentId: chosenPayment
+                }
+            })
+        }
         function checkName(name) {
             if (name == "") {
                 setError(prevError => {
@@ -323,7 +338,6 @@ function Order() {
                 .post("http://localhost:8080/api/order", {
                     orderValue: order.orderValue,
                     cartId: order.cartId,
-                    userId: order.userId,
                     username: order.username,
                     surname: order.surname,
                     userEmail: order.userEmail,
@@ -338,7 +352,7 @@ function Order() {
                 })
                 .then(res => {
                     localStorage.removeItem("cart")
-                    navigate("/summary/" + order.cartId)
+                    navigate("/summary/" + cart.id)
                 })
                 .catch(err => {
                     console.log(err.response)
@@ -348,12 +362,12 @@ function Order() {
 
     const shipmentOptions = shipment.map(shipment => {
         return  <div className="shipment-option"  style={error.shipmentsId === "" ? errorInvisible : errorVisible}> <label htmlFor={shipment.id}>{shipment.name}<span>({shipment.price} zł)</span></label>
-        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentsId" onChange={handleChange} /></div>
+        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentsId" onChange={handleShipment} /></div>
     })
 
     const paymentsOptions = payments.map(payment => {
         return  <div className="payment-option"  style={error.paymentId === "" ? errorInvisible : errorVisible}> <label htmlFor={payment.id}>{payment.name}</label>
-        <input key={payment.id} id={payment.id} type="radio" value={payment.id} name="paymentId" onChange={handleChange} /></div>
+        <input key={payment.id} id={payment.id} type="radio" value={payment.id} name="paymentId" onChange={handlePayment} /></div>
     })
 
     return(

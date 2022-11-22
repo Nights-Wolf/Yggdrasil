@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Getter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+        property = "id", scope = Shipments.class)
 public class Shipments {
 
     @Id

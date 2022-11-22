@@ -10,4 +10,10 @@
     left: 0px;
     top: 95px;
     background: $background-color;
+
+    .summary {
+        &-user_details {
+            justify-content: space-evenly;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.yggdrasil.databaseInterface;
 
+import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.Orders;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,5 @@ import java.util.ArrayList;
 public interface OrdersDatabase extends JpaRepository<Orders, Long> {
 
     ArrayList<Orders> findByUserEmail(String email);
-    Orders findByCartId(Long id);
+    Orders findByCartId(Cart id);
 }

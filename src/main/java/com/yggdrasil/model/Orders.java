@@ -24,13 +24,9 @@ public class Orders {
 
     private int orderValue;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cart_Id", referencedColumnName = "id")
     private Cart cartId;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private Users userId;
     private String username;
     private String surname;
     private String userEmail;
@@ -41,23 +37,22 @@ public class Orders {
     private String voivodeship;
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shipments_Id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "shipments_Id", referencedColumnName = "id")
     private Shipments shipmentsId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "paymentId")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "payment_Id", referencedColumnName = "id")
     private Payment paymentId;
 
     public Orders() {
         super();
     }
 
-    public Orders(int orderValue, Cart cartId, Users userId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
+    public Orders(int orderValue, Cart cartId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
                   String voivodeship, String status, Shipments shipmentsId, Payment paymentId) {
         this.orderValue = orderValue;
         this.cartId = cartId;
-        this.userId = userId;
         this.username = username;
         this.surname = surname;
         this.userEmail = userEmail;

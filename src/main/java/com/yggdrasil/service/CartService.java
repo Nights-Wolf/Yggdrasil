@@ -72,7 +72,7 @@ public class CartService {
     }
 
     public ResponseEntity<List<Item>>getCartItemsByCartId(Long id) {
-        Cart cart = cartDatabase.getById(id);
+        Cart cart = cartDatabase.findById(id).orElseThrow();
 
         List<CartItem> cartItemList = cartItemDatabase.findByCartId(cart);
         List<Item> itemList = new ArrayList<>();

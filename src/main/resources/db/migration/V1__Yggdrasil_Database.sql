@@ -97,7 +97,6 @@ CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
     order_Value INTEGER NOT NULL,
     cart_Id INTEGER REFERENCES cart(id) NOT NULL,
-    user_Id INTEGER REFERENCES users(id),
     username VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
     user_email VARCHAR(50) NOT NULL,

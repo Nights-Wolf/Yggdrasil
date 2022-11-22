@@ -23,8 +23,8 @@ public class OrdersRestController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Orders> getOrderById(@PathVariable("id") Long id) {
-        return ordersService.getOrderById(id);
+    private ResponseEntity<Orders> getOrderByCartId(@PathVariable("id") Long id) {
+        return ordersService.getOrderByCartId(id);
     }
 
     @PostMapping
