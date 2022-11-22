@@ -86,7 +86,7 @@ public class CartService {
 
     public void deleteCartItem(Long id) {
         Item item = itemDatabase.findById(id).orElseThrow();
-        List<CartItem> itemList = cartItemDatabase.findByItemId(item.getId());
+        List<CartItem> itemList = cartItemDatabase.findByItemId(item);
         for (CartItem cartItem: itemList) {
             cartItemDatabase.deleteById(cartItem.getId());
         }
