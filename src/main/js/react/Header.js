@@ -82,10 +82,6 @@ function Header(props) {
                     <div className={props.isLogged === false ? "nav-btn__register" : "nav-btn__register-hidden"}>{props.isLogged === false ? <NavLink to="/register" style={({ isActive })=>
                     isActive ? {background: '#0F9F49'} : null}>Zarejestruj się</NavLink> : null}</div>
                 </nav>
-                <form className="search-engine">
-                    <input type="search"/>
-                    <button><i className="fa fa-eye" description="Szukaj"></i></button>
-                </form>
                 <div className="cart">
                     <Link to="/cart"><i class="fas fa-shopping-cart fa-2x"></i></Link>
                     <span className="cart-count" style={cartItemsCountVisibility}>{props.cartItems}</span>

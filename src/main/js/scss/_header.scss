@@ -24,30 +24,6 @@ header {
             display: none;
         }
     }
-    .search-engine {
-        position: absolute;
-        height: fit-content;
-        width: fit-content;
-        left: 168px;
-        top: 36px;
-
-        input {
-            background: $secondary-color;
-            top: 36px;
-            height: 22px;
-            width: 81px;
-            border: none;
-            color: white;
-        }
-
-        button {
-            cursor: pointer;
-            background: $buttons-color;
-            border: none;
-            height: 25px;
-            width: 28px;
-        }
-    }
 
     .cart {
         position: absolute;
