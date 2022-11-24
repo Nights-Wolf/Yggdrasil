@@ -13,6 +13,8 @@ function Products() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [currentPage, setCurrentPage] = React.useState(1)
+    const [productsPerPage, setProductsPerPage] = React.useState(20)
 
     const [filterData, setFilterData] = React.useState({
         price: "0",
@@ -50,7 +52,11 @@ function Products() {
        product.sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
     }
 
-   const card = product.map(product => { return <Card key={product.id}
+    const indexOfLastPost = currentPage * productsPerPage
+    const indexOfFirstPost = indexOfLastPost - productsPerPage
+    const currentProducts = product.slice(indexOfFirstPost, indexOfLastPost)
+
+   const card = currentProducts.map(product => { return <Card key={product.id}
         img={product.image}
         id= {product.id}
         category= {product.categoryId}
@@ -58,6 +64,8 @@ function Products() {
         price= {product.price}
         itemsLeft = {product.itemsLeft} />
     })
+
+    const paginate = pageNumber => setCurrentPage(pageNumber)
 
     const filteredCards =  product.filter(product => product.itemsLeft > 0)
     const unavailableCards = filteredCards.map(filteredCards => {
@@ -102,11 +110,15 @@ function Products() {
         <div className="products-container">
             {filterData.availability == 2 ? unavailableCards : card}
         </div>
-        <Pagination />
+        <Pagination
+            productsPerPage={productsPerPage}
+            totalProducts={product.length}
+            paginate={paginate}
+          />
        </section>
        <Footer />
      </div>
     )
  }
- 
+
  export default Products

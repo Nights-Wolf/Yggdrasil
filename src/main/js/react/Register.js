@@ -182,7 +182,7 @@ function Register() {
                     axios
                         .post("http://localhost:8080/api/mail/sendRegistrationMail", {
                                 recipient: user.email,
-                                msgBody: "Witaj " + user.username + "\n\n Pragniemy poinformować Cię, że Twoje konto zostało założone! \n\n Dziękujemy, że jesteś z nami! \n\n ~Zespół Yggdrasil",
+                                msgBody: "Witaj " + user.username + "\n\n Pragniemy poinformować Cię, że Twoje konto zostało utworzone! \n\n Dziękujemy, że jesteś z nami! \n\n ~Zespół Yggdrasil",
                                 subject: "Konto zostało utworzone"
                         })
                 navigate('/login')
