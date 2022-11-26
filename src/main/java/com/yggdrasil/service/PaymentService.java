@@ -1,6 +1,8 @@
 package com.yggdrasil.service;
 
+import com.yggdrasil.databaseInterface.OrdersDatabase;
 import com.yggdrasil.databaseInterface.PaymentDatabase;
+import com.yggdrasil.model.Orders;
 import com.yggdrasil.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,12 @@ import java.util.List;
 public class PaymentService {
 
     private final PaymentDatabase paymentDatabase;
+    private final OrdersDatabase ordersDatabase;
 
     @Autowired
-    public PaymentService(PaymentDatabase paymentDatabase) {
+    public PaymentService(PaymentDatabase paymentDatabase, OrdersDatabase ordersDatabase) {
         this.paymentDatabase = paymentDatabase;
+        this.ordersDatabase = ordersDatabase;
     }
 
     public ResponseEntity<List<Payment>> getPayments() {
@@ -26,7 +30,8 @@ public class PaymentService {
     }
 
     public ResponseEntity<Payment> getPaymentById(Long id) {
-        Payment payment = paymentDatabase.findById(id).orElseThrow();
+        Orders orders = ordersDatabase.findById(id).orElseThrow();
+        Payment payment = orders.getPaymentId();
 
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }

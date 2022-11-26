@@ -1,7 +1,20 @@
 import React from "react";
+import axios from "axios";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 
 function MyOrders(props) {
+    const [item, setItem] = React.useState([{}])
+    React.useEffect(async () => {
+        await
+         axios
+            .get("http://localhost:8080/api/cart/getByCartId/" + props.orderNum)
+            .then(res => {
+                setItem(res.data)
+                })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }, [])
 
     return(
             <div className="my-Order_card">
@@ -12,6 +25,8 @@ function MyOrders(props) {
                         <li>Cena: {props.price}</li>
                         <li>Data: {props.date}</li>
                         <li>Status: {props.status}</li>
+                        <li>Rodzaj dostawy: {props.shipment}</li>
+                        <li>Płatność: {props.payment}</li>
                     </ul>
                     <ul>
                         <li>{props.username}</li>
@@ -23,16 +38,20 @@ function MyOrders(props) {
                     </ul>
                 </div>
                 <div className="item-section">
-                    <div className="item-card">
-                        <img src= {discount_picture_2} alt="Zdjęcie produktu" />
-                        <div className="item-card_details">
-                            <ul>
-                                <li>{props.itemName}</li>
-                                <li>{props.itemPrice}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            {item.map(item => {
+                                return (
+                                    <div className="item-card">
+                                        <img src= {discount_picture_2} alt="Zdjęcie produktu" />
+                                        <div className="item-card_details">
+                                            <ul>
+                                                <li>{item.itemName}</li>
+                                                <li>{item.price} zł</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                            </div>
             </div>
     )
 }

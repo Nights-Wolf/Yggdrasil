@@ -16,7 +16,6 @@ function MyOrdersPage() {
     })
 
     const [order, setOrder] = React.useState([{}])
-    const [item, setItem] = React.useState([{}])
     const [shipment, setShipment] = React.useState([{}])
     const [payment, setPayment] = React.useState([{}])
 
@@ -49,49 +48,31 @@ function MyOrdersPage() {
             })
     }, [user])
 
-
-    React.useEffect(async () => {
-        await order.forEach(order => {
-         axios
-            .get("http://localhost:8080/api/cart/getByCartId/" + order.cartId)
-            .then(res => {
-            console.log(res.data)
-                setItem(res.data)
-                })
-            .catch(err => {
-                console.log(err.response)
-            })
-         })
-    }, [order])
-
    React.useEffect(() => {
-        order.forEach(order => {
+        order.forEach(orders => {
          axios
-            .get("http://localhost:8080/api/shipments/" + order.shipmentsId)
+            .get("http://localhost:8080/api/shipments/" + orders.id)
             .then(res => {
                 setShipment(res.data)
             })
             .catch(err => {
                 console.log(err.response)
             })
-         })
          axios
-            .get("http://localhost:8080/api/payment/" + order.paymentId)
+            .get("http://localhost:8080/api/payment/" + orders.id)
             .then(res => {
                 setPayment(res.data)
             })
             .catch(err => {
                 console.log(err.response)
             })
-    }, [])
-console.log(order)
+            })
+    }, [order])
+
    const orderCards = order.map(order => {return <MyOrders key={order.id}
                 orderNum={order.id}
                 username={order.username}
                 surname={order.surname}
-                itemName={item.itemName}
-                itemPrice={item.price}
-                itemPhoto={item.image}
                 price={order.orderValue + " zł"}
                 street={order.street}
                 zipCode={order.zipCode}

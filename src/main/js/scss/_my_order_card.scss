@@ -10,7 +10,7 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: flex-start;
         min-height: 200px;
         width: 100%;
@@ -24,7 +24,7 @@
 
     .item-section {
         position: relative;
-        height: 250px;
+        height: 162px;
         width: 100%;
         border-top: 2px solid black;
         overflow: scroll;
@@ -33,7 +33,7 @@
             position: relative;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: space-evenly;
             align-items: center;
             margin-bottom: 10px;
             width: 100%;

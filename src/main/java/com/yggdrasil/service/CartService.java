@@ -3,9 +3,11 @@ package com.yggdrasil.service;
 import com.yggdrasil.databaseInterface.CartDatabase;
 import com.yggdrasil.databaseInterface.CartItemDatabase;
 import com.yggdrasil.databaseInterface.ItemDatabase;
+import com.yggdrasil.databaseInterface.OrdersDatabase;
 import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.CartItem;
 import com.yggdrasil.model.Item;
+import com.yggdrasil.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +27,14 @@ public class CartService {
     private final CartItemDatabase cartItemDatabase;
     private final ItemDatabase itemDatabase;
 
+    private final OrdersDatabase ordersDatabase;
+
     @Autowired
-    public CartService(CartDatabase cartDatabase, CartItemDatabase cartItemDatabase, ItemDatabase itemDatabase) {
+    public CartService(CartDatabase cartDatabase, CartItemDatabase cartItemDatabase, ItemDatabase itemDatabase, OrdersDatabase ordersDatabase) {
         this.cartDatabase = cartDatabase;
         this.cartItemDatabase = cartItemDatabase;
         this.itemDatabase = itemDatabase;
+        this.ordersDatabase = ordersDatabase;
     }
 
     public void createCart(Cart cart, HttpServletResponse response) {
@@ -72,10 +77,10 @@ public class CartService {
     }
 
     public ResponseEntity<List<Item>>getCartItemsByCartId(Long id) {
-        Cart cart = cartDatabase.findById(id).orElseThrow();
-
+        Orders orders = ordersDatabase.findById(id).orElseThrow();
+        Cart cart = orders.getCartId();
         List<CartItem> cartItemList = cartItemDatabase.findByCartId(cart);
-        List<Item> itemList = new ArrayList<>();
+        List<Item> itemList = new ArrayList();
 
         for (CartItem cartItem: cartItemList) {
             itemList.add(itemDatabase.findById(cartItem.getItemId().getId()).orElseThrow());
