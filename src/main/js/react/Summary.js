@@ -27,14 +27,14 @@ function Summary() {
 
     React.useEffect(async () => {
          await axios
-            .get("http://localhost:8080/api/cart/getByCartId/" + cartId)
+            .get("http://localhost:8080/api/cart/getByCartId/" + order.id)
             .then(res => {
                 setItem(res.data)
             })
             .catch(err => {
                 console.log(err.response)
             })
-    }, [])
+    }, [order])
 
     const itemDetails = item.map(item => {
         return <div key={item.id} className="summary-order_card">

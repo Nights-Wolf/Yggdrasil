@@ -1,6 +1,8 @@
 package com.yggdrasil.service;
 
+import com.yggdrasil.databaseInterface.OrdersDatabase;
 import com.yggdrasil.databaseInterface.ShipmentsDatabase;
+import com.yggdrasil.model.Orders;
 import com.yggdrasil.model.Shipments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,12 @@ import java.util.List;
 public class ShipmentService {
 
     private final ShipmentsDatabase shipmentsDatabase;
+    private final OrdersDatabase ordersDatabase;
 
     @Autowired
-    public ShipmentService(ShipmentsDatabase shipmentsDatabase) {
+    public ShipmentService(ShipmentsDatabase shipmentsDatabase, OrdersDatabase ordersDatabase) {
         this.shipmentsDatabase = shipmentsDatabase;
+        this.ordersDatabase = ordersDatabase;
     }
 
     public ResponseEntity<List<Shipments>> getShipments() {
@@ -26,7 +30,8 @@ public class ShipmentService {
     }
 
     public ResponseEntity<Shipments> getShipmentById(Long id) {
-        Shipments shipments = shipmentsDatabase.findById(id).orElseThrow();
+        Orders orders = ordersDatabase.findById(id).orElseThrow();
+        Shipments shipments = orders.getShipmentsId();
 
         return new ResponseEntity<>(shipments, HttpStatus.OK);
     }

@@ -26,10 +26,6 @@ public class Cart {
     private Date createdDate;
     private String token;
 
-    @OneToOne(mappedBy = "cartId")
-    private Orders orders;
-
-
     public Cart() {super();}
 
     public Cart(Long id, Users userId, Date createdDate, String token) {
