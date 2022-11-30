@@ -19,6 +19,7 @@ const useCheckCart = () => {
             }
             setCartItemsData(null)
             }, [])
+
      return [cartItemsData]
 }
 export default useCheckCart

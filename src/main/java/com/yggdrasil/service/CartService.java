@@ -4,10 +4,7 @@ import com.yggdrasil.databaseInterface.CartDatabase;
 import com.yggdrasil.databaseInterface.CartItemDatabase;
 import com.yggdrasil.databaseInterface.ItemDatabase;
 import com.yggdrasil.databaseInterface.OrdersDatabase;
-import com.yggdrasil.model.Cart;
-import com.yggdrasil.model.CartItem;
-import com.yggdrasil.model.Item;
-import com.yggdrasil.model.Orders;
+import com.yggdrasil.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,5 +111,13 @@ public class CartService {
         Item item = itemDatabase.findById(cartItem.getItemId().getId()).orElseThrow();
 
         return new ResponseEntity<>(item, HttpStatus.OK);
+    }
+
+    public void updateCartOwner(String token, Users users) {
+        Cart cart = cartDatabase.findByToken(token);
+
+        cart.setUserId(users);
+
+        cartDatabase.save(cart);
     }
 }

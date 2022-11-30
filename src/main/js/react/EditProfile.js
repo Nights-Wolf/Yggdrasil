@@ -5,11 +5,13 @@ import Footer from "./Footer";
 import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function EditProfile() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
 
     const navigate = useNavigate()
 

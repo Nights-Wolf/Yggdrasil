@@ -56,7 +56,7 @@ function Carousel(props) {
             url: value,
         }})
     }
-console.log(triggerClick)
+
     return(
         <>
             <img src={carouselElementToDisplay.url} style={carouselElementToDisplay.visible ? visibleCarouselElementStyle : hiddenCarouselElementStyle} alt="discount picture" aria-hidden={false}></img>

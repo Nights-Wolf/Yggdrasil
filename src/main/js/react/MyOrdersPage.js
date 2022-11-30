@@ -5,11 +5,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import MyOrders from "./MyOrders";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function MyOrdersPage() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
 
     const [user, setUser] = React.useState({
         email: ""

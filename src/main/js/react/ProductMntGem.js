@@ -8,11 +8,13 @@ import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function ProductMntGem() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
     const [currentPage, setCurrentPage] = React.useState(1)
     const [productsPerPage, setProductsPerPage] = React.useState(20)
 
