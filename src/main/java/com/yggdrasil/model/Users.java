@@ -29,9 +29,7 @@ public class Users {
     private String email;
     private String street;
     private String zipCode;
-
     private String city;
-
     private String voivodeship;
     private Long refreshToken;
     private boolean rememberMe;
