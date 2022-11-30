@@ -6,11 +6,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function ProductPage(props) {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
 
     const navigate = useNavigate()
 

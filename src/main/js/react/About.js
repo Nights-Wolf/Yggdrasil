@@ -2,11 +2,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function About() {
 
 const [data] = useCheckLogin()
-    const [cartItemsData] = useCheckCart()
+const [cartItemsData] = useCheckCart()
+const [isCartUpdated] = useUpdateCart()
 
     return (
     <div>

@@ -5,11 +5,13 @@ import Footer from "./Footer";
 import { useParams, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 
 function RemindPassword() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
 
     const { token } = useParams()
 

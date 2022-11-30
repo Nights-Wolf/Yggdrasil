@@ -3,6 +3,7 @@ package com.yggdrasil.api;
 import com.yggdrasil.model.Cart;
 import com.yggdrasil.model.CartItem;
 import com.yggdrasil.model.Item;
+import com.yggdrasil.model.Users;
 import com.yggdrasil.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -66,5 +67,10 @@ public class CartRestController {
     @GetMapping("/items/{id}")
     private ResponseEntity<Item> getItemsByCartItemId(@PathVariable("id") Long id) {
         return cartService.getItemsByCartItemId(id);
+    }
+
+    @PutMapping("/updateOwner/{token}")
+    private void updateCartOwner(@PathVariable("token") String token, @RequestBody Users users) {
+        cartService.updateCartOwner(token, users);
     }
 }

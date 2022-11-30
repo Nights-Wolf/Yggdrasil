@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
+import useUpdateCart from "./UpdateCart";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
 
@@ -11,6 +12,7 @@ function CartPage() {
 
     const [data] = useCheckLogin()
     const [cartItemsData] = useCheckCart()
+    const [isCartUpdated] = useUpdateCart()
 
     const [cartItems, setCartItems] = React.useState([{}])
 
