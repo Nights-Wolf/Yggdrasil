@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
 import useUpdateCart from "./UpdateCart";
+import Alert from "./Alert";
 
 function Login() {
 
@@ -15,6 +16,7 @@ function Login() {
 
     const navigate = useNavigate();
 
+    const [alert, setAlert] = React.useState(false)
     const [login, setLogin] = React.useState({
         email: "",
         password: "",
@@ -68,7 +70,7 @@ function Login() {
             setError(prevError => {
                 return {
                     ...prevError,
-                    password: "Niepoprawne hasło!"
+                    password: "Hasło jest za krótkie!"
                 }
             })
             return false
@@ -103,13 +105,13 @@ function Login() {
                     navigate('/')
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    setAlert(prevAlert => true)
             })
         } else if (isEmailCorrect && isPasswordCorrect && rememberAuthChecked) {
                     axios
                         .post("http://localhost:8080/api/authentication/remember/" + login.email)
                         .catch(err => {
-                            console.log(err.response)
+                            setAlert(prevAlert => true)
                     })
 
             axios
@@ -125,12 +127,10 @@ function Login() {
                     navigate('/')
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    setAlert(prevAlert => true)
             })
         }
     }
-
-
 
     return (
     <div>
@@ -139,6 +139,9 @@ function Login() {
         cartItems={cartItemsData}
          />
        <section className="login-section">
+       <Alert
+            isVisible={alert}
+            alertText="Podany email lub hasło jest nieprawidłowe!" />
         <h1>Zaloguj się</h1>
         <form onSubmit={handleSubmit}>
             <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
