@@ -49,7 +49,6 @@ function Carousel(props) {
     }, []);
 
     function carouselNextElement(event) {
-        console.log(event.value)
         const {name, value} = event.target
         setCarouselElementToDisplay(prevCarouselElementToDisplay => {
           return {  ...prevCarouselElementToDisplay,

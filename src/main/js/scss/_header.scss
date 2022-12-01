@@ -171,6 +171,11 @@ header {
                 cursor: pointer;
                 margin-bottom: 5px;
 
+                    &:hover {
+                        @include transition-ease;
+                        color: $primary-color;
+                    }
+
                 a {
                     display: block;
                     background: none;

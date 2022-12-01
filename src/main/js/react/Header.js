@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
 import logo from "./assets/images/logo.png";
 import useWindowDimensions from "./useWindowDimensions";
@@ -10,16 +11,34 @@ function Header(props) {
     const [mobileNavVisibility, setVisibility] = React.useState(false)
     const [profileNavVisibility, setProfileVisibility] = React.useState(false)
 
+    function deleteCart(cartToken) {
+          console.log(cartToken)
+        axios
+            .delete("http://localhost:8080/api/cart/cartDelete/" + cartToken)
+            .then(res => {
+                window.location.reload(false)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }
+
     const logOut = () => {
         const accessToken = localStorage.getItem("access_token")
         const refreshToken = localStorage.getItem("refresh_token")
+        const cartToken = localStorage.getItem("cart")
 
         if (accessToken && refreshToken) {
             localStorage.removeItem("access_token")
             localStorage.removeItem("refresh_token")
 
+            if(cartToken) {
+                localStorage.removeItem("cart")
+                deleteCart(cartToken)
+            }
             window.location.reload(false)
         }
+
     }
 
         function showNavbar() {
