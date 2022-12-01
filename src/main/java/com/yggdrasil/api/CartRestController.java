@@ -59,6 +59,11 @@ public class CartRestController {
         cartService.deleteCartItem(id);
     }
 
+    @DeleteMapping("/cartDelete/{token}")
+    private void deleteCart(@PathVariable("token") String token) {
+        cartService.deleteCart(token);
+    }
+
     @PutMapping("/adjustQuantity/{id}/{quantity}")
     private void adjustQuantity(@PathVariable Long id, @PathVariable("quantity") Integer quantity) {
         cartService.adjustQuantity(id, quantity);

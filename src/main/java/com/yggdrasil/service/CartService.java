@@ -94,6 +94,17 @@ public class CartService {
         }
     }
 
+    public void deleteCart(String token) {
+        Cart cart = cartDatabase.findByToken(token);
+        List<CartItem> cartItemList = cartItemDatabase.findByCartId(cart);
+
+        for (CartItem cartItem: cartItemList) {
+            cartItemDatabase.deleteById(cartItem.getId());
+        }
+
+        cartDatabase.deleteById(cart.getId());
+    }
+
     public void adjustQuantity( Long id, Integer quantity) {
         CartItem cartItem = cartItemDatabase.findById(id).orElseThrow();
 
