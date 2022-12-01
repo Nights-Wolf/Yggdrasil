@@ -59,3 +59,19 @@ a {
 section {
     background: $background-color;
 }
+
+.skip-link {
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 5rem;
+    z-index: 99;
+    translate: 0 -100%;
+}
+
+.skip-link:focus {
+    translate: 0;
+}
