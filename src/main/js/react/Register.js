@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
 import useUpdateCart from "./UpdateCart";
+import Alert from "./Alert"
 
 function Register() {
 
@@ -14,6 +15,11 @@ function Register() {
     const [isCartUpdated] = useUpdateCart()
 
     const navigate = useNavigate()
+
+    const [alert, setAlert] = React.useState({
+        isVisible: false,
+        text: ""
+    })
 
     const [emailDetails, setEmailDetails] = React.useState({
         recipient: "",
@@ -191,7 +197,12 @@ function Register() {
                 }
             })
             .catch(err => {
-                console.log(err.response)
+                setAlert(prevAlert => {
+                    return {
+                        isVisible: true,
+                        text: err.response.data
+                    }
+                })
             })
         }
         }
@@ -203,6 +214,9 @@ function Register() {
         cartItems={cartItemsData}
         />
        <section className="register-section">
+            <Alert
+                isVisible={alert.isVisible}
+                alertText={alert.text} />
        <h1>Zarejestruj się</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} name="username" onChange={handleChange} />
