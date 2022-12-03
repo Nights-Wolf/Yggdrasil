@@ -9,6 +9,7 @@ import com.yggdrasil.databaseInterface.UserDatabase;
 import com.yggdrasil.model.ChangeEmail;
 import com.yggdrasil.model.ChangePassword;
 import com.yggdrasil.model.Users;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -43,16 +44,18 @@ public class UserService {
         this.secret = secret;
     }
 
-    public void createUser(Users users) {
-        String checkIfUserExists = String.valueOf(userDatabase.findByEmail(users.getEmail()));
+    public ResponseEntity<String> createUser(Users users) {
+        Users checkIfUserExists = userDatabase.findByEmail(users.getEmail());
         boolean checkIfUserAcceptedTerms = users.isAcceptedTerms();
         boolean checkIfUserAcceptedRodo = users.isAcceptedRodo();
-        String checkIfPasswordIsCorrect = users.getPassword();
-        String checkIfNameIsCorrect = users.getUsername();
-        String checkIfSurnameIsCorrect = users.getSurname();
 
-        if (checkIfUserExists.equals("null") || checkIfUserExists.equals("") && checkIfUserAcceptedTerms && checkIfUserAcceptedRodo &&
-                checkIfPasswordIsCorrect != null || !checkIfPasswordIsCorrect.equals("") && !checkIfNameIsCorrect.equals("") && !checkIfSurnameIsCorrect.equals("")) {
+        if (checkIfUserExists != null) {
+            String err = ("Ten email jest już używany!");
+            return new ResponseEntity<>(err, HttpStatus.NOT_ACCEPTABLE);
+        } else if (!checkIfUserAcceptedTerms || !checkIfUserAcceptedRodo) {
+            String err = ("Musisz zaakceptować Regulamin i RODO!");
+            return new ResponseEntity<>(err, HttpStatus.NOT_ACCEPTABLE);
+        } else {
             users.setGrantedAuthorities("USER");
             users.setPassword(passwordEncoder.encode(users.getPassword()));
             users.setAccountNonExpired(true);
@@ -60,8 +63,8 @@ public class UserService {
             users.setCredentialsNonExpired(true);
             users.setEnabled(true);
             userDatabase.save(users);
-        } else {
-            System.out.println("This email is already in use! You must accept terms! You must accept RODO!");
+
+            return new ResponseEntity<>("User created", OK);
         }
     }
 

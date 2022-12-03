@@ -45,8 +45,8 @@ function Carousel(props) {
       }
         clickButton(elementNum)
       }, 10000)
-      return () => clearInterval(interval);
-    }, []);
+      return () => clearInterval(interval)
+    }, [])
 
     function carouselNextElement(event) {
         const {name, value} = event.target

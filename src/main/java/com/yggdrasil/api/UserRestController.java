@@ -26,8 +26,8 @@ public class UserRestController {
     }
 
     @PostMapping("/create")
-     private void createUser(@RequestBody Users users) {
-        userService.createUser(users);
+     private ResponseEntity<String> createUser(@RequestBody Users users) {
+        return userService.createUser(users);
     }
 
     @GetMapping("/getByToken")
