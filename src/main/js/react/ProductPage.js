@@ -180,7 +180,7 @@ console.log(watchedPicture)
                                 })
                             }
                         </div>
-                        <img src={watchedPicture.url}className="watched_picture" />
+                        <img src={watchedPicture.url} className="watched_picture" alt="Zdjęcie drzewka" />
                     </div>
                     <div className="status">
                         <p className="status--title">{title}</p>

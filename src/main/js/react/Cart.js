@@ -78,10 +78,10 @@ function Cart(props) {
                 <p className="name">{item.itemName}</p>
                 <form>
                     <div className="item-quantity">
-                        <button type="button" name="add" description="Kliknij aby dodać produkt do koszyka" onClick={() => adjustQuantity(1)} >+</button>
-                        <input type="number" name="quantity"  value={itemCount} onChange={handleChange} />
-                        <button type="button" name="subtract" description="Kliknij aby odjąć produkt do koszyka" onClick={() => adjustQuantity(-1)} >-</button>
-                        <button type="button" name="delete" description="Kliknij aby usunąć produkt do koszyka" onClick={deleteItem} ><i class="fa fa-trash fa-2x"></i></button>
+                        <button type="button" name="add" description="Kliknij aby dodać produkt do koszyka" onClick={() => adjustQuantity(1)} aira-label="Dodaj produkt" >+</button>
+                        <input type="number" name="quantity"  value={itemCount} onChange={handleChange} aria-label="Liczba wybranych produktów" />
+                        <button type="button" name="subtract" description="Kliknij aby odjąć produkt do koszyka" onClick={() => adjustQuantity(-1)} aria-label="Odejmij produkt" >-</button>
+                        <button type="button" name="delete" description="Kliknij aby usunąć produkt do koszyka" onClick={deleteItem} aria-label="Usuń produkt z koszyka" ><i class="fa fa-trash fa-2x"></i></button>
                     </div>
                 </form>
                 <p className="price">{item.price * props.quantity} zł</p>

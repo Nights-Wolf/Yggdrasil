@@ -133,13 +133,13 @@ function EditProfile() {
          />
        <section className="edit_profile-section">
         <form onSubmit={handleSubmit}>
-            <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={user.username} name="username" onChange={handleChange} />
-            <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} value={user.surname} name="surname" onChange={handleChange} />
-            <input type="text" placeholder="Adres" value={user.street} name="street" onChange={handleChange} />
-            <input type="text" placeholder="Kod pocztowy" value={user.zipCode} name="zipCode" onChange={handleChange} />
-            <input type="text" placeholder="Miasto" value={user.city} name="city" onChange={handleChange} />
-            <input type="text" placeholder="Województwo" value={user.voivodeship} name="voivodeship" onChange={handleChange} />
-            <button>Zmień dane</button>
+            <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={user.username} name="username" onChange={handleChange} aria-label="Edytuj imię" />
+            <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} value={user.surname} name="surname" onChange={handleChange} aria-label="edytuj nazwisko" />
+            <input type="text" placeholder="Adres" value={user.street} name="street" onChange={handleChange} aria-label="Edytuj ulicę i numer bloku (w adresie)" />
+            <input type="text" placeholder="Kod pocztowy" value={user.zipCode} name="zipCode" onChange={handleChange} aria-label="Edytuj kod pocztowy (w adresie)" />
+            <input type="text" placeholder="Miasto" value={user.city} name="city" onChange={handleChange} aria-label="Edytuj miasto (w adresie)" />
+            <input type="text" placeholder="Województwo" value={user.voivodeship} name="voivodeship" onChange={handleChange} aria-label="Edytuj województwo (w adresie)" />
+            <button aria-label="Podsumuj edycję profilu" aria-required="true" >Zmień dane</button>
         </form>
         <Link to="/changePassword" className="change_login_data">Zmień hasło</Link>
         <Link to="/changeEmail" className="change_login_data">Edytuj Email</Link>

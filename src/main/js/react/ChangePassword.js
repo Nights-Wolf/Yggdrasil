@@ -165,10 +165,10 @@ const navigate = useNavigate()
          />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
-            <input type="password" style={error.oldPassword === "" ? errorInvisible : errorVisible} placeholder={error.oldPassword === "" ? "Stare hasło" : error.oldPassword} id="oldPassword"  name="oldPassword"  onChange={handleChange}/>
-            <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange}/>
-            <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={validatePassword}/>
-            <button>Zmień hasło</button>
+            <input type="password" style={error.oldPassword === "" ? errorInvisible : errorVisible} placeholder={error.oldPassword === "" ? "Stare hasło" : error.oldPassword} id="oldPassword"  name="oldPassword"  onChange={handleChange} aria-label="Wpisz stare hasło" />
+            <input type="password" style={error.newPassword === "" ? errorInvisible : errorVisible} placeholder={error.newPassword === "" ? "Nowe hasło" : error.newPassword} id="newPassword"  name="newPassword"  onChange={handleChange} aria-label="Wpisz nowe hasło" />
+            <input type="password" style={error.repeatNewPassword === "" ? errorInvisible : errorVisible} placeholder={error.repeatNewPassword === "" ? "Powtórz hasło" : error.repeatNewPassword} id="repeatNewPassword"  name="repeatNewPassword" onChange={validatePassword} aria-label="Powtórz nowe hasło" />
+            <button aria-label="Zatwierdź zmianę hasła" aria-required="true" >Zmień hasło</button>
         </form>
        </section>
        <Footer />

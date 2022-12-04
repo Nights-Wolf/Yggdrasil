@@ -124,8 +124,8 @@ const navigate = useNavigate()
         />
        <section className="remindPassword-section">
         <form onSubmit={handleSubmit}>
-            <input type="email" style={error.newEmail === "" ? errorInvisible : errorVisible} placeholder={error.newEmail === "" ? "Nowy email" : error.newEmail} id="newEmail"  name="newEmail"  onChange={handleChange}/>
-            <button>Zmień email</button>
+            <input type="email" style={error.newEmail === "" ? errorInvisible : errorVisible} placeholder={error.newEmail === "" ? "Nowy email" : error.newEmail} id="newEmail"  name="newEmail"  onChange={handleChange} aria-label="Podaj email do zmiany" />
+            <button aria-label="Zatwierdź email" aria-required="true">Zmień email</button>
         </form>
        </section>
        <Footer />
