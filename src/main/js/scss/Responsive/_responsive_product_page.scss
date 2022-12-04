@@ -3,6 +3,15 @@
         top: 91px;
         width: 82%;
         left: 18%;
+
+        .images {
+            display: flex;
+            flex-direction: row;
+
+            .other_image {
+                height: 297px;
+                margin-left: 0;
+            }
     }
 }
 
@@ -17,10 +26,22 @@
             height: 510px;
             justify-content: center;
 
-            img {
+            .images {
+
+                .other_image {
+                    height: 507px;
+                    margin-left: 0;
+
+                    .additional_images {
+                        height: 100px;
+                    }
+                }
+
+                .watched_picture {
                 height: 500px;
                 width: 450px;
-
+                }
+            }
                 .status {
                     font-size: 1.5rem;
 

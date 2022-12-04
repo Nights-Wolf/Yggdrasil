@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import discount_picture_1 from "./assets/images/promotion_image_1.jpg";
 import discount_picture_2 from "./assets/images/promotion_image_2.jpg";
 import useCheckLogin from "./CheckLogin";
 import useCheckCart from "./CheckCart";
@@ -24,11 +25,7 @@ function ProductPage(props) {
 
     const [itemCount, setItemCount] = React.useState(1)
 
-    const [visualizedProduct, setVisualizedProduct] = React.useState({
-        price: "",
-        description: "",
-        itemsLeft: ""
-    })
+    const [visualizedProduct, setVisualizedProduct] = React.useState({})
 
     React.useEffect(() => {
         const accessToken = localStorage.getItem("access_token")
@@ -43,6 +40,29 @@ function ProductPage(props) {
                 console.log(err)
             })
     }, [])
+
+    const [pictures, setPictures] = React.useState([{
+        id: 1,
+        url: discount_picture_1
+    },
+    {
+        id: 2,
+        url: discount_picture_2
+    },
+    {
+        id: 3,
+        url: discount_picture_1
+    },
+    {
+        ir: 4,
+        url: discount_picture_2
+    }
+    ])
+
+    const [watchedPicture, setWatchedPicture] = React.useState({
+        id: pictures[0].id,
+        url: pictures[0].url
+    })
 
     function handleChange(event) {
         setItemCount(event.target.value)
@@ -131,6 +151,17 @@ function ProductPage(props) {
          }
         }
 
+        function switchImage(event) {
+            const {name, value} = event.target
+            setWatchedPicture(prevWatchedPicture => {
+                return {
+                    ...prevWatchedPicture,
+                    id: name,
+                    url: value
+                }
+            })
+        }
+console.log(watchedPicture)
     return(
         <div>
             <Header
@@ -139,7 +170,18 @@ function ProductPage(props) {
              />
             <section className="product--page">
                 <div className="product--details">
-                    <img src= {discount_picture_2} />
+                    <div className="images">
+                        <div className="other_image">
+                            {
+                                pictures.map(picture => {
+                                    return (
+                                    <button className="additional_images" name={picture.id} value={picture.url}><img src={picture.url} onClick={switchImage} alt="zdjęcie drzewka" /></button>
+                                    )
+                                })
+                            }
+                        </div>
+                        <img src={watchedPicture.url}className="watched_picture" />
+                    </div>
                     <div className="status">
                         <p className="status--title">{title}</p>
                         <p className="status--price">{visualizedProduct.price}zł</p>
