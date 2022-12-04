@@ -17,14 +17,42 @@
         width: 100%;
         height: 300px;
 
-        img {
-            position: relative;
-            width: 150px;
-            height: 200px;
-            margin-right: 20px;
-            border-radius: 5px;
-        }
+        .images {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
 
+            .other_image {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                height: 289px;
+                margin-right: 15px;
+                margin-left: 5px;
+
+                .additional_images {
+                    cursor: pointer;
+                    height: 50px;
+                    width: 100%;
+                    border: none;
+                    padding: 0;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        border-radius: 5px;
+                    }
+                }
+            }
+
+            .watched_picture {
+                position: relative;
+                height: 288px;
+                width: 177px;
+                margin-right: 20px;
+                border-radius: 5px;
+            }
+        }
         .status {
             position: relative;
             display: flex;
