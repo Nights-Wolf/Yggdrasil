@@ -1,32 +1,23 @@
 @include media-md {
     .main-section {
         width: 81.7%;
-        top: 18px;
         left: 18.2%;
+        height: 93vh;
 
         .discounts__container {
          height: 464px;
      }
-
-        .news__container {
-            height: 464px;
-        }
     }
 }
 
 @include media-lg {
-    .-main-section {
-        width: 89.7%;
-        top: 95px;
-        left: 10.3%;
+    .main-section {
+        width: 90.8%;
+        left: 9.2%;
         height: 94vh;
 
         .discounts__container {
          height: 630px;
      }
-
-        .news__container {
-            height: 630px;
-        }
     }
 }

@@ -184,7 +184,7 @@ console.log(watchedPicture)
                     </div>
                     <div className="status">
                         <p className="status--title">{title}</p>
-                        <p className="status--price">{visualizedProduct.price}zł</p>
+                        <p className="status--price">{visualizedProduct.price} zł</p>
                         <p className="status--availability">Dostępność: {visualizedProduct.itemsLeft > 0 ? "dostępny" : "niedostępny"}</p>
                         <form onSubmit={addToCart}>
                             <div className="item-quantity">
