@@ -144,13 +144,13 @@ function Login() {
             alertText="Podany email lub hasło jest nieprawidłowe!" />
         <h1>Zaloguj się</h1>
         <form onSubmit={handleSubmit}>
-            <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} />
-            <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} />
+            <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email" : error.email} name="email" onChange={handleChange} aria-label="Wpisz swój email podany przy rejestracji email" />
+            <input type="password" style={error.password === "" ? errorInvisible : errorVisible} placeholder={error.password === "" ? "Hasło" : error.password} name="password" onChange={handleChange} aria-label="Wpisz swoje hasło podane przy rejestracji" />
             <div className="checkbox--password">
-            <input type="checkbox" id="rememberAuth"  name="rememberAuth" checked={login.rememberAuth} onChange={handleChange}/>
+            <input type="checkbox" id="rememberAuth"  name="rememberAuth" checked={login.rememberAuth} onChange={handleChange} aria-label="Czy nie wylogowywać?" />
             <label htmlFor="rememberAuth">Zapamiętaj mnie.</label>
             </div>
-            <button>Zaloguj się</button>
+            <button aria-label="Zaloguj się" aria-required="true" >Zaloguj się</button>
         </form>
         <Link to="/forgotPassword" className="remindPassword">Nie pamiętam hasła</Link>
        </section>

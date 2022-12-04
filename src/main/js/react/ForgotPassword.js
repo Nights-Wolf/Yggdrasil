@@ -100,8 +100,8 @@ function ForgotPassword() {
         />
        <section className="forgotPassword-section">
         <form onSubmit={handleSubmit}>
-            <input type="email" style={error.recipient === "" ? errorInvisible : errorVisible} placeholder={error.recipient === "" ? "Email*" : error.recipient} name="email" onChange={handleChange} />
-            <button>Wyślij link do zmiany hasła</button>
+            <input type="email" style={error.recipient === "" ? errorInvisible : errorVisible} placeholder={error.recipient === "" ? "Email*" : error.recipient} name="email" onChange={handleChange} aria-label="Podaj adres email aby zmienić hasło" />
+            <button aria-label="Potwierdź zmianę hasła (link wysłany na email)" aria-required="true" >Wyślij link do zmiany hasła</button>
         </form>
        </section>
        <Footer />

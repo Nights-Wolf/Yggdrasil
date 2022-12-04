@@ -362,12 +362,12 @@ function Order() {
 
     const shipmentOptions = shipment.map(shipment => {
         return  <div className="shipment-option"  style={error.shipmentsId === "" ? errorInvisible : errorVisible}> <label htmlFor={shipment.id}>{shipment.name}<span>({shipment.price} zł)</span></label>
-        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentsId" onChange={handleShipment} /></div>
+        <input key={shipment.id} id={shipment.id} type="radio" value={shipment.id} name="shipmentsId" onChange={handleShipment} aria-label="Wybierz sposób dostawy" /></div>
     })
 
     const paymentsOptions = payments.map(payment => {
         return  <div className="payment-option"  style={error.paymentId === "" ? errorInvisible : errorVisible}> <label htmlFor={payment.id}>{payment.name}</label>
-        <input key={payment.id} id={payment.id} type="radio" value={payment.id} name="paymentId" onChange={handlePayment} /></div>
+        <input key={payment.id} id={payment.id} type="radio" value={payment.id} name="paymentId" onChange={handlePayment} aria-albel="Wybierz sposób płatności" /></div>
     })
 
     return(
@@ -378,13 +378,13 @@ function Order() {
         />
         <section className="order-section">
                 <form onSubmit={handleSubmit}>
-                    <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={order.username} name="username" onChange={handleChange} />
-                    <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} value={order.surname} name="surname" onChange={handleChange} />
-                    <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email*" : error.email} value={order.userEmail} name="userEmail" onChange={handleChange} />
-                    <input type="text" style={error.street === "" ? errorInvisible : errorVisible} placeholder={error.street === "" ? "Adres*" : error.street} value={order.street} name="street" onChange={handleChange} />
-                    <input type="text" style={error.zipCode === "" ? errorInvisible : errorVisible} placeholder={error.zipCode === "" ? "Kod pocztowy*" : error.zipCode} value={order.zipCode} name="zipCode" onChange={handleChange} />
-                    <input type="text" style={error.city === "" ? errorInvisible : errorVisible} placeholder={error.city === "" ? "Miasto*" : error.city} value={order.city} name="city" onChange={handleChange} />
-                    <input type="text" style={error.voivodeship === "" ? errorInvisible : errorVisible} placeholder={error.voivodeship === "" ? "Województwo*" : error.voivodeship} value={order.voivodeship} name="voivodeship" onChange={handleChange} />
+                    <input type="text" style={error.username === "" ? errorInvisible : errorVisible} placeholder={error.username === "" ? "Imię*" : error.username} value={order.username} name="username" onChange={handleChange} aria-label="Imię do zamówienia" />
+                    <input type="text" style={error.surname === "" ? errorInvisible : errorVisible} placeholder={error.surname === "" ? "Nazwisko*" : error.surname} value={order.surname} name="surname" onChange={handleChange} aria-label="Nazwisko do zamówienia" />
+                    <input type="email" style={error.email === "" ? errorInvisible : errorVisible} placeholder={error.email === "" ? "Email*" : error.email} value={order.userEmail} name="userEmail" onChange={handleChange} aria-label="Email do zamówienia" />
+                    <input type="text" style={error.street === "" ? errorInvisible : errorVisible} placeholder={error.street === "" ? "Adres*" : error.street} value={order.street} name="street" onChange={handleChange} aria-label="Ulica zamówienia" />
+                    <input type="text" style={error.zipCode === "" ? errorInvisible : errorVisible} placeholder={error.zipCode === "" ? "Kod pocztowy*" : error.zipCode} value={order.zipCode} name="zipCode" onChange={handleChange} aria-label="Kod pocztowy do zamówienia" />
+                    <input type="text" style={error.city === "" ? errorInvisible : errorVisible} placeholder={error.city === "" ? "Miasto*" : error.city} value={order.city} name="city" onChange={handleChange} aria-label="Miasto do zamówienia" />
+                    <input type="text" style={error.voivodeship === "" ? errorInvisible : errorVisible} placeholder={error.voivodeship === "" ? "Województwo*" : error.voivodeship} value={order.voivodeship} name="voivodeship" onChange={handleChange} aria-label="Województwo do zamówienia" />
                     <div className="shipment">
                         {shipmentOptions}
                     </div>
@@ -393,7 +393,7 @@ function Order() {
                     </div>
                     <div className="submit-order-buttons">
                         <Link to="/products">Kontynuuj zakupy</Link>
-                        <button>Złóż zamówienie</button>
+                        <button aria-label="" >Złóż zamówienie</button>
                     </div>
                 </form>
         </section>

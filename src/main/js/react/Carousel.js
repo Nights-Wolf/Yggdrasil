@@ -62,7 +62,7 @@ function Carousel(props) {
             <div className="button__group">
                 {carouselElement.map(carouselsElement => {
                     return (
-                        <button ref={(element) => triggerClick.current.push(element)} style={carouselElementToDisplay.url === carouselsElement.url ? buttonActive : null} className="switch_disc_img" id={carouselsElement.id} name={carouselsElement.id} value={carouselsElement.url} onClick={carouselNextElement}></button>
+                        <button ref={(element) => triggerClick.current.push(element)} style={carouselElementToDisplay.url === carouselsElement.url ? buttonActive : null} className="switch_disc_img" id={carouselsElement.id} name={carouselsElement.id} value={carouselsElement.url} onClick={carouselNextElement} aria-label="Wybierz element karuzeli"></button>
                 )})}
             </div>
         </>

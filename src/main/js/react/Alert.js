@@ -20,7 +20,7 @@ function Alert(props) {
     return(
         <div style={alertVisStyle} className="alert_container">
             <h2>{props.alertText}</h2>
-            <button onClick={changeVisibility}>X</button>
+            <button onClick={changeVisibility} aria-label="Przycisk zamykania powiadomienia">X</button>
         </div>
 
     )
