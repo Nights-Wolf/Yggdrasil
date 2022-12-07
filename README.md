@@ -8,6 +8,9 @@ Use mvn clean install to build and compile dependencies.
 Use mvn spring-boot:run to run application.
 
 ***WIP***
+
 Security role fix;
+
 Product-page state fix;
+
 Tests;
