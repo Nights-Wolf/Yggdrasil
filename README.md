@@ -1,11 +1,16 @@
 # Yggdrasil
 Website for online shop selling handmade wire trees.
 
-Use npm start in order to compile HTML, SASS and React files via Webpack.
+Spring-Boot 2.5.4;
+Java 18;
+Node 16.16.0;
+NPM 8.11.0.
 
-Use mvn clean install to build and compile dependencies.
+Use ***npm start*** in order to compile HTML, SASS and React files via Webpack.
 
-Use mvn spring-boot:run to run application.
+Use ***mvn clean install*** to build and compile dependencies.
+
+Use ***mvn spring-boot:run*** to run application.
 
 ***WIP***
 
