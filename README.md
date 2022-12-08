@@ -9,7 +9,9 @@ Node 16.16.0;
 
 NPM 8.11.0;
 
-Docker 20.10.21.
+Docker 20.10.21;
+
+Maven 3.8.6.
 
 Use ***npm start*** in order to compile HTML, SASS and React files via Webpack.
 
