@@ -27,6 +27,6 @@ Use ***mvn spring-boot:run*** to run application.
 
 Security role fix;
 
-Product-page state fix;
+Product-page images fix;
 
 Tests;
