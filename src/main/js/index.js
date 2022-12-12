@@ -50,7 +50,7 @@ ReactDOM.render(
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/resetPasswordEmailSent" element={<ResetPasswordEmailSent />} />
                 <Route path="/products" element={<Products />} />
-                <Route path="/product/:productId/:categoryId/:title" element={<ProductPage />} />
+                <Route path="/product/:productId" element={<ProductPage />} />
                 <Route path="/products/amber" element={<ProductAmber />} />
                 <Route path="/products/topaz" element={<ProductTopaz />} />
                 <Route path="/products/amethyst" element={<ProductAmethyst />} />

@@ -81,7 +81,6 @@ function ProductTopaz() {
      return <Card key={product.id}
         img={filteredCards.image}
         id= {filteredCards.id}
-        category= {filteredCards.categoryId}
         title= {filteredCards.itemName}
         price= {filteredCards.price}
         itemsLeft = {filteredCards.itemsLeft} />

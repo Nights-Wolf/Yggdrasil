@@ -18,8 +18,6 @@ function ProductPage(props) {
     const navigate = useNavigate()
 
     const { productId } = useParams()
-    const { categoryId } = useParams()
-    const { title } = useParams()
 
     const [user, setUser] = React.useState()
 
@@ -153,9 +151,10 @@ function ProductPage(props) {
 
         function switchImage(event) {
             const {name, value} = event.target
+            console.log(name)
+            console.log(value)
             setWatchedPicture(prevWatchedPicture => {
                 return {
-                    ...prevWatchedPicture,
                     id: name,
                     url: value
                 }
@@ -174,8 +173,9 @@ console.log(watchedPicture)
                         <div className="other_image">
                             {
                                 pictures.map(picture => {
+                                console.log(picture.id)
                                     return (
-                                    <button className="additional_images" name={picture.id} value={picture.url}><img src={picture.url} onClick={switchImage} alt="zdjęcie drzewka" /></button>
+                                    <button className="additional_images" name={picture.id} value={picture.url} onClick={switchImage} aria-label="Zmień zdjęcie" ><img src={picture.url} alt="zdjęcie drzewka" /></button>
                                     )
                                 })
                             }
@@ -183,7 +183,7 @@ console.log(watchedPicture)
                         <img src={watchedPicture.url} className="watched_picture" alt="Zdjęcie drzewka" />
                     </div>
                     <div className="status">
-                        <p className="status--title">{title}</p>
+                        <p className="status--title">{visualizedProduct.itemName}</p>
                         <p className="status--price">{visualizedProduct.price} zł</p>
                         <p className="status--availability">Dostępność: {visualizedProduct.itemsLeft > 0 ? "dostępny" : "niedostępny"}</p>
                         <form onSubmit={addToCart}>
