@@ -155,6 +155,7 @@ function ProductPage(props) {
             console.log(value)
             setWatchedPicture(prevWatchedPicture => {
                 return {
+                    ...prevWatchedPicture,
                     id: name,
                     url: value
                 }
@@ -173,9 +174,8 @@ console.log(watchedPicture)
                         <div className="other_image">
                             {
                                 pictures.map(picture => {
-                                console.log(picture.id)
                                     return (
-                                    <button className="additional_images" name={picture.id} value={picture.url} onClick={switchImage} aria-label="Zmień zdjęcie" ><img src={picture.url} alt="zdjęcie drzewka" /></button>
+                                    <button className="additional_images" id={picture.id} name={picture.id} value={picture.url} onClick={switchImage} aria-label="Zmień zdjęcie" ><img src={picture.url} alt="zdjęcie drzewka" /></button>
                                     )
                                 })
                             }
