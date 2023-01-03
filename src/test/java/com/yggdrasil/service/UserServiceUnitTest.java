@@ -10,17 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
 @Setter
 @Getter
-class UserServiceTest {
+class UserServiceUnitTest {
 
     @Mock
     private UserDatabase userDatabase;
@@ -66,6 +63,18 @@ class UserServiceTest {
     @Test
     @Disabled
     void editUser() {
+        Users users = new Users(1L, "Dawid" , "Całkowski", "koko", "dawinavi@gmail.com", "Podolska",
+                "81-200", "Sopot", "Pomorskie", 1111L, true, true, true, true,
+                true, true, true, "USER");
+        userDatabase.save(users);
+        System.out.println(userDatabase.findByEmail(users.getEmail()));
+        Users userEdited = new Users(1L, "Kamila" , "Kamala", "koko", "dawinavi@gmail.com", "Podolska",
+                "81-200", "Sopot", "Pomorskie", 1111L, true, true, true, true,
+                true, true, true, "USER");
+
+        userService.editUser(userEdited);
+
+        Assertions.assertThat(users.getUsername()).isNotEqualTo(userEdited.getUsername());
     }
 
     @Test

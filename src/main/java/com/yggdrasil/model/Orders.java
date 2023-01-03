@@ -49,8 +49,9 @@ public class Orders {
         super();
     }
 
-    public Orders(int orderValue, Cart cartId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
+    public Orders(Long id, int orderValue, Cart cartId, String username, String surname, String userEmail, Date orderDate, String street, String zipCode, String city,
                   String voivodeship, String status, Shipments shipmentsId, Payment paymentId) {
+        this.id = id;
         this.orderValue = orderValue;
         this.cartId = cartId;
         this.username = username;
