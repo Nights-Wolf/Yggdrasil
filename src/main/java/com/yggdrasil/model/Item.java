@@ -38,7 +38,8 @@ public class Item {
         super();
     }
 
-    public Item(String itemName, String image, Date created, Category categoryId, int price, String description, int itemsLeft) {
+    public Item(Long id, String itemName, String image, Date created, Category categoryId, int price, String description, int itemsLeft) {
+        this.id = id;
         this.itemName = itemName;
         this.image = image;
         this.created = created;
