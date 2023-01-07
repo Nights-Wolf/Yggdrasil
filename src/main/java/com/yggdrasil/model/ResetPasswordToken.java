@@ -24,7 +24,8 @@ public class ResetPasswordToken {
 
     public ResetPasswordToken() {super();}
 
-    public ResetPasswordToken(String email, String token, Date expirationDate) {
+    public ResetPasswordToken(Long id, String email, String token, Date expirationDate) {
+        this.id = id;
         this.email = email;
         this.token = token;
         this.expirationDate = expirationDate;
