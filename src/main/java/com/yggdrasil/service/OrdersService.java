@@ -25,7 +25,7 @@ public class OrdersService {
     }
 
     public ResponseEntity<List<Orders>> getOrder(String email) {
-        List<Orders> ordersList = new ArrayList<>(ordersDatabase.findByUserEmail(email));
+        List<Orders> ordersList = ordersDatabase.findByUserEmail(email);
 
         return new ResponseEntity<>(ordersList, HttpStatus.OK);
 
